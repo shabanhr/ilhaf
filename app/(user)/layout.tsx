@@ -1,20 +1,12 @@
-import AuthModel from "@/components/auth/auth-model";
-import Footer from "@/components/footer";
-import Header from "@/components/header"
-// import { PlayerV2 } from "@/components/player";
+import AuthModel from '@/components/auth/auth-model';
+import Footer from '@/components/footer';
+import Header from '@/components/header';
 
-export default async function RootLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<>
 			<Header />
-			<main className="container max-w-5xl min-h-screen py-10 flex-grow">
-				{children}
-				{/* <PlayerV2 /> */}
-			</main>
+			<main className="container min-h-screen max-w-5xl flex-grow py-10">{children}</main>
 			<Footer />
 			<AuthModel />
 		</>

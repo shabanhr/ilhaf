@@ -1,17 +1,16 @@
-import "./globals.css";
-import { Metadata } from "next";
-import { Providers } from "../components/providers";
-import clsx from "clsx";
-import { domain, siteLink, siteName } from "@/config";
-import { geistSans } from "./fonts";
-import Scripts from "@/components/Scripts";
+import './globals.css';
+import { Metadata } from 'next';
+import { Providers } from '../components/providers';
+import { domain, siteLink, siteName } from '@/config';
+import { fontSans, fontMono } from '@/lib/fonts';
+import Scripts from '@/components/Scripts';
+import { cn } from '@/lib/utils';
 
 const meta = {
 	title: 'Ilhaf - An Online Diary For Reciters',
-	dec: "ilhaf.com is a website for getting and read the lyrics of Manqabats and Nohay, it user friendly website.",
-	link: siteLink + "/"
-}
-
+	dec: 'ilhaf.com is a website for getting and read the lyrics of Manqabats and Nohay, it user friendly website.',
+	link: siteLink + '/',
+};
 
 export const metadata: Metadata = {
 	title: meta.title,
@@ -36,27 +35,21 @@ export const metadata: Metadata = {
 		siteName,
 		type: 'website',
 	},
-}
+};
 
-export default async function RootLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
-
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<Scripts />
 			<head />
 			<body
-				className={clsx(
-					"min-h-screen bg-background",
-					geistSans.className
+				className={cn(
+					'bg-background text-foreground min-h-svh overscroll-none font-sans antialiased',
+					fontSans.variable,
+					fontMono.variable,
 				)}
 			>
-				<Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
-					{children}
-				</Providers>
+				<Providers themeProps={{ attribute: 'class', defaultTheme: 'light' }}>{children}</Providers>
 			</body>
 		</html>
 	);

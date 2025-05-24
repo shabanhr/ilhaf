@@ -1,150 +1,146 @@
-"use client"
+'use client';
 
-import * as React from "react"
+import * as React from 'react';
 
-import { cn } from "@/lib/utils"
-import { useMediaQuery } from "@/hooks/use-media-query"
+import { cn } from '@/lib/utils';
+import { useMediaQuery } from '@/hooks/use-media-query';
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from '@/components/ui/dialog';
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
+	Drawer,
+	DrawerClose,
+	DrawerContent,
+	DrawerDescription,
+	DrawerFooter,
+	DrawerHeader,
+	DrawerTitle,
+	DrawerTrigger,
+} from '@/components/ui/drawer';
 
 interface BaseProps {
-  children: React.ReactNode
+	children: React.ReactNode;
 }
 
 interface RootModalProps extends BaseProps {
-  open?: boolean
-  onOpenChange?: (open: boolean) => void
+	open?: boolean;
+	onOpenChange?: (open: boolean) => void;
 }
 
 interface ModalProps extends BaseProps {
-  className?: string
-  asChild?: true
+	className?: string;
+	asChild?: true;
 }
 
-const desktop = "(min-width: 768px)"
+const desktop = '(min-width: 768px)';
 
 const Modal = ({ children, ...props }: RootModalProps) => {
-  const isDesktop = useMediaQuery(desktop)
-  const Modal = isDesktop ? Dialog : Drawer
+	const isDesktop = useMediaQuery(desktop);
+	const Modal = isDesktop ? Dialog : Drawer;
 
-  return <Modal {...props}>{children}</Modal>
-}
+	return <Modal {...props}>{children}</Modal>;
+};
 
 const ModalTrigger = ({ className, children, ...props }: ModalProps) => {
-  const isDesktop = useMediaQuery(desktop)
-  const ModalTrigger = isDesktop ? DialogTrigger : DrawerTrigger
+	const isDesktop = useMediaQuery(desktop);
+	const ModalTrigger = isDesktop ? DialogTrigger : DrawerTrigger;
 
-  return (
-    <ModalTrigger className={className} {...props}>
-      {children}
-    </ModalTrigger>
-  )
-}
+	return (
+		<ModalTrigger className={className} {...props}>
+			{children}
+		</ModalTrigger>
+	);
+};
 
 const ModalClose = ({ className, children, ...props }: ModalProps) => {
-  const isDesktop = useMediaQuery(desktop)
-  const ModalClose = isDesktop ? DialogClose : DrawerClose
+	const isDesktop = useMediaQuery(desktop);
+	const ModalClose = isDesktop ? DialogClose : DrawerClose;
 
-  return (
-    <ModalClose className={className} {...props}>
-      {children}
-    </ModalClose>
-  )
-}
+	return (
+		<ModalClose className={className} {...props}>
+			{children}
+		</ModalClose>
+	);
+};
 
 const ModalContent = ({ className, children, ...props }: ModalProps) => {
-  const isDesktop = useMediaQuery(desktop)
-  const ModalContent = isDesktop ? DialogContent : DrawerContent
+	const isDesktop = useMediaQuery(desktop);
+	const ModalContent = isDesktop ? DialogContent : DrawerContent;
 
-  return (
-    <ModalContent className={className} {...props}>
-      {children}
-    </ModalContent>
-  )
-}
+	return (
+		<ModalContent className={className} {...props}>
+			{children}
+		</ModalContent>
+	);
+};
 
-const ModalDescription = ({
-  className,
-  children,
-  ...props
-}: ModalProps) => {
-  const isDesktop = useMediaQuery(desktop)
-  const ModalDescription = isDesktop ? DialogDescription : DrawerDescription
+const ModalDescription = ({ className, children, ...props }: ModalProps) => {
+	const isDesktop = useMediaQuery(desktop);
+	const ModalDescription = isDesktop ? DialogDescription : DrawerDescription;
 
-  return (
-    <ModalDescription className={className} {...props}>
-      {children}
-    </ModalDescription>
-  )
-}
+	return (
+		<ModalDescription className={className} {...props}>
+			{children}
+		</ModalDescription>
+	);
+};
 
 const ModalHeader = ({ className, children, ...props }: ModalProps) => {
-  const isDesktop = useMediaQuery(desktop)
-  const ModalHeader = isDesktop ? DialogHeader : DrawerHeader
+	const isDesktop = useMediaQuery(desktop);
+	const ModalHeader = isDesktop ? DialogHeader : DrawerHeader;
 
-  return (
-    <ModalHeader className={className} {...props}>
-      {children}
-    </ModalHeader>
-  )
-}
+	return (
+		<ModalHeader className={className} {...props}>
+			{children}
+		</ModalHeader>
+	);
+};
 
 const ModalTitle = ({ className, children, ...props }: ModalProps) => {
-  const isDesktop = useMediaQuery(desktop)
-  const ModalTitle = isDesktop ? DialogTitle : DrawerTitle
+	const isDesktop = useMediaQuery(desktop);
+	const ModalTitle = isDesktop ? DialogTitle : DrawerTitle;
 
-  return (
-    <ModalTitle className={className} {...props}>
-      {children}
-    </ModalTitle>
-  )
-}
+	return (
+		<ModalTitle className={className} {...props}>
+			{children}
+		</ModalTitle>
+	);
+};
 
 const ModalBody = ({ className, children, ...props }: ModalProps) => {
-  return (
-    <div className={cn("px-4 md:px-0", className)} {...props}>
-      {children}
-    </div>
-  )
-}
+	return (
+		<div className={cn('px-4 md:px-0', className)} {...props}>
+			{children}
+		</div>
+	);
+};
 
 const ModalFooter = ({ className, children, ...props }: ModalProps) => {
-  const isDesktop = useMediaQuery(desktop)
-  const ModalFooter = isDesktop ? DialogFooter : DrawerFooter
+	const isDesktop = useMediaQuery(desktop);
+	const ModalFooter = isDesktop ? DialogFooter : DrawerFooter;
 
-  return (
-    <ModalFooter className={className} {...props}>
-      {children}
-    </ModalFooter>
-  )
-}
+	return (
+		<ModalFooter className={className} {...props}>
+			{children}
+		</ModalFooter>
+	);
+};
 
 export {
-  Modal,
-  ModalTrigger,
-  ModalClose,
-  ModalContent,
-  ModalDescription,
-  ModalHeader,
-  ModalTitle,
-  ModalBody,
-  ModalFooter,
-}
+	Modal,
+	ModalTrigger,
+	ModalClose,
+	ModalContent,
+	ModalDescription,
+	ModalHeader,
+	ModalTitle,
+	ModalBody,
+	ModalFooter,
+};

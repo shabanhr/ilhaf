@@ -1,12 +1,12 @@
-import Spinner from '@/components/Spinner'
-import React from 'react'
+import { Spinner } from '@/components/ui/spinner';
+import React from 'react';
 
 const loading = () => {
-    return (
-        <div className="h-[30rem] flex items-center justify-center ">
-            <Spinner active invert size="lg" />
-        </div>
-    )
-}
+	return (
+		<div className="flex h-[30rem] items-center justify-center">
+			<Spinner size={50} />
+		</div>
+	);
+};
 
 export default loading;

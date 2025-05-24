@@ -1,13 +1,16 @@
-"use client";
+'use client';
 import { signOut } from 'next-auth/react';
-import React from 'react'
-import { Button } from '../../../components/ui/button';
+import React from 'react';
+import { Button } from '@/components/ui/button';
 import { LogOut } from 'lucide-react';
 
 const SignoutBTN = () => {
-    return <Button variant="outline" onClick={() => signOut()} className="w-full my-2"
-        icon={<LogOut className='size-5' />}
-    >Sign Out </Button>
-}
+	return (
+		<Button variant="outline" onClick={() => signOut()} className="my-2 w-full">
+			<LogOut />
+			Sign Out
+		</Button>
+	);
+};
 
-export default SignoutBTN
+export default SignoutBTN;
