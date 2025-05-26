@@ -12,10 +12,10 @@ import { InputWithIcon } from '@/components/ui/input';
 import { MotionDiv } from '@/components/motion';
 import { providers } from '@/config';
 import { AtSign, MailCheck, MailWarning } from 'lucide-react';
-import AuthDivider from './AuthDivider';
+import AuthDivider from './auth-divider';
 import { GoogleIcon } from '../icons';
 
-const Signin: React.FC = () => {
+const Signin = () => {
 	const [prov, setProv] = useState<string>('');
 	const [emailSent, setEmailSent] = useState<any>({});
 

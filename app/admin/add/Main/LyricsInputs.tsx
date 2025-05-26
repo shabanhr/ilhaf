@@ -113,11 +113,11 @@ const LyricsInputs = ({ form, IsDisabled, data }: Props) => {
 								>
 									<Calendar
 										mode="single"
-										onSelect={field.onChange}
-										captionLayout="dropdown-buttons"
-										fromYear={1990}
-										toYear={new Date().getFullYear()}
+										captionLayout="dropdown-months"
+										startMonth={new Date(1990, 0)}
+										endMonth={new Date()}
 										selected={new Date(field.value as Date)}
+										onSelect={field.onChange}
 									/>
 								</MagicBox>
 							</FormControl>

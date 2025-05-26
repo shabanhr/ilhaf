@@ -93,7 +93,6 @@ export default function Main({ lyric, data, imageQ, audioQ, report }: Props) {
 		StartLoading(v);
 		if (v === 'image') {
 			const res = await deleteFileFromR2(`lyrics/${slug}/image.webp`);
-			await deleteFileFromR2(`lyrics/${slug}/blur-placeholder.webp`);
 			toast(res.message);
 			setPhoto(null);
 		} else {

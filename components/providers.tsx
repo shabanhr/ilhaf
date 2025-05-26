@@ -10,13 +10,11 @@ export interface ProvidersProps {
 	themeProps?: Omit<ThemeProviderProps, 'children'>;
 }
 
-export function Providers({ children, themeProps }: ProvidersProps) {
+export function RootProviders({ children, themeProps }: ProvidersProps) {
 	return (
 		<NextThemesProvider {...themeProps}>
-			<SessionProvider>
-				{children}
-				<Toaster position="bottom-left" />
-			</SessionProvider>
+			<SessionProvider>{children}</SessionProvider>
+			<Toaster position="bottom-left" />
 		</NextThemesProvider>
 	);
 }

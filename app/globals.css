@@ -1,49 +1,60 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --radius: 0.5rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.141 0.005 285.823);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.141 0.005 285.823);
-  --primary: oklch(0.21 0.006 285.885);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.21 0.006 285.885);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.705 0.015 286.067);
+  --background: oklch(0.98 0 0);
+  --foreground: oklch(0 0 0);
+  --card: oklch(1.0000 0 0);
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(1.0000 0 0);
+  --popover-foreground: oklch(0 0 0);
+  --primary: oklch(0 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.94 0 0);
+  --secondary-foreground: oklch(0.3261 0 0);
+  --muted: oklch(0.94 0 0);
+  --muted-foreground: oklch(0.6460 0 0);
+  --accent: oklch(0.94 0 0);
+  --accent-foreground: oklch(0.3261 0 0);
+  --destructive: oklch(0.6201 0.2092 25.7747);
+  --destructive-foreground: oklch(1.0000 0 0);
+  --border: oklch(0.92 0 0);
+  --input: oklch(0.92 0 0);
+  --ring: oklch(0.7716 0 0);
+  --radius: 0.75rem;
+  --shadow-2xs: 0px 2px 3px 0px var(--color-border);
+  --shadow-xs: 0px 2px 3px 0px var(--color-border);
+  --shadow-sm: 0px 2px 3px 0px var(--color-border), 0px 1px 2px -1px var(--color-border);
+  --shadow: 0px 2px 3px 0px var(--color-border), 0px 1px 2px -1px var(--color-border);
+  --shadow-md: 0px 2px 3px 0px var(--color-border), 0px 2px 4px -1px var(--color-border);
+  --shadow-lg: 0px 2px 3px 0px var(--color-border), 0px 4px 6px -1px var(--color-border);
+  --shadow-xl: 0px 2px 3px 0px var(--color-border), 0px 8px 10px -1px var(--color-border);
+  --shadow-2xl: 0px 2px 3px 0px var(--color-border);
 }
 
 .dark {
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.92 0.004 286.32);
-  --primary-foreground: oklch(0.21 0.006 285.885);
-  --secondary: oklch(0.274 0.006 286.033);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.552 0.016 285.938);
+  --background: oklch(0 0 0);
+  --foreground: oklch(0.9848 0 0);
+  --card: oklch(0 0 0);
+  --card-foreground: oklch(0.9848 0 0);
+  --popover: oklch(0.15 0 0);
+  --popover-foreground: oklch(0.9848 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.25 0 0);
+  --secondary-foreground: oklch(0.9848 0 0);
+  --muted: oklch(0.25 0 0);
+  --muted-foreground: oklch(0.7119 0.0129 286.0684);
+  --accent: oklch(0.25 0 0);
+  --accent-foreground: oklch(0.9848 0 0);
+  --destructive: oklch(0.3959 0.1331 25.7205);
+  --destructive-foreground: oklch(0.9710 0.0127 17.3758);
+  --border: oklch(0.25 0 0);
+  --input: oklch(0.25 0 0);
+  --ring: oklch(0.8709 0.0055 286.2853);
 }
 
 
@@ -74,6 +85,14 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --shadow-2xs: var(--shadow-2xs);
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow: var(--shadow);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-2xl: var(--shadow-2xl);
 }
 
 @layer base {
@@ -118,6 +137,6 @@
 
 @layer utilities {
   .container {
-    @apply mx-auto max-w-6xl px-4 xl:px-6;
+    @apply mx-auto max-w-6xl px-4 lg:px-6;
   }
 }

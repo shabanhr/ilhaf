@@ -47,8 +47,12 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: R
 				...classNames,
 			}}
 			components={{
-				IconLeft: () => ChevronLeftIcon,
-				IconRight: () => ChevronRightIcon,
+				Chevron: (props) => {
+					if (props.orientation === 'left') {
+						return <ChevronLeftIcon {...props} />;
+					}
+					return <ChevronRightIcon {...props} />;
+				},
 			}}
 			{...props}
 		/>

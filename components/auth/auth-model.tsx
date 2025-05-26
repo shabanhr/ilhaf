@@ -2,7 +2,7 @@
 import React from 'react';
 import { Modal, ModalBody, ModalContent, ModalHeader, ModalTitle } from '@/components/ui/modal';
 import dynamicRender from 'next/dynamic';
-import AuthLoader from './AuthLoader';
+import AuthLoader from './auth-loader';
 import { useAuthModel } from '@/hooks/use-auth-model';
 
 const Auth = dynamicRender(() => import('.'), {

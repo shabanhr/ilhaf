@@ -2,22 +2,21 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import { publisher, siteLink, siteName } from '@/config';
-import { capitalize, cn } from '@/lib/utils';
+import { capitalize } from '@/lib/utils';
 import { arrayToString, convertLyricsArr, getRecitersLinks } from '@/lib/lyrics';
 import { getImageURL, getLyricsURL } from '@/lib/utils';
-import GradientHeading from '@/components/GradientHeading';
 import Link from 'next/link';
-import Promotion from './_components/Promotion';
+import { PromotionCard } from './_components/promotion-card';
 import { PatreonIcon } from '@/components/icons';
 import ResponsiveAd from '@/components/ad/ResponsiveAd';
-import Similar from './_components/Similar';
-import { CustomImage } from '@/components/CustomImage';
 import { LyricsContent } from './_components/lyrics-content';
 import { GetLyricsData } from './_lib/queries';
 import Interactions from './_components/Interactions';
 import { currentUser } from '@/config/auth';
-import VideoPlayer from './_components/VideoPlayer';
+import { VideoPlayer } from './_components/video-player';
 import { fontUrdu } from '@/lib/fonts';
+import { SimilarLyrics } from './_components/similar-lyrics';
+import { AnimatedImage } from '@/components/lyrics-card/animated-image';
 
 interface Params {
 	params: Promise<{ reciter: string; slug: string }>;
@@ -132,12 +131,12 @@ export default async function Slug(props: Params) {
 	const hasContent = english && urdu;
 
 	return (
-		<article>
+		<article className="space-y-5">
 			<Script id="lyrics" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-			<GradientHeading className="my-2 text-2xl font-extrabold md:text-4xl" h={1}>
+			<h1 className="text-2xl font-extrabold md:text-3xl lg:text-4xl">
 				{title} Lyrics - {Reciter}
-			</GradientHeading>
-			<p>
+			</h1>
+			<p className="text-foreground/80 font-mono text-base">
 				Let&#8217;s Check Out The <strong>{title} Lyrics</strong>, Recited by <strong>{recitersList}</strong>. It is a
 				New{' '}
 				<Link className="a" href={`/lyrics?type=${type}`}>
@@ -158,39 +157,38 @@ export default async function Slug(props: Params) {
 					height: 90,
 				}}
 			/>
-
-			<div className="mx-auto my-10 flex flex-col items-center justify-center gap-4 md:flex-row">
+			<div className="mx-auto flex flex-col items-center justify-center gap-4 md:flex-row">
 				<div className="h-full w-full md:w-[34%]">
-					<CustomImage
+					<AnimatedImage
 						slug={slug}
 						alt={`${title} Lyrics by ${recitersList}`}
-						className="shadow-[rgba(0,_0,_0,_0.3)_0px_0px_70px] dark:shadow-[rgba(255,_255,_255,_0.3)_0px_0px_70px]"
+						className="shadow-[--theme(--color-foreground/0.2)_0px_0px_60px]"
 					/>
 				</div>
 
 				<div className="relative mt-4 w-full px-2 md:mt-0 md:w-[65%]">
 					<div className="flex items-center justify-start gap-x-2">
-						{/* {audioExists && <PlayBtn slug={slug} title={title} reciterName={recitersList} reciterSlug={reciter} />} */}
-
 						<div className="mt-6">
-							<h2 className="text-primary my-1 text-sm opacity-90">Title</h2>
-							<p className="mt-1 mb-5">{title}</p>
+							<h2 className="text-foreground/80 mb-1 text-sm">Title</h2>
+							<Link href={finalSlug} className="font-mono font-medium hover:underline">
+								{title}
+							</Link>
 						</div>
 					</div>
 
 					<div className="mt-5 grid grid-cols-2 gap-x-4">
 						<div>
-							<h2 className="text-primary my-1 text-sm opacity-80">Recited By</h2>
-							<p className="my-1 text-xs">{recitersLinks}</p>
+							<h2 className="text-foreground/80 mb-1 text-sm">Recited By</h2>
+							<p>{recitersLinks}</p>
 						</div>
 						<div>
-							<h2 className="text-primary my-1 text-sm opacity-80">Written By</h2>
-							<p className="my-1 text-xs">{writersNames}</p>
+							<h2 className="text-foreground/80 mb-1 text-sm">Written By</h2>
+							<p>{writersNames}</p>
 						</div>
 					</div>
 				</div>
 			</div>
-			{/* <Promotion orientation="horizontal" /> */}
+
 			<ResponsiveAd
 				mobile={{
 					slot: '3018789542',
@@ -204,7 +202,7 @@ export default async function Slug(props: Params) {
 				}}
 			/>
 
-			<div className="my-10 grid grid-cols-1 gap-2 md:grid-cols-7 lg:grid-cols-8">
+			<div className="grid grid-cols-1 gap-2 md:grid-cols-7 lg:grid-cols-8">
 				<div className="relative my-4 w-full md:col-span-5 lg:col-span-5">
 					<Interactions userId={userId} favorited={favorited} lyricsData={data} showTabs={!!hasContent}>
 						<div id="lyrics">
@@ -219,8 +217,7 @@ export default async function Slug(props: Params) {
 				<div className="w-full md:col-span-2 lg:col-span-3">
 					<div className="md:sticky md:top-16">
 						<VideoPlayer />
-						{/* <Promotion /> */}
-						<Promotion
+						<PromotionCard
 							topLabel="Support Us"
 							heading="Support Our Work"
 							dec="Join us on Patreon and help us continue creating great content."
@@ -232,7 +229,7 @@ export default async function Slug(props: Params) {
 					</div>
 				</div>
 			</div>
-			<Similar slug={slug} type={type} topics={topics.map((topic) => topic.id)} />
+			<SimilarLyrics slug={slug} type={type} topics={topics.map((topic) => topic.id)} />
 		</article>
 	);
 }

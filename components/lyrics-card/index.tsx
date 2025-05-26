@@ -1,11 +1,11 @@
 import { Badge } from '@/components/ui/badge';
 import { CardType } from '@/types';
 import Link from 'next/link';
-import { CustomImage } from '../CustomImage';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { getLyricsURL } from '@/lib/utils';
 import { differenceInDays, parseISO } from 'date-fns';
 import { Skeleton } from '../ui/skeleton';
+import { AnimatedImage } from './animated-image';
 
 interface Props {
 	data: CardType;
@@ -32,7 +32,7 @@ export const LyricsCard = ({ data }: Props) => {
 					New
 				</Badge>
 			)}
-			<CustomImage alt={title} slug={slug} />
+			<AnimatedImage alt={title} slug={slug} />
 			<div className="p-2">
 				<div className="w-full max-w-[320px] truncate text-sm font-bold md:text-lg">{title}</div>
 			</div>

@@ -1,6 +1,6 @@
 import './globals.css';
 import { Metadata } from 'next';
-import { Providers } from '../components/providers';
+import { RootProviders } from '@/components/providers';
 import { domain, siteLink, siteName } from '@/config';
 import { fontSans, fontMono } from '@/lib/fonts';
 import Scripts from '@/components/Scripts';
@@ -49,7 +49,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 					fontMono.variable,
 				)}
 			>
-				<Providers themeProps={{ attribute: 'class', defaultTheme: 'light' }}>{children}</Providers>
+				<RootProviders themeProps={{ attribute: 'class', defaultTheme: 'light' }}>{children}</RootProviders>
 			</body>
 		</html>
 	);

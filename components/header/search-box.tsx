@@ -64,15 +64,15 @@ export function SearchCombobox() {
 		<>
 			<Button
 				variant="ghost"
-				className="relative size-9 p-0 xl:h-10 xl:w-60 xl:justify-start xl:border xl:px-3 xl:py-2"
+				className="relative size-9 p-0 lg:h-9 lg:w-60 lg:justify-start lg:border lg:p-2"
 				onClick={() => setOpen(true)}
 			>
-				<SearchIcon className="size-5 xl:mr-2" aria-hidden="true" />
-				<span className="hidden xl:inline-flex">Search products...</span>
-				<span className="sr-only">Search products</span>
+				<SearchIcon className="size-5 lg:mr-1" aria-hidden="true" />
+				<span className="hidden lg:inline-flex">Search lyrics...</span>
+				<span className="sr-only">Search lyrics</span>
 				<Kbd
 					title={isMacOs() ? 'Command' : 'Control'}
-					className="pointer-events-none absolute top-1.5 right-1.5 hidden xl:block"
+					className="top-1.8 pointer-events-none absolute right-1.5 hidden lg:block"
 				>
 					{isMacOs() ? '⌘' : 'Ctrl'} K
 				</Kbd>

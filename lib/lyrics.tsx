@@ -28,7 +28,7 @@ export const getRecitersLinks = (arr: Reciter[]) => {
 			.map((word) => capitalize(word))
 			.join(' ');
 		return (
-			<Link key={item.id} href={`/lyrics/${item.slug}`} className="a">
+			<Link key={item.id} href={`/lyrics/${item.slug}`} className="hover:underline">
 				{name}
 			</Link>
 		);
