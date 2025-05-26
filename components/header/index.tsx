@@ -1,6 +1,6 @@
 import Logo from '../Logo';
 import Link from 'next/link';
-import SidePenal from './sidepenal';
+import SidePenal from './side-penal';
 import { ThemeToggle } from '../theme-switch';
 import LinkItem from './link-item';
 import UserSession from './user-session';
