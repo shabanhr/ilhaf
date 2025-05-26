@@ -89,7 +89,7 @@ export default async function Slug(props: Params) {
 
 	const writersNames = writers.length > 0 ? arrayToString(writers.map((writer) => writer.name)) : 'Unknown';
 
-	const finalSlug = `${siteLink}/${getLyricsURL(reciter, slug)}`;
+	const finalSlug = `${siteLink}${getLyricsURL(reciter, slug)}`;
 
 	// const mp3url = getAudioURL(slug);
 	// const audioExists = await checkObjectExistsInR2(`lyrics/${slug}/audio.mp3`);
