@@ -13,9 +13,9 @@ import { InteractionFontSize } from './font-size';
 import { InteractionPlayPause } from './play-pause';
 // import { SelectionActions } from "./selection-actions";
 
-const InteractionsButtons = () => {
+const InteractionsButtons = ({ className }: { className?: string }) => {
 	return (
-		<div className="flex w-full items-center justify-between gap-2 px-5 py-2 md:flex-col md:p-0">
+		<div className={cn('flex w-full items-center justify-between gap-2 px-5 py-2', className)}>
 			<InteractionShare />
 			<InteractionFavorite />
 			<InteractionFontSize />
@@ -62,7 +62,7 @@ const Interactions: React.FC<InteractionsProps> = ({ showTabs, lyricsData, favor
 				onMouseEnter={() => setHovered(true)}
 				onMouseLeave={() => setHovered(false)}
 			>
-				<InteractionsButtons />
+				<InteractionsButtons className="flex-col p-0" />
 			</MotionDiv>
 
 			{/* Mobile Bottom Bar */}

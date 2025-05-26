@@ -33,7 +33,7 @@ export const InteractionShare = () => {
 	};
 
 	return (
-		<Button variant="ghost" onClick={handleShare} className="w-full md:h-8 md:justify-start md:p-2">
+		<Button variant="ghost" onClick={handleShare} className="md:h-8 md:w-full md:justify-start md:p-2">
 			<InnerInteractionButton Icon={Share2Icon} text="Share" />
 		</Button>
 	);

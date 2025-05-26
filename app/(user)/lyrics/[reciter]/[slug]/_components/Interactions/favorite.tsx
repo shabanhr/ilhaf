@@ -41,7 +41,7 @@ const InteractionFavorite = () => {
 			variant="ghost"
 			onClick={handleFavorite}
 			disabled={loading} // Disable the button while loading
-			className={cn('w-full md:h-8 md:justify-start md:p-2', { 'cursor-not-allowed opacity-50': loading })}
+			className={cn('md:h-8 md:w-full md:justify-start md:p-2', { 'cursor-not-allowed opacity-50': loading })}
 		>
 			<InnerInteractionButton
 				Icon={favorited ? FavoritedIcon : FavoriteBeforeIcon}

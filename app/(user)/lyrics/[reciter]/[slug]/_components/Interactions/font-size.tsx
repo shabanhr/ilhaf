@@ -37,7 +37,7 @@ export const InteractionFontSize = () => {
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
-				<Button variant="ghost" className="w-full md:h-8 md:justify-start md:p-2">
+				<Button variant="ghost" className="md:h-8 md:w-full md:justify-start md:p-2">
 					<InnerInteractionButton Icon={FontSizeIcon} text="Font Size" />
 				</Button>
 			</PopoverTrigger>
