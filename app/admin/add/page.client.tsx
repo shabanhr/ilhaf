@@ -9,21 +9,20 @@ import { toast } from 'sonner';
 import { Input } from '@/components/ui/input';
 import { Spinner } from '@/components/ui/spinner';
 import Link from 'next/link';
-import { dataType, AddLyricsSchema, NewLyricsType } from '../types';
+import { dataType, AddLyricsSchema, NewLyricsType } from './types';
 import { Report } from '@prisma/client';
-import { AddNewLyrics } from '../actions';
 import { LyricsWithData } from '@/types';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { LyricsType } from '@prisma/client';
-import { UploadAudio, getVideoData } from '../actions';
+import { UploadAudio, getVideoData, AddNewLyrics } from './actions';
 import { Label } from '@/components/ui/label';
-import DeleteComp from './DeleteComp';
-import LyricsAndReport from './LyricsAndReport';
-import LyricsInputs from './LyricsInputs';
+import DeleteComp from './_components/DeleteComp';
+import LyricsAndReport from './_components/LyricsAndReport';
+import LyricsInputs from './_components/LyricsInputs';
 import { capitalizeText, getAudioURL, getImageURL, slugify } from '@/lib/utils';
 import { deleteFileFromR2 } from '@/lib/r2';
-import Uploader from './uploader';
+import Uploader from './_components/uploader';
 import { getErrorMessage } from '@/lib/handle-error';
 
 interface Props {
@@ -35,21 +34,14 @@ interface Props {
 		writers: dataType[];
 	};
 	imageQ: Boolean;
-	audioQ: Boolean;
 	report: Report | null;
 }
 
-type TypeProps = {
-	v: 'image' | 'audio';
-};
-
-export default function Main({ lyric, data, imageQ, audioQ, report }: Props) {
+export default function AddClientPage({ lyric, data, imageQ, report }: Props) {
 	const InitSlug = lyric?.slug;
 	const [loading, setLoading] = useState<string[]>([]);
 	const [available, setAvailable] = useState<boolean | null>(lyric ? true : null);
-	const [mp3Url, setMp3Url] = useState<string>(lyric && lyric.video ? `https://youtu.be/${lyric.video}` : '');
 	const [photo, setPhoto] = useState<string | null>(InitSlug && imageQ ? getImageURL(InitSlug) : null);
-	const [audio, setAudio] = useState<string | null>(InitSlug && audioQ ? getAudioURL(InitSlug) : null);
 
 	const router = useRouter();
 
@@ -89,18 +81,12 @@ export default function Main({ lyric, data, imageQ, audioQ, report }: Props) {
 		setLoading((prevLoading) => prevLoading.filter((item) => item !== value));
 	};
 
-	const handleDelete = async ({ v }: TypeProps) => {
-		StartLoading(v);
-		if (v === 'image') {
-			const res = await deleteFileFromR2(`lyrics/${slug}/image.webp`);
-			toast(res.message);
-			setPhoto(null);
-		} else {
-			const res = await deleteFileFromR2(`lyrics/${slug}/audio.mp3`);
-			toast(res.message);
-			setAudio(null);
-		}
-		endLoading(v);
+	const handleDeleteImage = async () => {
+		StartLoading('image');
+		const res = await deleteFileFromR2(`lyrics/${slug}/image.webp`);
+		toast(res.message);
+		setPhoto(null);
+		endLoading('image');
 	};
 
 	const validateAndUpload = async (files: File[]) => {
@@ -141,30 +127,10 @@ export default function Main({ lyric, data, imageQ, audioQ, report }: Props) {
 		}
 	};
 
-	const Audio = async ({ videoId, mp3Url }: { videoId?: string; mp3Url?: string }) => {
-		StartLoading('audio');
-		try {
-			const res = await UploadAudio({ videoId, mp3Url, slug });
-			const { success, message } = res;
+	const fetchData = async (fetchType: 'image' | 'data') => {
+		StartLoading(fetchType);
 
-			if (success) {
-				setAudio(getAudioURL(slug));
-			} else {
-				toast.error(`Something went wrong ${message}`);
-			}
-		} catch (error: any) {
-			toast(`Something went wrong ${error.message}`);
-		} finally {
-			endLoading('audio');
-		}
-	};
-
-	const fetchData = async (fetchType?: 'image' | 'audio' | 'data') => {
-		const videoField = 'video';
-
-		StartLoading(fetchType || 'fetching');
-
-		let videoURL = getValues(videoField);
+		let videoURL = getValues('video');
 		if (videoURL.length === 11) {
 			videoURL = `https://youtu.be/${videoURL}`;
 		}
@@ -177,10 +143,6 @@ export default function Main({ lyric, data, imageQ, audioQ, report }: Props) {
 			}
 			const { thumbnails, uploadDate, recit, title, videoId } = response;
 
-			if (fetchType === 'audio') {
-				return Audio({ videoId });
-			}
-
 			if (fetchType === 'image') {
 				let thumbUrl = thumbnails[thumbnails.length - 1].url;
 				if (thumbUrl.includes('?')) {
@@ -191,7 +153,7 @@ export default function Main({ lyric, data, imageQ, audioQ, report }: Props) {
 
 			if (fetchType === 'data' || !fetchType) {
 				if (videoId) {
-					setValue(videoField, videoId);
+					setValue('video', videoId);
 				}
 				setValue('dop', new Date(uploadDate));
 
@@ -206,12 +168,7 @@ export default function Main({ lyric, data, imageQ, audioQ, report }: Props) {
 						form.setValue('type', matchingType.id as LyricsType);
 					}
 				}
-
-				if (!fetchType) {
-					Audio({ videoId });
-					UploadImage({ url: thumbnails[thumbnails.length - 1].url });
-				}
-				endLoading(fetchType || 'data');
+				endLoading(fetchType);
 			}
 		} catch (error: any) {
 			toast.error(`Something went wrong: ${error.message}`);
@@ -322,7 +279,7 @@ export default function Main({ lyric, data, imageQ, audioQ, report }: Props) {
 						{photo ? (
 							<div className="relative">
 								<div className="absolute top-2 right-2">
-									<DeleteComp handleDelete={handleDelete} v="image" />
+									<DeleteComp handleDelete={handleDeleteImage} />
 								</div>
 								<Image src={photo} width={384} height={188} alt="a" className="rounded-md" />
 							</div>
@@ -351,71 +308,18 @@ export default function Main({ lyric, data, imageQ, audioQ, report }: Props) {
 									onClick={() => fetchData('image')}
 									disabled={IsDisabled || loading.includes('image')}
 									isLoading={loading.includes('image')}
-									className="w-full"
 								>
 									Image
 								</ButtonWithLoading>
-								<ButtonWithLoading
-									type="button"
-									onClick={() => fetchData('audio')}
-									disabled={IsDisabled || loading.includes('audio')}
-									isLoading={loading.includes('audio')}
-									className="w-full"
-								>
-									Audio
-								</ButtonWithLoading>
+
 								<ButtonWithLoading
 									type="button"
 									onClick={() => fetchData('data')}
 									disabled={IsDisabled || loading.includes('data')}
 									isLoading={loading.includes('data')}
-									className="w-full"
 								>
 									Data
 								</ButtonWithLoading>
-								<ButtonWithLoading
-									type="button"
-									onClick={() => fetchData()}
-									disabled={IsDisabled || loading.length > 0}
-									isLoading={loading.includes('fetching')}
-									className="w-full"
-								>
-									All
-								</ButtonWithLoading>
-							</div>
-						</div>
-
-						<div className="relative">
-							{loading.includes('audio') && (
-								<div className="bg-accent/50 absolute z-10 flex h-full w-full items-center justify-center transition-all duration-100">
-									<Spinner invert />
-								</div>
-							)}
-							{audio && (
-								<div className="flex items-center justify-center gap-x-2">
-									<audio src={audio} controls className="w-full" />
-									<DeleteComp handleDelete={handleDelete} v="audio" />
-								</div>
-							)}
-							<div className="flex w-full items-center justify-center gap-2">
-								<div className="flex w-full flex-col gap-y-2">
-									<Label htmlFor="mp3Url">MP3 Url</Label>
-									<Input
-										placeholder="MP3 Url (optional)"
-										id="mp3Url"
-										className="w-full"
-										value={mp3Url}
-										disabled={IsDisabled || loading.includes('audio')}
-										onChange={(e) => setMp3Url(e.target.value)}
-									/>
-								</div>
-								<Button
-									className="mt-auto"
-									disabled={IsDisabled || loading.includes('audio')}
-									onClick={() => Audio({ mp3Url })}
-								>
-									Genrate
-								</Button>
 							</div>
 						</div>
 					</div>
@@ -447,7 +351,7 @@ export default function Main({ lyric, data, imageQ, audioQ, report }: Props) {
 							</FormItem>
 						)}
 					/>
-					<ButtonWithLoading type="submit" className="max-w-sm" isLoading={IsDisabled}>
+					<ButtonWithLoading type="submit" className="max-w-sm" disabled={IsDisabled} isLoading={isSubmitting}>
 						{lyric ? 'Update' : 'Submit'}
 					</ButtonWithLoading>
 				</div>
