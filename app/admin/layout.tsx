@@ -1,45 +1,33 @@
-import { Metadata } from "next";
-import { siteName } from "@/config";
-import { Sidebar } from "./_components/sidebar";
-import { Navbar } from "./_components/navbar";
-import AdminProvider from "./_components/provider";
-import { currentUser } from "@/config/auth";
-import { redirect } from "next/navigation";
+import { confirmUser } from '@/lib/auth';
+import { AppSidebar } from '@/app/admin/_components/app-sidebar';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import { getMetadata } from '@/lib/utils/metadata';
 
-const meta = {
-    title: `Admin - ${siteName}`,
-}
+export const metadata = getMetadata({
+	title: "Admin",
+	url: `/admin`,
+});
 
-export const metadata: Metadata = {
-    title: meta.title,
-};
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+	const user = await confirmUser();
 
+	if (user.role !== 'admin') {
+		return (
+			<div>
+				<p>Unauthorized</p>
+			</div>
+		);
+	}
 
-export default async function RootLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
-
-    const user = await currentUser();
-
-    if (!user) {
-        return redirect("/auth");
-    }
-    // if (user.role !== "ADMIN") {
-    //     return redirect("/");
-    // }
-
-    return (
-        <>
-            <Sidebar />
-            <AdminProvider>
-                <Navbar />
-                <div className="container pt-8 pb-8 px-4 sm:px-8">
-                    {children}
-                </div>
-            </AdminProvider>
-
-        </>
-    );
+	return (
+		<NuqsAdapter>
+			<SidebarProvider>
+				<AppSidebar />
+				<SidebarInset>
+					<div className="flex flex-1 flex-col gap-4 p-4">{children}</div>
+				</SidebarInset>
+			</SidebarProvider>
+		</NuqsAdapter>
+	);
 }

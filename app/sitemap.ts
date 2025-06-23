@@ -1,44 +1,32 @@
 import { MetadataRoute } from 'next';
 import { siteLink } from '@/config';
-import { prisma } from '@/prisma';
 import { getLyricsURL } from '@/lib/utils';
+import { db } from '@/db';
+import { lyrics } from '@/db/schema';
+import { desc, eq } from 'drizzle-orm';
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const date = new Date().toISOString();
 	const mainRoutes = ['', 'contact', 'policy', 'about', 'auth'];
 	const routes = mainRoutes.map((route) => ({
 		url: `${siteLink}/${route}`,
 		lastModified: date,
 	}));
-	const publishedLyrics = await prisma.lyrics.findMany({
-		where: { p: true },
-		select: {
-			slug: true,
-			updatedAt: true,
-			reciter: {
-				select: {
-					slug: true,
-				},
-			},
-		},
-		orderBy: {
-			updatedAt: 'desc',
-		},
-	});
-	const publishedReciter = await prisma.reciter.findMany({
-		orderBy: {
-			updatedAt: 'desc',
-		},
-	});
+	const publishedLyrics = await db
+		.select({
+			slug: lyrics.slug,
+			updatedAt: lyrics.updatedAt,
+		})
+		.from(lyrics)
+		.where(eq(lyrics.status, 'published'))
+		.orderBy(desc(lyrics.updatedAt));
 
 	const allLyrics = publishedLyrics.map((item) => ({
-		url: `${siteLink}${getLyricsURL(item.reciter.slug, item.slug)}`,
-		lastModified: item.updatedAt.toISOString(),
-	}));
-	const allReciters = publishedReciter.map((item) => ({
-		url: `${siteLink}/lyrics/${item.slug}`,
+		url: `${siteLink}${getLyricsURL(item.slug)}`,
 		lastModified: item.updatedAt.toISOString(),
 	}));
 
-	return [...routes, ...allLyrics, ...allReciters];
+	return [...routes, ...allLyrics];
 }
+
+export default sitemap;

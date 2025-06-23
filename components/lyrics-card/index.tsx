@@ -1,9 +1,8 @@
-import { Badge } from '@/components/ui/badge';
 import { CardType } from '@/types';
 import Link from 'next/link';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { getLyricsURL } from '@/lib/utils';
-import { differenceInDays, parseISO } from 'date-fns';
+import { capitalize, cn, getImageURL, getLyricsURL } from '@/lib/utils';
+import { differenceInDays } from 'date-fns';
 import { Skeleton } from '../ui/skeleton';
 import { AnimatedImage } from './animated-image';
 
@@ -13,41 +12,60 @@ interface Props {
 }
 
 export const LyricsCard = ({ data }: Props) => {
-	const {
-		title,
-		slug,
-		reciter: { slug: reciter },
-		dop,
-	} = data;
-
-	const isNew = differenceInDays(new Date(), parseISO(dop.toISOString())) <= 3;
+	const { title, slug, type, dop, oldSlug } = data;
+	const date = new Date(dop);
+	const isNew = differenceInDays(new Date(), date) <= 3;
 
 	return (
 		<Link
-			href={getLyricsURL(reciter, slug)}
-			className="relative mb-2 flex flex-col gap-2 rounded-xl border p-2 duration-200 hover:shadow-lg dark:hover:shadow-[#555]"
+			href={getLyricsURL(slug)}
+			className="hover:bg-accent/40 active:bg-accent/60 hover:text-accent-foreground relative flex flex-col rounded-lg p-2 duration-100"
 		>
-			{isNew && (
-				<Badge className="absolute top-2 left-2 z-10 rounded-md" variant="default">
-					New
-				</Badge>
-			)}
-			<AnimatedImage alt={title} slug={slug} />
-			<div className="p-2">
-				<div className="w-full max-w-[320px] truncate text-sm font-bold md:text-lg">{title}</div>
+			<AnimatedImage alt={title} src={getImageURL({ slug, oldSlug })} />
+			<div className="space-y-1 px-1 pt-2 pb-1">
+				<div className="flex items-center gap-1">
+					<LyricsCardBadge className="animate-in fade-in duration-300">{capitalize(type)} </LyricsCardBadge>
+					<LyricsCardBadge className="animate-in fade-in duration-300">{date.getFullYear()}</LyricsCardBadge>
+					{isNew && <LyricsCardBadge>New</LyricsCardBadge>}
+				</div>
+				<h2 className="animate-in fade-in w-full max-w-[320px] truncate text-base font-semibold duration-300 lg:text-lg xl:text-xl">
+					{title}
+				</h2>
 			</div>
 		</Link>
 	);
 };
 
+export function LyricsCardBadge({ children, className, ...props }: React.ComponentProps<'div'>) {
+	return (
+		<div
+			className={cn(
+				'bg-secondary/50 border text-secondary-foreground h-5 rounded-sm p-1 font-mono text-[11px] leading-none font-light',
+				className,
+			)}
+			{...props}
+		>
+			{children}
+		</div>
+	);
+}
+
+export function LyricsCardBadgeSkeleton() {
+	return <Skeleton className="h-5 w-10 rounded-sm" />;
+}
+
 export const LyricsCardSkeleton = () => {
 	return (
-		<div className="mb-2 flex flex-col gap-2 rounded-xl border p-2">
+		<div className="flex flex-col rounded-lg p-2">
 			<AspectRatio ratio={16 / 9} className="relative">
 				<Skeleton className="aspect-video h-full w-full" />
 			</AspectRatio>
-			<div className="p-2">
-				<Skeleton className="h-5 w-48 md:h-7 md:w-32" />
+			<div className="space-y-1 px-1 py-2">
+				<div className="flex items-center gap-1">
+					<LyricsCardBadgeSkeleton />
+					<LyricsCardBadgeSkeleton />
+				</div>
+				<Skeleton className="h-[1.5rem] w-2/3 lg:h-[1.5556rem] xl:h-[1.4rem]" />
 			</div>
 		</div>
 	);

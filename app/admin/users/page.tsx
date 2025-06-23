@@ -1,16 +1,6 @@
-import React from "react";
-import { getAllUsers, getCardDetails } from "./actions";
-import UserTable from "./UserTable";
-import DetailCards from "../_components/DetailCards";
+import React from 'react';
+import { UsersClientPage } from './page.client';
 
-
-export default async function Page() {
-    const data = await getCardDetails();
-    const initData = await getAllUsers();
-    return (
-        <div>
-            <DetailCards data={data} />
-            <UserTable initData={initData} />
-        </div>
-    );
+export default async function UsersPage() {
+	return <UsersClientPage />;
 }

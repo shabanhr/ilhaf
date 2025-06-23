@@ -1,22 +1,23 @@
-"use server";
-import { prisma } from "@/prisma";
-import { deleteFileFromR2 } from "@/lib/r2";
-import { revalidatePath } from "next/cache";
+'use server';
+import { db } from '@/db';
+import { lyrics } from '@/db/schema';
+import { deleteFileFromR2 } from '@/lib/actions/r2';
+import { eq } from 'drizzle-orm';
 
 export const deleteLyricsById = async (id: string) => {
+	const foundLyrics = await db.query.lyrics.findFirst({
+		where: eq(lyrics.id, id),
+	});
 
-    const lyrics = await prisma.lyrics.delete({
-        where: { id },
-    })
+	if (!foundLyrics) {
+		throw new Error('Lyrics Not Found For Delete');
+	}
 
-    if (!lyrics) {
-        throw new Error('Lyrics Not Found For Delete');
-    }
+	// Delete file assets
+	await deleteFileFromR2(`lyrics/${foundLyrics.slug}/image.webp`);
+	
+	// Delete from database
+	await db.delete(lyrics).where(eq(lyrics.id, id));
 
-    await deleteFileFromR2(`lyrics/${lyrics.slug}/image.webp`)
-    await deleteFileFromR2(`lyrics/${lyrics.slug}/blur-placeholder.webp`)
-    await deleteFileFromR2(`lyrics/${lyrics.slug}/audio.mp3`)
-
-    revalidatePath("/admin/lyrics")
-    return true;
-}
+	return true;
+};

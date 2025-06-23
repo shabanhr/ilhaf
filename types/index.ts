@@ -1,21 +1,23 @@
-import { Lyrics, Reciter, Topic, Writer } from '@prisma/client';
+import { Lyrics, LyricsToReciter, Reciter, Topic, Writer, LyricsToTopic, LyricsToWriter } from '@/db/schema';
 
 export type IconType = React.ComponentType<React.SVGProps<SVGSVGElement>>;
 
 export type CardType = {
-	title: string;
 	slug: string;
-	reciter: {
-		slug: string;
-	};
+	title: string;
 	dop: Date;
+	type: string;
+	oldSlug?: string | null;
 };
 
 export interface LyricsWithData extends Lyrics {
-	writers: Writer[];
-	reciter: Reciter;
-	topics: Topic[];
-	otherReciters: {
+	reciters: (LyricsToReciter & {
 		reciter: Reciter;
-	}[];
+	})[];
+	writers: (LyricsToWriter & {
+		writer: Writer;
+	})[];
+	topics: (LyricsToTopic & {
+		topic: Topic;
+	})[];
 }

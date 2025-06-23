@@ -1,9 +1,6 @@
 'use client';
-import { useSession } from 'next-auth/react';
 import React from 'react';
 import { Button } from '../ui/button';
-import { Skeleton } from '../ui/skeleton';
-import { useAuthModel } from '@/hooks/use-auth-model';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -14,22 +11,36 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Link from 'next/link';
-import { LayoutDashboardIcon, MessageCircleWarning, UserIcon } from 'lucide-react';
+import { LayoutDashboardIcon, UserIcon } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { getAvatarUrl, getInitialChar } from '@/lib/utils';
 import { FavoriteBeforeIcon } from '../icons';
-import { signOut } from 'next-auth/react';
+import { authClient } from '@/lib/auth-client';
+import { useToggle } from '@/hooks/use-toggle';
+import { usePathname } from 'next/navigation';
 
 const UserSession = () => {
-	const { setAuthOpen } = useAuthModel();
-
-	const { data: session, status } = useSession();
+	const { data: session, isPending } = authClient.useSession();
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const [_, setAuthOpen] = useToggle('auth-modal');
 	const user = session?.user;
-	const isAdmin = session?.user.role === 'ADMIN';
+	const isAdmin = session?.user.role === 'admin';
+	const pathname = usePathname();
 
-	if (status === 'loading') {
+	React.useEffect(() => {
+		if (!user?.email) {
+			authClient.oneTap();
+		}
+	}, [user]);
+
+	if (isPending) {
 		return null;
 	}
+
+	const handleSignOut = async () => {
+		await authClient.signOut();
+		window.location.href = pathname;
+	};
 
 	return (
 		<div className="animate-in fade-in hidden items-center duration-800 md:flex">
@@ -37,7 +48,7 @@ const UserSession = () => {
 				<DropdownMenu>
 					<DropdownMenuTrigger>
 						<Avatar>
-							<AvatarImage src={getAvatarUrl(user.image, user.email)} />
+							<AvatarImage src={getAvatarUrl(user.image, user.id)} />
 							<AvatarFallback>{getInitialChar(user.name)}</AvatarFallback>
 						</Avatar>
 					</DropdownMenuTrigger>
@@ -76,24 +87,17 @@ const UserSession = () => {
 									My Favorites
 								</Link>
 							</DropdownMenuItem>
-
-							<DropdownMenuItem asChild>
-								<Link href={`/reports`} className="w-full cursor-pointer">
-									<MessageCircleWarning />
-									My Reports
-								</Link>
-							</DropdownMenuItem>
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
 						<DropdownMenuGroup>
-							<DropdownMenuItem className="w-full cursor-pointer" onClick={() => signOut()}>
+							<DropdownMenuItem className="w-full cursor-pointer" onClick={handleSignOut}>
 								Log out
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
 					</DropdownMenuContent>
 				</DropdownMenu>
 			) : (
-				<Button onClick={() => setAuthOpen({ open: true })} variant="ghost">
+				<Button onClick={() => setAuthOpen(true)} variant="ghost">
 					Join Now!
 				</Button>
 			)}

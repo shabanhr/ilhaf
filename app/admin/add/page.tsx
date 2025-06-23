@@ -1,56 +1,47 @@
-import { prisma } from '@/prisma';
-import { dataType } from './types';
-import { LyricsTypes } from '@/config/data';
 import { LyricsWithData } from '@/types';
-import { Report } from '@prisma/client';
-import { checkObjectExistsInR2 } from '@/lib/r2';
+import { checkObjectExistsInR2 } from '@/lib/actions/r2';
 import AddClientPage from './page.client';
+import { db } from '@/db';
+import { getImageURL } from '@/lib/utils';
 
 interface Props {
 	searchParams: Promise<{
 		id?: string;
-		reportId?: string;
 	}>;
 }
 
 export default async function Add(props: Props) {
 	const searchParams = await props.searchParams;
-	let lyric: LyricsWithData | null = null;
-	let report: Report | null = null;
-	const { id, reportId } = searchParams;
+	let lyric: LyricsWithData | undefined;
+
+	const { id } = searchParams;
 	let imageQ = false;
 
 	if (id) {
-		lyric = await prisma.lyrics.findUnique({
-			where: { id },
-			include: { reciter: true, writers: true, topics: true, otherReciters: { include: { reciter: true } } },
+		lyric = await db.query.lyrics.findFirst({
+			where: (lyrics, { eq }) => eq(lyrics.id, id),
+			with: {
+				reciters: {
+					with: {
+						reciter: true,
+					},
+				},
+				writers: {
+					with: {
+						writer: true,
+					},
+				},
+				topics: {
+					with: {
+						topic: true,
+					},
+				},
+			},
 		});
-		imageQ = await checkObjectExistsInR2(`lyrics/${lyric?.slug}/image.webp`);
+		if (lyric) {
+			imageQ = await checkObjectExistsInR2(getImageURL({ slug: lyric.slug, oldSlug: lyric.oldSlug, keyOnly: true }));
+		}
 	}
 
-	if (reportId) {
-		report = await prisma.report.findUnique({ where: { id: reportId } });
-	}
-
-	const reciter: dataType[] = await prisma.reciter
-		.findMany({
-			orderBy: { lyrics: { _count: 'desc' } },
-		})
-		.then((data) => data.map((item) => ({ id: item.id, name: item.name, slug: item.slug })));
-
-	const writer: dataType[] = await prisma.writer
-		.findMany({
-			orderBy: { lyrics: { _count: 'desc' } },
-		})
-		.then((data) => data.map((item) => ({ id: item.id, name: item.name })));
-
-	const topics: dataType[] = await prisma.topic
-		.findMany({
-			orderBy: { lyrics: { _count: 'desc' } },
-		})
-		.then((data) => data.map((item) => ({ id: item.id, name: item.name })));
-
-	const data = { types: LyricsTypes, reciters: reciter, writers: writer, topics };
-
-	return <AddClientPage lyric={lyric} imageQ={imageQ} data={data} report={report} />;
+	return <AddClientPage lyric={lyric} imageQ={imageQ} />;
 }

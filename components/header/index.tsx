@@ -11,12 +11,12 @@ export default function Header() {
 	return (
 		<header
 			className={cn(
-				'bg-background/95 supports-[backdrop-filter]:bg-background/80 backdrop-blur-xl',
+				'bg-background/90 supports-[backdrop-filter]:bg-background/75 backdrop-blur-lg',
 				'sticky top-0 z-50',
 				'border-b',
 			)}
 		>
-			<nav className={cn('container h-14', 'flex items-center justify-between', 'border-x')}>
+			<nav className={cn('container bp-x h-14', 'flex items-center justify-between', 'lg:border-x')}>
 				<Link href="/" className="flex items-center">
 					<Logo size="sm" />
 				</Link>

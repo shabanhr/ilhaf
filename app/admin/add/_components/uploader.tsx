@@ -3,13 +3,12 @@ import { UploadIcon } from 'lucide-react';
 import React, { ChangeEvent, DragEvent, useState } from 'react';
 
 interface Props {
-	id: string;
 	IsDisabled?: boolean;
 	className?: string;
 	onUpload: (files: File[]) => void;
 }
 
-const Uploader = ({ id, onUpload, IsDisabled, className }: Props) => {
+export function LyricsImageUploader({ IsDisabled, className, onUpload }: Props) {
 	const [isDragging, setIsDragging] = useState(false);
 
 	const handleDragOver = (e: DragEvent<HTMLLabelElement>) => {
@@ -36,7 +35,7 @@ const Uploader = ({ id, onUpload, IsDisabled, className }: Props) => {
 
 	return (
 		<label
-			htmlFor={id} // Use the dynamic id prop
+			htmlFor="lyrics-image"
 			className={cn(
 				'flex h-full cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed p-8 transition-colors hover:border-gray-400',
 				isDragging && 'border-gray-600 dark:hover:border-gray-50',
@@ -51,13 +50,11 @@ const Uploader = ({ id, onUpload, IsDisabled, className }: Props) => {
 			<input
 				type="file"
 				accept="image/*"
-				id={id} // Use the dynamic id prop
+				id="lyrics-image"
 				className="sr-only"
 				onChange={handleFileInputChange}
 				disabled={IsDisabled}
 			/>
 		</label>
 	);
-};
-
-export default Uploader;
+}

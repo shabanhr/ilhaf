@@ -1,13 +1,11 @@
-import { GeistMono } from 'geist/font/mono';
-import { GeistSans } from 'geist/font/sans';
-import { Gulzar } from 'next/font/google';
+import { Noto_Sans_Arabic, Noto_Sans_Mono } from 'next/font/google';
 
-export const fontSans = GeistSans;
-
-export const fontMono = GeistMono;
-
-export const fontUrdu = Gulzar({
-	weight: ['400'],
+export const fontSans = Noto_Sans_Arabic({
 	subsets: ['arabic'],
-	variable: '--font-urdu',
+	variable: '--font-sans',
+});
+
+export const fontMono = Noto_Sans_Mono({
+	subsets: ['latin'],
+	variable: '--font-mono',
 });

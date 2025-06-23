@@ -15,6 +15,7 @@
 
 # production
 /build
+/drizzle
 
 # misc
 .DS_Store
@@ -36,5 +37,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#other
+#local testing
+/app/api/dev
+
+
+#local files
 /usefulls

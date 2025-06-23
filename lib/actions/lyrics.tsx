@@ -1,79 +1,80 @@
 'use server';
 
-import { prisma } from '@/prisma';
-import { LyricsType } from '@prisma/client';
-import { slugify } from '../utils';
+import { db } from '@/db';
 import { LYRICS_PER_PAGE } from '@/config';
+import { lyrics, userFavorite } from '@/db/schema';
+import { and, count, desc, eq, ilike, type SQL } from 'drizzle-orm';
+import { normalizeText } from '../utils';
 
 interface getLyricDataProps {
 	page: number;
-	reciter?: string;
-	type?: LyricsType;
 	query?: string;
 	take?: number;
 }
 
-export const getLyricsData = async ({ page = 1, reciter, type, query, take = LYRICS_PER_PAGE }: getLyricDataProps) => {
+export const getLyricsData = async ({ page = 1, take = LYRICS_PER_PAGE, query }: getLyricDataProps) => {
 	const skip = (page - 1) * take;
 
-	const where = {
-		p: true,
-		slug: query
-			? {
-					contains: slugify(query),
-				}
-			: undefined,
-		OR: reciter
-			? [{ reciter: { slug: reciter } }, { otherReciters: { some: { reciter: { slug: reciter } } } }]
-			: undefined,
-		type: type ? type : undefined,
-	};
+	let where = eq(lyrics.status, 'published');
+	if (query) {
+		const slugifiedWords = query
+			.trim()
+			.split(/\s+/)
+			.map((word) => normalizeText(word))
+			.filter(Boolean);
 
-	const data = await prisma.lyrics.findMany({
-		where,
-		select: {
-			title: true,
-			slug: true,
-			reciter: true,
-			dop: true,
-		},
-		orderBy: {
-			dop: 'desc',
-		},
-		skip,
-		take,
-	});
+		if (slugifiedWords.length > 0) {
+			const slugFilters = slugifiedWords.map((word) => ilike(lyrics.slug, `%${word}%`));
+			where = and(eq(lyrics.status, 'published'), ...slugFilters) as SQL<boolean>;
+		}
+	}
 
-	const count = await prisma.lyrics.count({ where });
+	const data = await db
+		.select({
+			title: lyrics.title,
+			slug: lyrics.slug,
+			type: lyrics.type,
+			dop: lyrics.dop,
+			oldSlug: lyrics.oldSlug,
+		})
+		.from(lyrics)
+		.where(where)
+		.orderBy(desc(lyrics.dop))
+		.limit(take)
+		.offset(skip);
+	const [{ count: totalCount }] = await db.select({ count: count() }).from(lyrics).where(where);
 
-	return { data, count };
+	return { data, count: totalCount };
 };
 
 export const getFavLyrics = async ({ page = 1, userId }: { page: number; userId: string }) => {
 	const skip = (page - 1) * LYRICS_PER_PAGE;
+	const where = and(eq(userFavorite.userId, userId), eq(lyrics.status, 'published'));
+	// Get the favorite lyrics with joins
+	const data = await db
+		.select({
+			title: lyrics.title,
+			slug: lyrics.slug,
+			type: lyrics.type,
+			dop: lyrics.dop,
+			oldSlug: lyrics.oldSlug,
+		})
+		.from(userFavorite)
+		.where(where)
+		.innerJoin(lyrics, eq(userFavorite.lyricsId, lyrics.id))
+		.orderBy(desc(userFavorite.createdAt))
+		.limit(12)
+		.offset(skip);
 
-	const data = await prisma.userFavorite.findMany({
-		where: { userId },
-		select: {
-			lyrics: {
-				select: {
-					title: true,
-					slug: true,
-					reciter: true,
-					dop: true,
-				},
-			},
-		},
-		orderBy: {
-			createdAt: 'desc',
-		},
-		skip,
-		take: 12,
-	});
+	// Get the count
+	const res = await db
+		.select({ count: count() })
+		.from(userFavorite)
+		.innerJoin(lyrics, eq(userFavorite.lyricsId, lyrics.id))
+		.where(where);
 
-	const count = await prisma.userFavorite.count({
-		where: { userId },
-	});
-
-	return { data: data.map((item) => item.lyrics), count };
+	return {
+		data,
+		count: res[0].count,
+	};
 };

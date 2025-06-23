@@ -13,9 +13,9 @@ export default function UsersLayout({
 			<Header />
 			<main
 				className={cn(
-					'relative container grow py-8',
-					'before:bg-border before:absolute before:inset-y-0 before:-left-0 before:w-px',
-					'after:bg-border after:absolute after:inset-y-0 after:-right-0 after:w-px',
+					'relative container grow',
+					'before:bg-border before:absolute before:inset-y-0 before:left-0 lg:before:w-px',
+					'after:bg-border after:absolute after:inset-y-0 after:right-0 lg:after:w-px',
 				)}
 			>
 				{children}

@@ -1,10 +1,4 @@
-import React from "react";
 
-
-export default function Page() {
-    return (
-        <div>
-            DashBoard
-        </div>
-    );
+export default function AdminPage() {
+	return <div>Admin</div>;
 }

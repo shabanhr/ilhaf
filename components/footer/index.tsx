@@ -3,9 +3,9 @@ import { siteName } from '@/config';
 import Link from 'next/link';
 import { buttonVariants } from '../ui/button';
 import Logo from '../Logo';
-import { FaceBookIcon, YoutubeIcon, TiktokIcon, PinterestIcon, PatreonIcon } from '../icons';
+import { FaceBookIcon, YoutubeIcon, TiktokIcon, XSocialIcon } from '../icons';
 import FooterLink from './footer-link';
-import { InstagramLogoIcon } from '@radix-ui/react-icons';
+import { GitHubLogoIcon, InstagramLogoIcon } from '@radix-ui/react-icons';
 import { Separator } from '../ui/separator';
 
 export default function Footer() {
@@ -24,37 +24,29 @@ export default function Footer() {
 			title: 'About Us',
 			link: '/about',
 		},
-		{
-			title: 'Support Us',
-			link: '/support',
-		},
 	];
 	const accounts = [
 		{
-			title: 'Create Account',
+			title: 'Sign In',
 			link: '/auth',
 		},
 		{
-			title: 'Edit Account',
+			title: 'My Account',
 			link: '/account',
 		},
 		{
 			title: 'My Favorites',
 			link: '/favorites',
 		},
-		{
-			title: 'My Reports',
-			link: '/reports',
-		},
 	];
 	const socialLinks = [
 		{
-			icon: <YoutubeIcon className="size-4" />,
-			link: 'https://www.youtube.com/@ilhaf',
-		},
-		{
 			icon: <FaceBookIcon className="size-4" />,
 			link: 'https://www.facebook.com/ilhafcom/',
+		},
+		{
+			icon: <GitHubLogoIcon className="size-4" />,
+			link: 'https://github.com/sshahaider/ilhaf',
 		},
 		{
 			icon: <InstagramLogoIcon className="size-4" />,
@@ -65,19 +57,19 @@ export default function Footer() {
 			link: 'https://www.tiktok.com/@ilhaf.com',
 		},
 		{
-			icon: <PinterestIcon className="size-4" />,
-			link: 'https://www.pinterest.com/ilhafcom/',
+			icon: <XSocialIcon className="size-4" />,
+			link: 'https://x.com/ilhafdotcom',
 		},
 		{
-			icon: <PatreonIcon className="size-4" />,
-			link: 'https://www.patreon.com/ilhaf',
+			icon: <YoutubeIcon className="size-4" />,
+			link: 'https://www.youtube.com/@ilhaf',
 		},
 	];
 
 	return (
 		<footer>
 			<Separator />
-			<div className="container grid grid-cols-6 gap-6 border-x py-8">
+			<div className="container bp grid grid-cols-6 gap-6 md:border-x">
 				<div className="col-span-6 flex flex-col gap-6 md:col-span-4">
 					<Link href="/" className="w-max opacity-20">
 						<Logo size="lg" />
@@ -113,9 +105,9 @@ export default function Footer() {
 				</div>
 			</div>
 			<Separator />
-			<div className="container flex flex-col justify-between gap-2 border-x py-4 md:flex-row-reverse md:items-center">
+			<div className="container bp-x py-4 flex flex-col justify-between gap-2 md:border-x md:flex-row-reverse md:items-center">
 				<div className="text-muted-foreground flex items-center justify-center gap-x-1 font-thin">
-					Developed by
+					Built by
 					<Link target="_blank" href="https://x.com/sshahaider" className="text-foreground hover:underline">
 						sshahaider
 					</Link>

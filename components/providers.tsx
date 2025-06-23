@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { ThemeProvider as NextThemesProvider, ThemeProviderProps } from 'next-themes';
-import { SessionProvider } from 'next-auth/react';
 import { Toaster } from './ui/sonner';
 
 export interface ProvidersProps {
@@ -13,7 +12,7 @@ export interface ProvidersProps {
 export function RootProviders({ children, themeProps }: ProvidersProps) {
 	return (
 		<NextThemesProvider {...themeProps}>
-			<SessionProvider>{children}</SessionProvider>
+			{children}
 			<Toaster position="bottom-left" />
 		</NextThemesProvider>
 	);

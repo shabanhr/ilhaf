@@ -36,10 +36,9 @@ export const LoadMore = ({ count, Func, perPage = LYRICS_PER_PAGE, className, ad
 		setData([]);
 	}, [additionalProps]);
 
-	const isDesktop = useMediaQuery('(min-width: 1024px)');
-	const isTab = useMediaQuery('(min-width: 768px)');
+	const { isDesktop, isTablet } = useMediaQuery();
 
-	const devicesCount = isDesktop ? 3 : isTab ? 2 : 1;
+	const devicesCount = isDesktop ? 3 : isTablet ? 2 : 1;
 	const skeletonCount = Math.min(devicesCount, remainingItems);
 
 	return (

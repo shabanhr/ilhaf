@@ -13,11 +13,11 @@ export function SectionTitle({ text, link, className, ...props }: SectionTitlePr
 	return (
 		<React.Fragment>
 			<BorderSeparator />
-			<div className={cn('flex w-full items-end justify-between py-1', className)} {...props}>
+			<div className={cn('flex w-full items-end justify-between py-2 bp-x', className)} {...props}>
 				<h2 className="font-mono text-lg font-medium md:text-xl">{text}</h2>
 				{link && (
 					<Link href={link} className="group flex h-full items-center justify-center gap-x-2">
-						<span className="text-lg font-medium md:text-xl">View All</span>
+						<span className="text-lg font-medium">View All</span>
 						<ArrowRightIcon className="size-4 duration-200 group-hover:translate-x-1 md:size-5" />
 					</Link>
 				)}

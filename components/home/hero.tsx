@@ -24,11 +24,11 @@ const transitionVariants = {
 			},
 		},
 	},
-};
+} as const;
 
 export function Hero() {
 	return (
-		<section className="relative grid h-full w-full grid-cols-1 gap-10 md:grid-cols-2">
+		<section className="bp-x relative grid grid-cols-1 gap-10 py-8 md:grid-cols-2 md:py-0">
 			<div className="flex flex-col items-center justify-center gap-y-4 md:items-start">
 				<TextEffect
 					preset="fade-in-blur"
@@ -74,7 +74,6 @@ export function Hero() {
 					</Button>
 				</AnimatedGroup>
 			</div>
-
 			<AnimatedGroup
 				variants={{
 					container: {

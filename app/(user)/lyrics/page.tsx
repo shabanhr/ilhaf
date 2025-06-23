@@ -1,10 +1,8 @@
 import React from 'react';
-import Filters from './Filters';
-import LyricsList from './LyricsList';
-import { getRecitersData } from './actions';
+import LyricsList from './lyrics-list';
 import { capitalize } from '@/lib/utils';
-import { siteName } from '@/config';
 import { SearchParams } from 'next/dist/server/request/search-params';
+import { getMetadata } from '@/lib/utils/metadata';
 
 interface Props {
 	searchParams: Promise<SearchParams>;
@@ -17,42 +15,23 @@ export async function generateMetadata(props: Props) {
 	let meta = {
 		title: `Nohay And Manqabat Lyrics List - Ihaf`,
 		description: `Check Out The Lyrics List Of All Nohay And Manqabats`,
-		link: '/lyrics',
 	};
 	if (type) {
-		const Type = capitalize(type);
+		const capitalizedType = capitalize(type);
 		meta = {
-			title: `${Type} Lyrics - Ilhaf`,
-			description: `Check Out The ${Type} Lyrics List`,
-			link: '/lyrics',
+			title: `${capitalizedType} Lyrics - Ilhaf`,
+			description: `Check Out The ${capitalizedType} Lyrics List`,
 		};
 	}
 
-	return {
+	return getMetadata({
 		title: meta.title,
 		description: meta.description,
-		keywords: [`Lyrics List`, type && `${capitalize(type)} Lyrics`],
-		alternates: {
-			canonical: meta.link,
-		},
-		openGraph: {
-			title: meta.title,
-			description: meta.description,
-			url: meta.link,
-			locale: 'en-US',
-			siteName,
-			type: 'website',
-		},
-	};
+		url: '/lyrics',
+	});
 }
 
 export default async function LyricsPage(props: Props) {
 	const searchParams = await props.searchParams;
-	const reciters = await getRecitersData();
-	return (
-		<>
-			<Filters reciters={reciters} Params={searchParams} />
-			<LyricsList Params={searchParams} />
-		</>
-	);
+	return <LyricsList Params={searchParams} />;
 }

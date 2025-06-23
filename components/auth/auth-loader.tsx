@@ -1,15 +1,17 @@
 import React from 'react';
 import { Skeleton } from '../ui/skeleton';
-import AuthDivider from './auth-divider';
+import { ORDivider } from './or-divider';
 
 const AuthLoader = () => {
 	return (
-		<div className="w-full space-y-5">
-			<Skeleton className="min-h-[14px] w-[50px]" />
-			<Skeleton className="min-h-[42px] w-full rounded-lg" />
-			<Skeleton className="min-h-[42px] w-full rounded-full" />
-			<AuthDivider />
-			<Skeleton className="mt-5 min-h-[42px] w-full rounded-full" />
+		<div>
+			<Skeleton className="min-h-9 w-full rounded-md" />
+			<ORDivider />
+			<div className="grid gap-2">
+				<Skeleton className="min-h-4 w-1/2 rounded-md" />
+				<Skeleton className="min-h-9 w-full rounded-md" />
+				<Skeleton className="min-h-9 w-full rounded-md" />
+			</div>
 		</div>
 	);
 };

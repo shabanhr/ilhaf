@@ -1,7 +1,5 @@
 import sharp from 'sharp';
-import { uploadFileToR2 } from '@/lib/r2';
-import axios from 'axios';
-import { revalidatePath } from 'next/cache';
+import { uploadFileToR2 } from '@/lib/actions/r2';
 
 const compressAndConvertToWebP = async (fileBuffer: Buffer): Promise<Buffer> => {
 	const image = sharp(fileBuffer);
@@ -37,11 +35,11 @@ export async function POST(req: Request) {
 		if (file) {
 			bytes = await file.arrayBuffer();
 		} else if (url) {
-			const UrlRes = await axios.get(url, { responseType: 'arraybuffer' });
+			const UrlRes = await fetch(url);
 			if (UrlRes.status !== 200) {
 				return new Response(JSON.stringify({ error: 'Failed to fetch file from URL!' }), { status: 400 });
 			}
-			bytes = UrlRes.data;
+			bytes = await UrlRes.arrayBuffer();
 		} else {
 			return new Response(JSON.stringify({ error: 'Either file or URL must be provided!' }), { status: 400 });
 		}
@@ -51,7 +49,6 @@ export async function POST(req: Request) {
 		const fileKey = `lyrics/${slug}/image.webp`;
 		const imageUrl = await uploadFileToR2({ Key: fileKey, Body: compressedBuffer });
 
-		revalidatePath(`/admin/add?slug=${slug}`);
 		return new Response(JSON.stringify(imageUrl), { status: 200 });
 	} catch (error: any) {
 		console.log(error);

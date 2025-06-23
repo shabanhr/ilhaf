@@ -8,7 +8,7 @@ import { MenuIcon } from '../icons';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger, SheetClose } from '../ui/sheet';
 import Logo from '../Logo';
 import { Button } from '../ui/button';
-import { signOut, useSession } from 'next-auth/react';
+import { authClient } from '@/lib/auth-client';
 
 const Links = [
 	{
@@ -38,7 +38,7 @@ const Links = [
 	},
 ];
 const SidePenal = () => {
-	const { data: session } = useSession();
+	const { data: session } = authClient.useSession();
 	const user = session?.user;
 
 	return (
@@ -63,7 +63,7 @@ const SidePenal = () => {
 
 					<div className="flex w-full justify-center">
 						{user ? (
-							<Button className="w-full" variant="outline" onClick={() => signOut()}>
+							<Button className="w-full" variant="outline" onClick={() => authClient.signOut()}>
 								Sign Out
 							</Button>
 						) : (
