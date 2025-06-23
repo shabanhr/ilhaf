@@ -55,7 +55,7 @@ export default function SupportOptions() {
 					<span className="text-xl">Raast:</span>
 					<p className="text-muted-foreground font-mono text-lg">03207376123</p>
 					<ORDivider />
-					<img src={`${drive}/mb-qr.png`} className="mx-auto rounded-lg" />
+					<img src={`${drive}/mb-qr.png`} alt="qr code" className="mx-auto rounded-lg" />
 				</TabsContent>
 				<TabsContent value="international" className="bp space-y-4">
 					<span className="text-xl">TRC20 Wallet:</span>

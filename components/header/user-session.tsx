@@ -27,12 +27,6 @@ const UserSession = () => {
 	const isAdmin = session?.user.role === 'admin';
 	const pathname = usePathname();
 
-	React.useEffect(() => {
-		if (!user?.email) {
-			authClient.oneTap();
-		}
-	}, [user]);
-
 	if (isPending) {
 		return null;
 	}

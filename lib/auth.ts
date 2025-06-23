@@ -3,14 +3,13 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { db } from '@/db';
 import { headers } from 'next/headers';
 import { siteName } from '@/config';
-import { oneTap, admin, emailOTP } from 'better-auth/plugins';
+import { admin, emailOTP } from 'better-auth/plugins';
 import { user, session, account, verification } from '@/db/schema';
 import { redirect } from 'next/navigation';
 import { sendVerificationOTPAction } from './mail';
 
 export const auth = betterAuth({
 	plugins: [
-		oneTap(),
 		admin(),
 		emailOTP({
 			sendVerificationOnSignUp: true,
@@ -31,7 +30,7 @@ export const auth = betterAuth({
 	}),
 	socialProviders: {
 		google: {
-			clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+			clientId: process.env.GOOGLE_CLIENT_ID!,
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
 		},
 	},
