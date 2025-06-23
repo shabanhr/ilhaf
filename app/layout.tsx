@@ -2,7 +2,7 @@ import './globals.css';
 import { getMetadata } from '@/lib/utils/metadata';
 import { RootProviders } from '@/components/providers';
 import { fontSans, fontMono } from '@/lib/fonts';
-import { Scripts } from '@/components/scripts';
+import { CustomScripts } from '@/components/custom-scripts';
 import { cn } from '@/lib/utils';
 
 export const metadata = getMetadata({
@@ -14,7 +14,7 @@ export const metadata = getMetadata({
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<Scripts />
+			<CustomScripts />
 			<head />
 			<body
 				className={cn(

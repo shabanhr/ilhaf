@@ -1,7 +1,7 @@
 import React from 'react';
 import Script from 'next/script';
 
-export function Scripts() {
+export function CustomScripts() {
 	return (
 		<>
 			<Script
