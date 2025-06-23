@@ -18,7 +18,7 @@ export function TabTriggers({ hasContent }: { hasContent: boolean }) {
 	if (!hasContent) return null;
 
 	return (
-		<div className="bg-background/90 supports-[backdrop-filter]:bg-background/75 sticky top-14 z-20 flex w-full flex-col items-center justify-center border-b py-1 backdrop-blur-lg drop-shadow-xl drop-shadow-background">
+		<div className="bg-background/90 supports-[backdrop-filter]:bg-background/75 drop-shadow-background sticky top-14 z-10 flex items-center justify-center border-b py-1 md:border-r drop-shadow-xl backdrop-blur-lg">
 			<div className="flex w-full items-center justify-center gap-2">
 				<button
 					className={cn(

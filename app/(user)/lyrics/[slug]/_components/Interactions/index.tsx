@@ -30,7 +30,6 @@ export default function Interactions({ lyricsData, children }: InteractionsProps
 		<div className="relative w-full md:grid md:grid-cols-12">
 			<DesktopInteractions />
 			<MobileInteractions isInView={isInView} />
-
 			{/* Main Content Area */}
 			<div ref={containerRef} className="pb-5 md:col-span-11 md:border-x">
 				{children}
@@ -49,7 +48,7 @@ function DesktopInteractions() {
 			}}
 			transition={{ duration: 0.3, ease: 'easeInOut' }}
 			className={cn(
-				'bg-card sticky top-16 z-30 mx-1 mt-11 hidden h-max w-full rounded-sm border p-2 md:col-span-1 md:block',
+				'bg-card sticky top-16 z-30 mx-1.5 mt-11 hidden h-max w-full rounded-sm p-2 md:col-span-1 md:block',
 			)}
 			onMouseEnter={() => setHovered(true)}
 			onMouseLeave={() => setHovered(false)}

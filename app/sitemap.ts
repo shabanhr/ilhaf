@@ -5,6 +5,8 @@ import { db } from '@/db';
 import { lyrics } from '@/db/schema';
 import { desc, eq } from 'drizzle-orm';
 
+export const dynamic = 'force-dynamic';
+
 async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const date = new Date().toISOString();
 	const mainRoutes = ['', 'contact', 'policy', 'about', 'auth'];

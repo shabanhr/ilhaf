@@ -3,6 +3,9 @@ import { getLyricsData } from '@/lib/actions/lyrics';
 import { LyricsCard, LyricsCardSkeleton } from '../lyrics-card';
 import SectionTitle from '../sheard/section-title';
 
+export const dynamic = 'force-dynamic';
+
+
 export function RecentLyrics() {
 	return (
 		<div className="w-full">

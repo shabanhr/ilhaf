@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import ReactPlayer from 'react-player/youtube';
 import { PlayIcon } from 'lucide-react';
@@ -11,7 +11,17 @@ import { useLyricsStore } from '../_lib/use-lyrics-store';
 export function VideoPlayer({ thumbnail }: { thumbnail: string }) {
 	const lyricsData = useLyricsStore((state) => state.data);
 	const [isPlaying, setIsPlaying] = useToggle('is-playing');
-	const [isPlayerVisible, setIsPlayerVisible] = useState(false);
+	const [isPlayerVisible, setIsPlayerVisible] = React.useState(false);
+
+	React.useEffect(() => {
+		setIsPlaying(false);
+	}, [lyricsData]);
+
+	React.useEffect(() => {
+		if (isPlaying) {
+			setIsPlayerVisible(true);
+		}
+	}, [isPlaying]);
 
 	if (!lyricsData) return <div className="hidden" />;
 	const videoId = lyricsData.video;
@@ -20,13 +30,7 @@ export function VideoPlayer({ thumbnail }: { thumbnail: string }) {
 	return (
 		<AspectRatio ratio={16 / 9} className="relative size-full border-b px-2 md:px-0">
 			{!isPlayerVisible ? (
-				<div
-					className="relative size-full cursor-pointer overflow-hidden"
-					onClick={() => {
-						setIsPlayerVisible(true);
-						setIsPlaying(true);
-					}}
-				>
+				<div className="relative size-full cursor-pointer overflow-hidden" onClick={() => setIsPlaying(true)}>
 					<AnimatedImage rounded={false} src={thumbnail} alt={lyricsData.title} className="size-full object-cover" />
 					<div className="absolute inset-0 flex items-center justify-center bg-black/40">
 						<PlayIcon className="size-12 text-white" />
@@ -39,7 +43,6 @@ export function VideoPlayer({ thumbnail }: { thumbnail: string }) {
 					width="100%"
 					height="100%"
 					playing={isPlaying}
-					onReady={() => setIsPlaying(false)}
 					onPlay={() => setIsPlaying(true)}
 					onPause={() => setIsPlaying(false)}
 				/>
