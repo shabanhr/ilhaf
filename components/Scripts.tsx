@@ -1,7 +1,7 @@
-import Script from 'next/script';
 import React from 'react';
+import Script from 'next/script';
 
-const Scripts = () => {
+export function Scripts() {
 	return (
 		<>
 			<Script
@@ -21,6 +21,4 @@ const Scripts = () => {
 			</Script>
 		</>
 	);
-};
-
-export default Scripts;
+}
