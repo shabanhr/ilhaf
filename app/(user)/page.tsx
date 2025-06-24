@@ -5,6 +5,8 @@ import { Features } from '@/components/home/features';
 import { RecentLyrics } from '@/components/home/recent-lyrics';
 import { getLyricsData } from '@/lib/actions/lyrics';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
 	const { data: lyricsList } = await getLyricsData({ page: 1, take: 6 });
 
