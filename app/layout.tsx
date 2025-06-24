@@ -23,7 +23,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 					fontMono.variable,
 				)}
 			>
-				<RootProviders themeProps={{ attribute: 'class', defaultTheme: 'light' }}>{children}</RootProviders>
+				<RootProviders themeProps={{ attribute: 'class', defaultTheme: 'light', disableTransitionOnChange: true }}>
+					{children}
+				</RootProviders>
 			</body>
 		</html>
 	);
