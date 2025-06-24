@@ -1,6 +1,7 @@
 import { Body, Container, Head, Heading, Html, Img, Preview, Section, Tailwind } from '@react-email/components';
 import { Footer } from './footer';
 import { siteName } from '@/config';
+import { siteLink } from '@/config';
 
 interface Props {
 	children: React.ReactNode;
@@ -19,7 +20,7 @@ export function EmailTemplate({ children, preview, heading, showWordmark = true 
 					<Container className="mx-auto my-10 max-w-[500px] rounded border border-solid border-neutral-200 px-10 py-5">
 						{showWordmark && (
 							<Section className="mt-8">
-								<Img src="/logo.png" height="40" alt={siteName} className="mx-auto my-0" />
+								<Img src={`${siteLink}/logo.png`} height="40" alt={siteName} className="mx-auto my-0" />
 							</Section>
 						)}
 						{heading && (

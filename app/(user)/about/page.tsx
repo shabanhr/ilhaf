@@ -1,14 +1,20 @@
-import { Card } from '@/components/ui/card';
-import Image from 'next/image';
 import { getMetadata } from '@/lib/utils/metadata';
 import { BorderSeparator, PageDescription, PageHeading } from '@/components/sheard';
 import React from 'react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { drive } from '@/config';
 
 export const metadata = getMetadata({
 	title: 'About Us',
 	description: 'ilhaf.com was founded on the 1st of May 2024 by Shaban Haider.',
 	url: `/about`,
 });
+
+const members = [
+	{ image: 'shaban.webp', name: 'Shaban Haider', role: 'Founder ' },
+	{ image: 'abdullah.webp', name: 'Ali Abdullah', role: 'Content Writer' },
+	{ image: 'aoun.webp', name: 'Ali Aoun', role: 'Content Writer' },
+];
 
 export default function AboutPage() {
 	return (
@@ -33,23 +39,18 @@ export default function AboutPage() {
 						The dedicated individuals behind the creation and curation of our Islamic lyrics website.
 					</p>
 				</div>
-				<div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-					{[
-						{ name: 'Shaban Haider', role: 'Founder & CEO', image: '/shaban-haider.webp' },
-						{ name: 'Ali Aoun', role: 'Content Writer', image: '/ali-aoun.webp' },
-						{ name: 'Ali Abdullah', role: 'Content Writer', image: '/ali-abdullah.webp' },
-					].map((member, index) => (
-						<Card key={index} className="flex flex-col items-center gap-4 rounded-lg p-6 shadow-lg">
-							<Image
-								src={member.image}
-								width={120}
-								height={120}
-								className="rounded-full"
-								alt={`Team Member ${member.name}`}
-							/>
-							<div className="text-lg font-semibold">{member.name}</div>
-							<div className="text-sm opacity-80">{member.role}</div>
-						</Card>
+				<div className="grid gap-6 sm:grid-cols-2 md:gap-10 lg:grid-cols-3">
+					{members.map((member, index) => (
+						<div key={index} className="grid grid-cols-[auto_1fr] items-center gap-3">
+							<Avatar className="ring-foreground/10 size-10 rounded-(--radius) border border-transparent shadow ring-1">
+								<AvatarImage src={`${drive}/${member.image}`} alt={member.name} />
+								<AvatarFallback className="rounded-(--radius)">{member.name.charAt(0)}</AvatarFallback>
+							</Avatar>
+							<div>
+								<span className="text-foreground font-medium">{member.name}</span>
+								<div className="text-muted-foreground text-sm">{member.role}</div>
+							</div>
+						</div>
 					))}
 				</div>
 			</div>
