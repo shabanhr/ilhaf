@@ -23,7 +23,7 @@ const Links = [
 	},
 	{
 		title: 'Request Lyrics',
-		link: '/request-lyrics',
+		link: '/requests?tab=new-request',
 		icon: PlusIcon,
 	},
 	{
