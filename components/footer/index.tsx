@@ -1,4 +1,4 @@
-import { siteName } from '@/config';
+import { siteDescription, siteName } from '@/config';
 
 import Link from 'next/link';
 import { buttonVariants } from '../ui/button';
@@ -11,7 +11,30 @@ import { Separator } from '../ui/separator';
 export default function Footer() {
 	const year = new Date().getFullYear();
 
+	const accounts = [
+		{
+			title: 'Join Us',
+			link: '/auth',
+		},
+		{
+			title: 'Account',
+			link: '/account',
+		},
+		{
+			title: 'Favorites',
+			link: '/favorites',
+		},
+		{
+			title: 'Requests',
+			link: '/requests',
+		},
+	];
+
 	const pages = [
+		{
+			title: 'About Us',
+			link: '/about',
+		},
 		{
 			title: 'Contact',
 			link: '/contact',
@@ -21,24 +44,11 @@ export default function Footer() {
 			link: '/policy',
 		},
 		{
-			title: 'About Us',
-			link: '/about',
+			title: 'Support Us',
+			link: '/support',
 		},
 	];
-	const accounts = [
-		{
-			title: 'Sign In',
-			link: '/auth',
-		},
-		{
-			title: 'My Account',
-			link: '/account',
-		},
-		{
-			title: 'My Favorites',
-			link: '/favorites',
-		},
-	];
+
 	const socialLinks = [
 		{
 			icon: <FaceBookIcon className="size-4" />,
@@ -69,11 +79,12 @@ export default function Footer() {
 	return (
 		<footer>
 			<Separator />
-			<div className="container bp grid grid-cols-6 gap-6 md:border-x">
-				<div className="col-span-6 flex flex-col gap-6 md:col-span-4">
-					<Link href="/" className="w-max opacity-20">
+			<div className="bp container grid grid-cols-6 gap-6 md:border-x">
+				<div className="col-span-6 flex flex-col gap-5 md:col-span-4">
+					<Link href="/" className="w-max opacity-25">
 						<Logo size="lg" />
 					</Link>
+					<p className="text-muted-foreground font-mono text-sm">{siteDescription}</p>
 					<div className="flex gap-2">
 						{socialLinks.map((item, i) => (
 							<Link
@@ -88,7 +99,7 @@ export default function Footer() {
 					</div>
 				</div>
 				<div className="col-span-3 w-full md:col-span-1">
-					<h3 className="mb-1 text-xs">Account</h3>
+					<span className="text-muted-foreground mb-1 text-xs">Account</span>
 					<div className="flex flex-col gap-1">
 						{accounts.map(({ link, title }, i) => (
 							<FooterLink key={i} link={link} label={title} />
@@ -96,7 +107,7 @@ export default function Footer() {
 					</div>
 				</div>
 				<div className="col-span-3 w-full md:col-span-1">
-					<h3 className="mb-1 text-xs">Pages</h3>
+					<span className="text-muted-foreground mb-1 text-xs">Pages</span>
 					<div className="flex flex-col gap-1">
 						{pages.map(({ link, title }, i) => (
 							<FooterLink key={i} link={link} label={title} />
@@ -105,7 +116,7 @@ export default function Footer() {
 				</div>
 			</div>
 			<Separator />
-			<div className="container bp-x py-4 flex flex-col justify-between gap-2 md:border-x md:flex-row-reverse md:items-center">
+			<div className="bp-x container flex flex-col justify-between gap-2 py-4 md:flex-row-reverse md:items-center md:border-x">
 				<div className="text-muted-foreground flex items-center justify-center gap-x-1 font-thin">
 					Built by
 					<Link target="_blank" href="https://x.com/sshahaider" className="text-foreground hover:underline">

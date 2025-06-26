@@ -64,7 +64,7 @@ export function Hero() {
 					className="flex items-center gap-x-2"
 				>
 					<Button size="lg" asChild>
-						<Link target="_blank" href="https://www.patreon.com/ilhaf">
+						<Link target="_blank" href="/support">
 							<HeartHandshake className="mr-1 size-5" />
 							Support Us
 						</Link>

@@ -28,9 +28,9 @@ export const LyricsCard = ({ data }: Props) => {
 					<LyricsCardBadge className="animate-in fade-in duration-300">{date.getFullYear()}</LyricsCardBadge>
 					{isNew && <LyricsCardBadge>New</LyricsCardBadge>}
 				</div>
-				<h2 className="animate-in fade-in w-full max-w-[320px] truncate text-base font-semibold duration-300 lg:text-lg xl:text-xl">
+				<h3 className="animate-in fade-in w-full max-w-[320px] truncate text-base font-semibold duration-300 lg:text-lg xl:text-xl">
 					{title}
-				</h2>
+				</h3>
 			</div>
 		</Link>
 	);

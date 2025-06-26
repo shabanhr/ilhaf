@@ -3,9 +3,6 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { CheckIcon } from 'lucide-react';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
-import { format } from 'date-fns';
-import { CalendarIcon } from 'lucide-react';
-import { Calendar } from '@/components/ui/calendar';
 import { MultiSelect } from './multi-select';
 import { SmartPop, SmartPopTrigger, SmartPopContent } from '@/components/ui/smart-pop';
 import { CaretSortIcon } from '@radix-ui/react-icons';
@@ -14,6 +11,7 @@ import { UseFormReturn } from 'react-hook-form';
 import { Textarea } from '@/components/ui/textarea';
 import { LyricsTypes } from '@/config/data';
 import { LyricsWithData } from '@/types';
+import { DatetimePicker } from '@/components/ui/datetime-picker';
 
 interface Props {
 	form: UseFormReturn<any>;
@@ -24,7 +22,6 @@ interface Props {
 const LyricsInputs = ({ form, IsDisabled, lyric }: Props) => {
 	const { setValue, watch } = form;
 	const [triggerState, setTriggerState] = useState<boolean>(false);
-	const [dateTrigger, setDateTrigger] = useState<boolean>(false);
 	const title = watch('title') || '';
 	return (
 		<div className="grid gap-8 md:grid-cols-2">
@@ -85,28 +82,12 @@ const LyricsInputs = ({ form, IsDisabled, lyric }: Props) => {
 					<FormItem className="flex w-full flex-col">
 						<FormLabel>Date Of Publish</FormLabel>
 						<FormControl>
-							<SmartPop open={dateTrigger} onOpenChange={setDateTrigger}>
-								<SmartPopTrigger>
-									<Button
-										disabled={IsDisabled}
-										variant="outline"
-										className={cn('w-full pl-3 text-left font-normal', !field.value && 'text-muted-foreground')}
-									>
-										{field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
-										<CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-									</Button>
-								</SmartPopTrigger>
-								<SmartPopContent>
-									<Calendar
-										mode="single"
-										captionLayout="dropdown"
-										startMonth={new Date(1990, 0)}
-										endMonth={new Date()}
-										selected={new Date(field.value as Date)}
-										onSelect={field.onChange}
-									/>
-								</SmartPopContent>
-							</SmartPop>
+							<DatetimePicker
+								value={field.value}
+								onChange={field.onChange}
+								format={[['months', 'days', 'years'], []]}
+								className="w-full"
+							/>
 						</FormControl>
 						<FormMessage />
 					</FormItem>
@@ -130,7 +111,8 @@ const LyricsInputs = ({ form, IsDisabled, lyric }: Props) => {
 										'reciters',
 										value.map((v) => v.id),
 									);
-									const slug = reciterSlugs.length > 0 ? `${reciterSlugs}-${slugify(title.trim())}` : slugify(title.trim());
+									const slug =
+										reciterSlugs.length > 0 ? `${reciterSlugs}-${slugify(title.trim())}` : slugify(title.trim());
 									setValue('slug', slug);
 								}}
 								placeholder="Select Reciters"
@@ -218,7 +200,7 @@ const LyricsInputs = ({ form, IsDisabled, lyric }: Props) => {
 						<FormLabel>Urdu Lyrics</FormLabel>
 						<FormControl>
 							<Textarea
-							dir="rtl"
+								dir="rtl"
 								disabled={IsDisabled}
 								className="max-h-screen min-h-[70vh]"
 								placeholder="Enter urdu lyrics"

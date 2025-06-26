@@ -4,6 +4,7 @@ import { userFavorite } from './favorite';
 import { reciter } from './reciter';
 import { writer } from './writer';
 import { topic } from './topic';
+import { user } from './auth';
 
 export const lyrics = pgTable('lyrics', {
 	id: text('id')
@@ -106,3 +107,39 @@ export const lyricsToTopicRelations = relations(lyricsToTopic, ({ one }) => ({
 }));
 
 export type LyricsToTopic = InferSelectModel<typeof lyricsToTopic>;
+
+export const lyricsRequest = pgTable('lyrics_request', {
+	id: text('id')
+		.primaryKey()
+		.$defaultFn(() => crypto.randomUUID()),
+	title: text('title').notNull(),
+	type: text('type'),
+	reciters: text('reciters'),
+	writers: text('writers'),
+	english: text('english'),
+	urdu: text('urdu'),
+	video: text('video').notNull(),
+	status: text('status').default('pending').notNull(),
+	lyricsSlug: text('lyrics_slug'),
+	dop: timestamp('dop')
+		.$defaultFn(() => new Date())
+		.notNull(),
+	createdAt: timestamp('created_at')
+		.$defaultFn(() => new Date())
+		.notNull(),
+	updatedAt: timestamp('updated_at')
+		.$defaultFn(() => new Date())
+		.notNull(),
+	userId: text('user_id')
+		.notNull()
+		.references(() => user.id, { onDelete: 'cascade' }),
+});
+
+export const lyricsRequestRelations = relations(lyricsRequest, ({ one }) => ({
+	user: one(user, {
+		fields: [lyricsRequest.userId],
+		references: [user.id],
+	}),
+}));
+
+export type LyricsRequest = InferSelectModel<typeof lyricsRequest>;

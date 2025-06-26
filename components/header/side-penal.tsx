@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import LinkItem from './link-item';
-import { HomeIcon, LogIn, MessageCircleWarning, UserIcon } from 'lucide-react';
+import { LinkItem } from './link-item';
+import { HomeIcon, LogIn, MessageCircleWarning, PlusIcon, UserIcon, HeartHandshake } from 'lucide-react';
 import { FavoriteBeforeIcon, LyricsIcon } from '../icons';
 import { MenuIcon } from '../icons';
-import { Sheet, SheetContent, SheetHeader, SheetTrigger, SheetClose } from '../ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTrigger, SheetClose, SheetFooter } from '../ui/sheet';
 import Logo from '../Logo';
 import { Button } from '../ui/button';
 import { authClient } from '@/lib/auth-client';
@@ -22,18 +22,28 @@ const Links = [
 		icon: LyricsIcon,
 	},
 	{
-		title: 'My Account',
+		title: 'Request Lyrics',
+		link: '/request-lyrics',
+		icon: PlusIcon,
+	},
+	{
+		title: 'Support',
+		link: '/support',
+		icon: HeartHandshake,
+	},
+	{
+		title: 'Account',
 		link: '/account',
 		icon: UserIcon,
 	},
 	{
-		title: 'My Favorites',
+		title: 'Favorites',
 		link: '/favorites',
 		icon: FavoriteBeforeIcon,
 	},
 	{
-		title: 'My Reports',
-		link: '/reports',
+		title: 'Requests',
+		link: '/requests',
 		icon: MessageCircleWarning,
 	},
 ];
@@ -44,39 +54,36 @@ const SidePenal = () => {
 	return (
 		<Sheet>
 			<SheetTrigger asChild>
-				<Button variant="ghost" size="icon" className="md:hidden">
-					<MenuIcon className="size-5" />
+				<Button variant="outline" size="icon" className="md:hidden">
+					<MenuIcon />
 				</Button>
 			</SheetTrigger>
-			<SheetContent className="flex max-w-[60%] flex-col sm:max-w-sm" side="left">
+			<SheetContent className="flex h-full max-w-[60%] flex-col items-start justify-between sm:max-w-sm" side="left">
 				<SheetHeader>
 					<Logo size="sm" />
 				</SheetHeader>
-				<div className="flex h-full flex-col items-center justify-between p-2">
-					<div className="mt-5 flex h-max w-full flex-col items-center gap-x-2">
-						{Links.map((item, i) => (
-							<SheetClose key={i} asChild>
-								<LinkItem item={item} />
-							</SheetClose>
-						))}
-					</div>
-
-					<div className="flex w-full justify-center">
-						{user ? (
-							<Button className="w-full" variant="outline" onClick={() => authClient.signOut()}>
-								Sign Out
-							</Button>
-						) : (
-							<LinkItem
-								item={{
-									title: 'Join Now!',
-									link: '/auth',
-									icon: LogIn,
-								}}
-							/>
-						)}
-					</div>
+				<div className="w-full space-y-1 p-4">
+					{Links.map((item, i) => (
+						<SheetClose key={i} asChild>
+							<LinkItem item={item} />
+						</SheetClose>
+					))}
 				</div>
+				<SheetFooter className="flex w-full justify-center">
+					{user ? (
+						<Button className="w-full" variant="outline" onClick={() => authClient.signOut()}>
+							Sign Out
+						</Button>
+					) : (
+						<LinkItem
+							item={{
+								title: 'Join Us',
+								link: '/auth',
+								icon: LogIn,
+							}}
+						/>
+					)}
+				</SheetFooter>
 			</SheetContent>
 		</Sheet>
 	);

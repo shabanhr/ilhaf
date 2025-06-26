@@ -1,9 +1,9 @@
 import React from 'react'
 
-const NoResults = () => {
+const NoResults = ({ message }: { message?: string }) => {
     return (
         <div className='flex items-center justify-center min-w-full min-h-[200px]' >
-            No Results Found!
+            {message || 'No Results Found!'}
         </div>
     )
 }

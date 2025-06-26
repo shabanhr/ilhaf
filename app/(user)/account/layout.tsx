@@ -7,7 +7,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 	return (
 		<div className="min-h-screen">
 			<div className="flex items-center justify-center bp">
-				<PageHeading>My Account</PageHeading>
+				<PageHeading>Account</PageHeading>
 			</div>
 			<BorderSeparator />
 			<div className="flex w-full flex-col bp items-center">{children}</div>

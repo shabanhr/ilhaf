@@ -13,7 +13,7 @@ import Link from 'next/link';
 import { getErrorMessage } from '@/lib/utils/error';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
-import { getTimeAgo } from '@/lib/utils/date';
+import { timeAgo } from '@/lib/utils/date';
 import { capitalize, truncate } from '@/lib/utils';
 import DeleteComp from '@/components/DeleteComp';
 import { toast } from 'sonner';
@@ -122,12 +122,12 @@ export function getLyricsTableColumns(mutate: () => void): ColumnDef<LyricsInTab
 		{
 			accessorKey: 'updatedAt',
 			header: ({ column }) => <DataTableColumnHeader column={column} title="Updated At" />,
-			cell: ({ row }) => <div className="">{getTimeAgo(row.getValue('updatedAt'))}</div>,
+			cell: ({ row }) => <div className="">{timeAgo(row.getValue('updatedAt'), { withAgo: true })}</div>,
 		},
 		{
 			accessorKey: 'dop',
 			header: ({ column }) => <DataTableColumnHeader column={column} title="Created At" />,
-			cell: ({ row }) => <div className="pl-2">{getTimeAgo(row.getValue('dop'))}</div>,
+			cell: ({ row }) => <div className="pl-2">{timeAgo(row.getValue('dop'), { withAgo: true })}</div>,
 		},
 		{
 			id: 'actions',

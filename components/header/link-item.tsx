@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import { IconType } from '@/types';
-import { LyricsIcon } from '../icons';
 
 interface Item {
 	title: string;
@@ -14,27 +13,21 @@ interface Item {
 }
 
 interface Props {
-	item?: Item;
+	item: Item;
 	className?: string;
 	isExternal?: boolean;
 }
 
-const lyricsItem = {
-	title: 'Lyrics',
-	link: '/lyrics',
-	icon: LyricsIcon,
-};
-
-const LinkItem: React.FC<Props> = ({ item = lyricsItem, className, isExternal }) => {
+export function LinkItem({ item, className, isExternal }: Props) {
 	const pathname = usePathname();
 	const isHome = item.title === 'Home';
-	const isActive = isHome ? pathname === '/' : pathname.startsWith(item.link);
+	const isActive = isHome ? pathname === '/' : pathname === item.link;
 
 	return (
 		<Link
 			href={item.link}
 			className={cn(
-				'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 flex w-full items-center justify-start gap-x-2 rounded-md p-2 text-sm duration-200 md:justify-center',
+				'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 flex text-nowrap w-full items-center justify-start gap-x-2 rounded-md p-2 text-sm duration-200 md:justify-center',
 				isActive && 'bg-accent',
 				className,
 			)}
@@ -43,6 +36,4 @@ const LinkItem: React.FC<Props> = ({ item = lyricsItem, className, isExternal })
 			<item.icon className="size-4" /> {item.title}
 		</Link>
 	);
-};
-
-export default LinkItem;
+}

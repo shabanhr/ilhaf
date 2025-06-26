@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { ThemeProvider as NextThemesProvider, ThemeProviderProps } from 'next-themes';
 import { Toaster } from './ui/sonner';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 export interface ProvidersProps {
 	children: React.ReactNode;
@@ -12,7 +13,7 @@ export interface ProvidersProps {
 export function RootProviders({ children, themeProps }: ProvidersProps) {
 	return (
 		<NextThemesProvider {...themeProps}>
-			{children}
+			<NuqsAdapter>{children}</NuqsAdapter>
 			<Toaster position="bottom-left" />
 		</NextThemesProvider>
 	);

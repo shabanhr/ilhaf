@@ -7,6 +7,7 @@ import { render } from '@react-email/render';
 import { createTransport } from 'nodemailer';
 import { getErrorMessage } from '../utils/error';
 import { OtpVerificationTemplate } from './tamplates/otp-verification';
+import { LyricsRequestTemplate } from './tamplates/lyrics-request';
 
 const transport = createTransport({
 	host: process.env.EMAIL_SERVER_HOST,
@@ -39,7 +40,24 @@ export async function sendVerificationOTPAction({ email, otp }: { email: string;
 	}
 }
 
+export async function sendLyricsRequestEmail({ email }: { email: string }) {
+	try {
+		if (!email) {
+			throw new Error('Email is required');
+		}
 
+		await transport.sendMail({
+			subject: `We have received your request to add lyrics!`,
+			to: email,
+			from: Emailfrom,
+			text: `Thank you for your request to add lyrics to ${siteName}. We have received your request and will get back to you as soon as possible.`,
+			html: await render(<LyricsRequestTemplate />),
+		});
+	} catch (error) {
+		console.error(`Failed to send OTP email to ${email}:`, error);
+		throw new Error(getErrorMessage(error));
+	}
+}
 
 export async function sendContactEmail(data: ContactTypes) {
 	const { name, email, topic, message } = data;

@@ -2,7 +2,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getInitialChar } from '@/lib/utils';
-import { getTimeAgo } from '@/lib/utils/date';
+import { timeAgo } from '@/lib/utils/date';
 import { toast } from 'sonner';
 import { UsersInTable } from '../_lib/types';
 import { deleteUserById } from '../_lib/actions';
@@ -79,7 +79,7 @@ export function getUsersTableColumns(mutate: () => void): ColumnDef<UsersInTable
 		{
 			accessorKey: 'createdAt',
 			header: 'Joined On',
-			cell: ({ row }) => <div className="">{getTimeAgo(row.getValue('createdAt'))}</div>,
+			cell: ({ row }) => <div className="">{timeAgo(row.getValue('createdAt'))}</div>,
 		},
 		{
 			id: 'actions',

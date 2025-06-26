@@ -11,7 +11,7 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Link from 'next/link';
-import { LayoutDashboardIcon, UserIcon } from 'lucide-react';
+import { LayoutDashboardIcon, MessageCircleWarning, UserIcon } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { getAvatarUrl, getInitialChar } from '@/lib/utils';
 import { FavoriteBeforeIcon } from '../icons';
@@ -41,7 +41,7 @@ const UserSession = () => {
 			{user?.email ? (
 				<DropdownMenu>
 					<DropdownMenuTrigger>
-						<Avatar>
+						<Avatar className="rounded-md border">
 							<AvatarImage src={getAvatarUrl(user.image, user.id)} />
 							<AvatarFallback>{getInitialChar(user.name)}</AvatarFallback>
 						</Avatar>
@@ -71,14 +71,20 @@ const UserSession = () => {
 							<DropdownMenuItem asChild>
 								<Link href={`/account`} className="w-full cursor-pointer">
 									<UserIcon />
-									My Account
+									Account
 								</Link>
 							</DropdownMenuItem>
 
 							<DropdownMenuItem asChild>
 								<Link href={`/favorites`} className="w-full cursor-pointer">
 									<FavoriteBeforeIcon />
-									My Favorites
+									Favorites
+								</Link>
+							</DropdownMenuItem>
+							<DropdownMenuItem asChild>
+								<Link href={`/requests`} className="w-full cursor-pointer">
+									<MessageCircleWarning />
+									Requests
 								</Link>
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
@@ -91,8 +97,8 @@ const UserSession = () => {
 					</DropdownMenuContent>
 				</DropdownMenu>
 			) : (
-				<Button onClick={() => setAuthOpen(true)} variant="ghost">
-					Join Now!
+				<Button onClick={() => setAuthOpen(true)} variant="outline">
+					Join Us
 				</Button>
 			)}
 		</div>

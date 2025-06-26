@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
-import { capitalize, cn, getLyricsURL, isMacOs } from '@/lib/utils';
+import { capitalize, cn, getLyricsURL } from '@/lib/utils';
 import { useDebounce } from '@/hooks/use-debounce';
 import { Button } from '@/components/ui/button';
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@/components/ui/command';
@@ -11,7 +11,6 @@ import { Modal, ModalTrigger, ModalContent } from '@/components/ui/modal';
 import { Skeleton } from '@/components/ui/skeleton';
 import { SearchIcon } from 'lucide-react';
 import { getLyricsData } from '@/lib/actions/lyrics';
-import { Kbd } from '../kbd';
 import useSWR from 'swr';
 import { LyricsCardBadge, LyricsCardBadgeSkeleton } from '../lyrics-card';
 
@@ -51,20 +50,9 @@ export function SearchCombobox() {
 	return (
 		<Modal open={open} onOpenChange={setOpen}>
 			<ModalTrigger asChild>
-				<Button
-					variant="ghost"
-					className="relative size-9 p-0 lg:h-9 lg:w-60 lg:justify-start lg:border lg:p-2"
-					onClick={() => setOpen(true)}
-				>
-					<SearchIcon className="size-5 lg:mr-1" aria-hidden="true" />
-					<span className="hidden lg:inline-flex">Search lyrics...</span>
+				<Button variant="outline" size="icon" onClick={() => setOpen(true)}>
+					<SearchIcon aria-hidden="true" />
 					<span className="sr-only">Search lyrics</span>
-					<Kbd
-						title={isMacOs() ? 'Command' : 'Control'}
-						className="top-1.8 pointer-events-none absolute right-1.5 hidden lg:block"
-					>
-						{isMacOs() ? '⌘' : 'Ctrl'} K
-					</Kbd>
 				</Button>
 			</ModalTrigger>
 			<ModalContent className="bg-background/90 supports-[backdrop-filter]:bg-background/75 p-0 backdrop-blur-lg">

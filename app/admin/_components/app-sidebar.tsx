@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Book, PlusIcon, SquareTerminal, Users } from 'lucide-react';
+import { Book, PlusIcon, SquareTerminal, Users, FileText } from 'lucide-react';
 import { NavMain } from '@/app/admin/_components/nav-main';
 import { Sidebar, SidebarContent, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
 import { siteName } from '@/config';
@@ -22,6 +22,11 @@ const data = {
 			title: 'Add Lyrics',
 			url: '/admin/add',
 			icon: PlusIcon,
+		},
+		{
+			title: 'Requests',
+			url: '/admin/requests',
+			icon: FileText,
 		},
 		{
 			title: 'Users',

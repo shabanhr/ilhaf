@@ -1,11 +1,11 @@
 import Logo from '../Logo';
 import Link from 'next/link';
 import SidePenal from './side-penal';
-import { ThemeToggle } from '../theme-switch';
-import LinkItem from './link-item';
 import UserSession from './user-session';
 import { SearchCombobox } from './search-box';
 import { cn } from '@/lib/utils';
+import { ThemeToggle } from './theme-toggle';
+import { DesktopNav } from './desktop-nav';
 
 export default function Header() {
 	return (
@@ -16,12 +16,12 @@ export default function Header() {
 				'border-b',
 			)}
 		>
-			<nav className={cn('container bp-x h-14', 'flex items-center justify-between', 'lg:border-x')}>
+			<nav className={cn('bp-x container h-14', 'flex items-center justify-between', 'lg:border-x')}>
 				<Link href="/" className="flex items-center">
 					<Logo size="sm" />
 				</Link>
 				<div className="flex items-center gap-x-2">
-					<LinkItem className="hidden md:flex" />
+					<DesktopNav />
 					<ThemeToggle />
 					<SearchCombobox />
 					<UserSession />
