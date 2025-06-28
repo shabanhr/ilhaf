@@ -5,6 +5,7 @@
 	"scripts": {
 		"dev": "next dev --turbopack",
 		"build": "next build",
+		"postbuild": "node scripts/gen-ads-txt.js",
 		"start": "next start -p 3001",
 		"db:studio": "drizzle-kit studio",
 		"db:push": "drizzle-kit push",

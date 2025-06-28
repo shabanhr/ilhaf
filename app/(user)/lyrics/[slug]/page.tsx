@@ -1,11 +1,9 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
-
 import { publisher, siteLink, siteName } from '@/config';
 import { arrayToString, convertLyricsArr } from '@/lib/utils/lyrics';
 import { capitalize, getImageURL, getLyricsURL } from '@/lib/utils';
-
 import { PromotionCard } from './_components/promotion-card';
 import { LyricsContent } from './_components/lyrics-content';
 import { getLyricsData } from './_lib/queries';
@@ -15,6 +13,7 @@ import { TabTriggers, EnglishTabContent, UrduTabContent } from './_components/ta
 import { BorderSeparator, PageHeading } from '@/components/sheard';
 import { SimilarLyrics } from './_components/similar-lyrics';
 import { getMetadata } from '@/lib/utils/metadata';
+import { TopAds } from './_components/ads';
 
 interface Params {
 	params: Promise<{ slug: string }>;
@@ -87,13 +86,16 @@ export default async function SlugPage({ params }: Params) {
 	};
 
 	return (
-		<>	
+		<>
 			<Script id="lyrics" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-			{/* Header Section */}
+			<TopAds />
+
+			<BorderSeparator />
+
 			<div className="grid grid-cols-1 md:grid-cols-[.60fr_.40fr] lg:grid-cols-[.62fr_.38fr]">
 				<div className="flex w-full items-center border-b p-4 md:border-r md:border-b-0">
-					<PageHeading className="w-full text-center xl:text-start">{title}</PageHeading>
+					<PageHeading className="w-full">{title}</PageHeading>
 				</div>
 				<div className="grid w-full grid-cols-2 place-items-center gap-2 p-4">
 					<div className="w-full">
@@ -109,7 +111,6 @@ export default async function SlugPage({ params }: Params) {
 
 			<BorderSeparator className="z-30" />
 
-			{/* Content Section */}
 			<div className="grid grid-cols-1 md:grid-cols-[.60fr_.40fr] lg:grid-cols-[.62fr_.38fr]">
 				<Interactions lyricsData={data}>
 					<TabTriggers hasContent={hasContent} />
