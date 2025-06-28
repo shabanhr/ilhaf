@@ -4,7 +4,6 @@ import Script from 'next/script';
 import { publisher, siteLink, siteName } from '@/config';
 import { arrayToString, convertLyricsArr } from '@/lib/utils/lyrics';
 import { capitalize, getImageURL, getLyricsURL } from '@/lib/utils';
-import { PromotionCard } from './_components/promotion-card';
 import { LyricsContent } from './_components/lyrics-content';
 import { getLyricsData } from './_lib/queries';
 import Interactions from './_components/Interactions';
@@ -13,7 +12,7 @@ import { TabTriggers, EnglishTabContent, UrduTabContent } from './_components/ta
 import { BorderSeparator, PageHeading } from '@/components/sheard';
 import { SimilarLyrics } from './_components/similar-lyrics';
 import { getMetadata } from '@/lib/utils/metadata';
-import { TopAds } from './_components/ads';
+import { SquareAd, ResponsiveAd } from '@/components/sheard/ads';
 
 interface Params {
 	params: Promise<{ slug: string }>;
@@ -89,7 +88,7 @@ export default async function SlugPage({ params }: Params) {
 		<>
 			<Script id="lyrics" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-			<TopAds />
+			<ResponsiveAd />
 
 			<BorderSeparator />
 
@@ -125,7 +124,7 @@ export default async function SlugPage({ params }: Params) {
 				<div className="w-full">
 					<div className="md:sticky md:top-16">
 						<VideoPlayer thumbnail={image} />
-						<PromotionCard />
+						<SquareAd />
 					</div>
 				</div>
 			</div>

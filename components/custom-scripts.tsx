@@ -18,14 +18,14 @@ export function CustomScripts() {
 				  page_path: window.location.pathname,
 				});
 				`}
-				<Script
-					async={true}
-					id="next-google-adsense"
-					src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`}
-					strategy="afterInteractive"
-					crossOrigin="anonymous"
-				/>
 			</Script>
+			<Script
+				async={true}
+				id="google-adsense"
+				src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`}
+				strategy="afterInteractive"
+				crossOrigin="anonymous"
+			/>
 		</>
 	);
 }
