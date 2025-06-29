@@ -35,7 +35,7 @@ export function VideoPlayer({ thumbnail }: { thumbnail: string }) {
 						<AnimatedImage
 							rounded={false}
 							src={thumbnail}
-							alt={`${lyricsData.title} Lyrics Video`}
+							alt={`${lyricsData.title} Lyrics`}
 							className="size-full object-cover"
 						/>
 						<div className="absolute inset-0 flex items-center justify-center bg-black/40 duration-200 hover:bg-black/60 active:bg-black/80">

@@ -81,6 +81,7 @@ export function UrduTabContent({ children, className, ...props }: React.Componen
 
 	return (
 		<div
+			dir="rtl"
 			className={cn(
 				'animate-in fade-in hidden p-2 text-center duration-300',
 				{
