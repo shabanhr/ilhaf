@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
-import { capitalize, cn, getLyricsURL } from '@/lib/utils';
+import { capitalize, cn, getImageURL, getLyricsURL } from '@/lib/utils';
 import { useDebounce } from '@/hooks/use-debounce';
 import { Button } from '@/components/ui/button';
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@/components/ui/command';
@@ -13,6 +13,7 @@ import { SearchIcon } from 'lucide-react';
 import { getLyricsData } from '@/lib/actions/lyrics';
 import useSWR from 'swr';
 import { LyricsCardBadge, LyricsCardBadgeSkeleton } from '../lyrics-card';
+import { AnimatedImage } from '../lyrics-card/animated-image';
 
 export function SearchCombobox() {
 	const router = useRouter();
@@ -55,13 +56,8 @@ export function SearchCombobox() {
 					<span className="sr-only">Search lyrics</span>
 				</Button>
 			</ModalTrigger>
-			<ModalContent className="bg-background/90 supports-[backdrop-filter]:bg-background/75 p-0 backdrop-blur-lg">
-				<Command
-					className="bg-transparent"
-					filter={() => {
-						return 1;
-					}}
-				>
+			<ModalContent className="bg-background/90 supports-[backdrop-filter]:bg-background/75 p-0 backdrop-blur-sm">
+				<Command className="bg-transparent" filter={() => 1}>
 					<div data-slot="command-input-wrapper" className="flex h-12 items-center gap-2 border-b px-3">
 						<SearchIcon className="size-4 shrink-0 opacity-50" />
 						<CommandInput
@@ -74,43 +70,46 @@ export function SearchCombobox() {
 							onValueChange={setQuery}
 						/>
 					</div>
-					<CommandList className="px-2 md:px-0">
-						<CommandEmpty className={cn(isLoading ? 'hidden' : 'py-6 text-center text-sm')}>
+					<CommandList className="min-h-[320px] max-h-[320px] px-2 md:px-0">
+						<CommandEmpty className={cn(isLoading ? 'hidden' : 'py-12 text-center text-sm')}>
 							No lyrics found.
 						</CommandEmpty>
 						{isLoading ? (
 							<div className="overflow-hidden px-1 py-2">
-								<Skeleton className="h-4 w-10 rounded" />
-								<div className="flex h-7 items-center justify-between">
-									<Skeleton className="h-6 w-1/2 rounded-sm" />
-									<div className="flex items-center gap-1">
-										<LyricsCardBadgeSkeleton />
-										<LyricsCardBadgeSkeleton />
+								{Array.from({ length: 5 }).map((_, i) => (
+									<div key={i} className="grid grid-cols-[.25fr_.75fr] items-center gap-2 px-2 py-1.5">
+										<Skeleton className="aspect-video size-full" />
+										<div className="flex flex-col gap-1">
+											<Skeleton className="h-[1.5rem] w-2/3 md:h-[1.5556rem]" />
+											<div className="flex items-center gap-1">
+												<LyricsCardBadgeSkeleton />
+												<LyricsCardBadgeSkeleton />
+											</div>
+										</div>
 									</div>
-								</div>
-								<div className="flex h-7 items-center justify-between">
-									<Skeleton className="h-6 w-1/2 rounded-sm" />
-									<div className="flex items-center gap-1">
-										<LyricsCardBadgeSkeleton />
-										<LyricsCardBadgeSkeleton />
-									</div>
-								</div>
+								))}
 							</div>
 						) : (
 							data && (
-								<CommandGroup heading="Search results">
+								<CommandGroup>
 									{data?.data.map((item, i) => {
 										return (
 											<CommandItem
 												key={i}
-												className="flex justify-between gap-1"
+												className="grid cursor-pointer grid-cols-[.25fr_.75fr]"
 												value={item.title}
 												onSelect={() => onSelect(() => router.push(getLyricsURL(item.slug)))}
 											>
-												<span className="truncate">{item.title}</span>
-												<div className="flex items-center gap-1">
-													<LyricsCardBadge>{capitalize(item.type)}</LyricsCardBadge>
-													<LyricsCardBadge>{item.dop.getFullYear()}</LyricsCardBadge>
+												<AnimatedImage
+													src={getImageURL({ slug: item.slug, oldSlug: item.oldSlug })}
+													alt={`${item.title} Lyrics image`}
+												/>
+												<div className="flex flex-col gap-1">
+													<p className="max-w-[250px] truncate text-sm md:text-base">{item.title}</p>
+													<div className="flex items-center gap-1">
+														<LyricsCardBadge>{capitalize(item.type)}</LyricsCardBadge>
+														<LyricsCardBadge>{item.dop.getFullYear()}</LyricsCardBadge>
+													</div>
 												</div>
 											</CommandItem>
 										);
