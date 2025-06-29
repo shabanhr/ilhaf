@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { useMediaQuery } from '@/hooks/use-media-query';
+
 import {
 	Dialog,
 	DialogClose,
@@ -13,6 +14,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from './dialog';
+
 import {
 	Drawer,
 	DrawerClose,
@@ -24,109 +26,71 @@ import {
 	DrawerTrigger,
 } from './drawer';
 
-// Define conditional prop types based on isDesktop
-type ModalProps = React.ComponentProps<typeof Dialog> | React.ComponentProps<typeof Drawer>;
-type ModalTriggerProps = React.ComponentProps<typeof DialogTrigger> | React.ComponentProps<typeof DrawerTrigger>;
-type ModalCloseProps = React.ComponentProps<typeof DialogClose> | React.ComponentProps<typeof DrawerClose>;
-type ModalContentProps = React.ComponentProps<typeof DialogContent> | React.ComponentProps<typeof DrawerContent>;
-type ModalDescriptionProps =
-	| React.ComponentProps<typeof DialogDescription>
-	| React.ComponentProps<typeof DrawerDescription>;
-type ModalHeaderProps = React.ComponentProps<typeof DialogHeader> | React.ComponentProps<typeof DrawerHeader>;
-type ModalTitleProps = React.ComponentProps<typeof DialogTitle> | React.ComponentProps<typeof DrawerTitle>;
-type ModalFooterProps = React.ComponentProps<typeof DialogFooter> | React.ComponentProps<typeof DrawerFooter>;
+const useIsMobile = () => useMediaQuery().isMobile;
 
-const Modal = ({ children, ...props }: ModalProps) => {
-	const { isMobile } = useMediaQuery();
+function Modal(props: React.ComponentProps<typeof Dialog> & React.ComponentProps<typeof Drawer>) {
+	const isMobile = useIsMobile();
 	const Component = isMobile ? Drawer : Dialog;
+	return <Component {...props} />;
+}
 
-	return <Component {...props}>{children}</Component>;
-};
-
-const ModalTrigger = ({ className, children, ...props }: ModalTriggerProps) => {
-	const { isMobile } = useMediaQuery();
+function ModalTrigger(props: React.ComponentProps<typeof DialogTrigger> & React.ComponentProps<typeof DrawerTrigger>) {
+	const isMobile = useIsMobile();
 	const Component = isMobile ? DrawerTrigger : DialogTrigger;
+	return <Component {...props} />;
+}
 
-	return (
-		<Component className={className} {...props}>
-			{children}
-		</Component>
-	);
-};
-
-const ModalClose = ({ className, children, ...props }: ModalCloseProps) => {
-	const { isMobile } = useMediaQuery();
+function ModalClose(props: React.ComponentProps<typeof DialogClose> & React.ComponentProps<typeof DrawerClose>) {
+	const isMobile = useIsMobile();
 	const Component = isMobile ? DrawerClose : DialogClose;
+	return <Component {...props} />;
+}
 
-	return (
-		<Component className={className} {...props}>
-			{children}
-		</Component>
-	);
-};
-
-const ModalContent = ({ className, children, ...props }: ModalContentProps) => {
-	const { isMobile } = useMediaQuery();
+function ModalContent(props: React.ComponentProps<typeof DialogContent> & React.ComponentProps<typeof DrawerContent>) {
+	const isMobile = useIsMobile();
 	const Component = isMobile ? DrawerContent : DialogContent;
+	return <Component {...props} />;
+}
 
-	return (
-		<Component className={className} {...props}>
-			{children}
-		</Component>
-	);
-};
-
-const ModalDescription = ({ className, children, ...props }: ModalDescriptionProps) => {
-	const { isMobile } = useMediaQuery();
+function ModalDescription(
+	props: React.ComponentProps<typeof DialogDescription> & React.ComponentProps<typeof DrawerDescription>,
+) {
+	const isMobile = useIsMobile();
 	const Component = isMobile ? DrawerDescription : DialogDescription;
+	return <Component {...props} />;
+}
 
-	return (
-		<Component className={className} {...props}>
-			{children}
-		</Component>
-	);
-};
-
-const ModalHeader = ({ className, children, ...props }: ModalHeaderProps) => {
-	const { isMobile } = useMediaQuery();
+function ModalHeader({
+	children,
+	...props
+}: React.ComponentProps<typeof DialogHeader> & React.ComponentProps<typeof DrawerHeader>) {
+	const isMobile = useIsMobile();
 	const Component = isMobile ? DrawerHeader : DialogHeader;
+	return <Component {...props}>{children}</Component>;
+}
 
-	return (
-		<Component className={className} {...props}>
-			{children}
-		</Component>
-	);
-};
-
-const ModalTitle = ({ className, children, ...props }: ModalTitleProps) => {
-	const { isMobile } = useMediaQuery();
+function ModalTitle({
+	children,
+	...props
+}: React.ComponentProps<typeof DialogTitle> & React.ComponentProps<typeof DrawerTitle>) {
+	const isMobile = useIsMobile();
 	const Component = isMobile ? DrawerTitle : DialogTitle;
+	return <Component {...props}>{children}</Component>;
+}
 
-	return (
-		<Component className={className} {...props}>
-			{children}
-		</Component>
-	);
-};
-
-const ModalBody = ({ className, children, ...props }: React.ComponentProps<'div'>) => {
+function ModalBody({ className, children, ...props }: React.ComponentProps<'div'>) {
 	return (
 		<div className={cn('px-4 md:px-0', className)} {...props}>
 			{children}
 		</div>
 	);
-};
+}
 
-const ModalFooter = ({ className, children, ...props }: ModalFooterProps) => {
-	const { isMobile } = useMediaQuery();
+function ModalFooter(props: React.ComponentProps<typeof DialogFooter> & React.ComponentProps<typeof DrawerFooter>) {
+	const isMobile = useIsMobile();
 	const Component = isMobile ? DrawerFooter : DialogFooter;
-
-	return (
-		<Component className={className} {...props}>
-			{children}
-		</Component>
-	);
-};
+	return <Component {...props} />;
+}
 
 export {
 	Modal,

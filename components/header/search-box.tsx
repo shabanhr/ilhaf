@@ -7,7 +7,7 @@ import { useDebounce } from '@/hooks/use-debounce';
 import { Button } from '@/components/ui/button';
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@/components/ui/command';
 import { CommandInput } from 'cmdk';
-import { Modal, ModalTrigger, ModalContent } from '@/components/ui/modal';
+import { Modal, ModalTrigger, ModalContent, ModalTitle } from '@/components/ui/modal';
 import { Skeleton } from '@/components/ui/skeleton';
 import { SearchIcon } from 'lucide-react';
 import { getLyricsData } from '@/lib/actions/lyrics';
@@ -57,6 +57,7 @@ export function SearchCombobox() {
 				</Button>
 			</ModalTrigger>
 			<ModalContent className="bg-background/90 supports-[backdrop-filter]:bg-background/75 p-0 backdrop-blur-sm">
+				<ModalTitle className="sr-only">Search Lyrics</ModalTitle>
 				<Command className="bg-transparent" filter={() => 1}>
 					<div data-slot="command-input-wrapper" className="flex h-12 items-center gap-2 border-b px-3">
 						<SearchIcon className="size-4 shrink-0 opacity-50" />
@@ -70,7 +71,7 @@ export function SearchCombobox() {
 							onValueChange={setQuery}
 						/>
 					</div>
-					<CommandList className="min-h-[320px] max-h-[320px] px-2 md:px-0">
+					<CommandList className="max-h-[320px] min-h-[320px] px-2 md:px-0">
 						<CommandEmpty className={cn(isLoading ? 'hidden' : 'py-12 text-center text-sm')}>
 							No lyrics found.
 						</CommandEmpty>
