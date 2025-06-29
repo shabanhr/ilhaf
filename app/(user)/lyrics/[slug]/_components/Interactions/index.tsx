@@ -8,7 +8,6 @@ import { ShareInteraction } from './share';
 import { FavoriteInteraction } from './favorite';
 import { InteractionFontSize } from './font-size';
 import { InteractionPlayPause } from './play-pause';
-import { useToggle } from '@/hooks/use-toggle';
 import { Lyrics } from '@/db/schema';
 import { useLyricsStore } from './../../_lib/use-lyrics-store';
 
@@ -27,34 +26,14 @@ export default function Interactions({ lyricsData, children }: InteractionsProps
 	const isInView = useInView(containerRef, { margin: '-200px 0px -100px 0px' });
 
 	return (
-		<div className="relative w-full md:grid md:grid-cols-12">
+		<div className="relative w-full flex">
 			<DesktopInteractions />
 			<MobileInteractions isInView={isInView} />
 			{/* Main Content Area */}
-			<div ref={containerRef} className="pb-5 md:col-span-11 md:border-x">
+			<div ref={containerRef} className="w-full pb-5 md:border-x">
 				{children}
 			</div>
 		</div>
-	);
-}
-
-function DesktopInteractions() {
-	const [isHovered, setHovered] = useToggle('is-interaction-hovered');
-	return (
-		<motion.div
-			initial={{ width: 50 }}
-			animate={{
-				width: isHovered ? 220 : 50,
-			}}
-			transition={{ duration: 0.3, ease: 'easeInOut' }}
-			className={cn(
-				'bg-card sticky top-16 z-30 mx-1.5 mt-11 hidden h-max w-full rounded-sm p-2 md:col-span-1 md:block',
-			)}
-			onMouseEnter={() => setHovered(true)}
-			onMouseLeave={() => setHovered(false)}
-		>
-			<InteractionsButtons className="flex-col p-0" />
-		</motion.div>
 	);
 }
 
@@ -76,9 +55,17 @@ function MobileInteractions({ isInView }: { isInView: boolean }) {
 	);
 }
 
+function DesktopInteractions() {
+	return (
+		<div className="hidden p-3 md:block w-max">
+			<InteractionsButtons className="sticky h-max top-16 flex-col p-0" />
+		</div>
+	);
+}
+
 export function InteractionsButtons({ className, ...props }: React.ComponentProps<'div'>) {
 	return (
-		<div className={cn('flex w-full items-center justify-between gap-2 px-5 py-2', className)} {...props}>
+		<div className={cn('flex w-full items-center justify-between gap-3 px-5 py-2', className)} {...props}>
 			<ShareInteraction />
 			<FavoriteInteraction />
 			<InteractionFontSize />

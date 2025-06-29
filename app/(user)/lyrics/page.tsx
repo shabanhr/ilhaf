@@ -13,13 +13,13 @@ export async function generateMetadata(props: Props) {
 	const type = searchParams?.type as string | undefined;
 
 	let meta = {
-		title: `Nohay And Manqabat Lyrics List - Ihaf`,
+		title: `Nohay And Manqabat Lyrics List`,
 		description: `Check Out The Lyrics List Of All Nohay And Manqabats`,
 	};
 	if (type) {
 		const capitalizedType = capitalize(type);
 		meta = {
-			title: `${capitalizedType} Lyrics - Ilhaf`,
+			title: `${capitalizedType} Lyrics`,
 			description: `Check Out The ${capitalizedType} Lyrics List`,
 		};
 	}

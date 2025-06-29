@@ -3,7 +3,6 @@
 import React from 'react';
 import { useToggle } from '@/hooks/use-toggle';
 import { InnerInteractionButton } from './inner-Button';
-import { Button } from '@/components/ui/button';
 import { FavoriteBeforeIcon, FavoritedIcon } from '@/components/icons';
 import { AddToFavorite } from '../../_lib/actions';
 import { isFavorited } from '../../_lib/queries';
@@ -57,19 +56,13 @@ export function FavoriteInteraction() {
 	if (!lyricsId) return null;
 
 	return (
-		<Button
-			variant="ghost"
+		<InnerInteractionButton
+			Icon={favorited ? FavoritedIcon : FavoriteBeforeIcon}
 			onClick={handleFavorite}
 			disabled={isLoading}
-			className={cn(
-				'transition-opacity md:h-8 md:w-full md:justify-start md:p-2',
-				isLoading && 'cursor-not-allowed opacity-50',
-			)}
+			className={cn('transition-opacity', isLoading && 'cursor-not-allowed opacity-50')}
 		>
-			<InnerInteractionButton
-				Icon={favorited ? FavoritedIcon : FavoriteBeforeIcon}
-				text={isLoading ? 'Processing...' : favorited ? 'Remove from Favorites' : 'Add to Favorites'}
-			/>
-		</Button>
+			{isLoading ? 'Processing...' : favorited ? 'Remove from Favorites' : 'Add to Favorites'}
+		</InnerInteractionButton>
 	);
 }

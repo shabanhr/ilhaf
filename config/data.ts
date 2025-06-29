@@ -44,27 +44,26 @@ export const LyricsTypes = [
 export const lyricsFontSizes = [
 	{
 		id: 'xs',
-		english: 'text-[12px] leading-[18px] space-y-4',
-		urdu: 'text-[12px] leading-[18px] space-y-4',
+		classes: 'text-[12px] leading-[18px] space-y-4',
 	},
 	{
 		id: 'sm',
-		english: 'text-[14px] leading-[22px] space-y-5',
-		urdu: 'text-[14px] leading-[22px] space-y-5',
+		classes: 'text-[14px] leading-[22px] space-y-5',
 	},
 	{
 		id: 'md',
-		english: 'text-[16px] leading-[26px] space-y-5',
-		urdu: 'text-[16px] leading-[26px] space-y-5',
+		classes: 'font-medium text-[16px] leading-[26px] space-y-5',
 	},
 	{
 		id: 'lg',
-		english: 'text-[18px] leading-[30px] space-y-6',
-		urdu: 'text-[18px] leading-[30px] space-y-6',
+		classes: 'font-medium text-[18px] leading-[30px] space-y-6',
 	},
 	{
 		id: 'xl',
-		english: 'text-[20px] leading-[34px] space-y-6',
-		urdu: 'text-[20px] leading-[34px] space-y-6',
+		classes: 'font-medium text-[20px] leading-[34px] space-y-7',
+	},
+	{
+		id: '2xl',
+		classes: 'font-semibold text-[22px] leading-[36px] space-y-8',
 	},
 ];

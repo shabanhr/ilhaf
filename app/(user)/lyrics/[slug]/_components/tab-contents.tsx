@@ -18,7 +18,7 @@ export function TabTriggers({ hasContent }: { hasContent: boolean }) {
 	if (!hasContent) return null;
 
 	return (
-		<div className="bg-background/90 supports-[backdrop-filter]:bg-background/75 drop-shadow-background sticky top-14 z-10 flex items-center justify-center border-b py-1 md:border-r drop-shadow-xl backdrop-blur-lg">
+		<div className="bg-background/90 supports-[backdrop-filter]:bg-background/75 sticky top-14 z-10 flex items-center justify-center border-b py-1 backdrop-blur-sm">
 			<div className="flex w-full items-center justify-center gap-2">
 				<button
 					className={cn(
@@ -66,7 +66,7 @@ export function EnglishTabContent({ children, className, ...props }: React.Compo
 
 	return (
 		<div
-			className={cn('animate-in fade-in p-2 duration-300', { hidden: isUrdu }, fontSize?.english, className)}
+			className={cn('animate-in fade-in p-2 duration-300', { hidden: isUrdu }, fontSize?.classes, className)}
 			{...props}
 		>
 			{children}
@@ -86,7 +86,7 @@ export function UrduTabContent({ children, className, ...props }: React.Componen
 				{
 					block: isUrdu,
 				},
-				fontSize?.urdu,
+				fontSize?.classes,
 				className,
 			)}
 			{...props}

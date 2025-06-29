@@ -92,25 +92,25 @@ export default async function SlugPage({ params }: Params) {
 
 			<BorderSeparator />
 
-			<div className="grid grid-cols-1 md:grid-cols-[.60fr_.40fr] lg:grid-cols-[.62fr_.38fr]">
-				<div className="flex w-full items-center border-b p-4 md:border-r md:border-b-0">
-					<PageHeading className="w-full">{title}</PageHeading>
+			<div className="grid grid-cols-1 md:grid-cols-[.62fr_.38fr]">
+				<div className="flex w-full items-center border-b p-3 md:border-r md:border-b-0">
+					<PageHeading className="text-4xl font-extrabold">{title}</PageHeading>
 				</div>
-				<div className="grid w-full grid-cols-2 place-items-center gap-2 p-4">
-					<div className="w-full">
-						<h2 className="text-foreground/80 mb-1 text-xs">{capitalType} Recited By</h2>
-						<p className="font-mono text-sm">{reciterNames}</p>
+				<div className="grid w-full grid-cols-2 place-items-center py-2 px-1 text-xs">
+					<div className="w-full border-r p-2">
+						<h2 className="text-foreground/80 tracking-wide font-light mb-1">{capitalType} Recited By</h2>
+						<p className="font-mono">{reciterNames}</p>
 					</div>
-					<div className="w-full">
-						<h2 className="text-foreground/80 mb-1 text-xs">Written By</h2>
-						<p className="font-mono text-sm">{writerNames}</p>
+					<div className="w-full p-2">
+						<h2 className="text-foreground/80 tracking-wide font-light mb-1">Written By</h2>
+						<p className="font-mono">{writerNames}</p>
 					</div>
 				</div>
 			</div>
 
 			<BorderSeparator className="z-30" />
 
-			<div className="grid grid-cols-1 md:grid-cols-[.60fr_.40fr] lg:grid-cols-[.62fr_.38fr]">
+			<div className="grid grid-cols-1 md:grid-cols-[.62fr_.38fr]">
 				<Interactions lyricsData={data}>
 					<TabTriggers hasContent={hasContent} />
 					<EnglishTabContent>
@@ -122,7 +122,7 @@ export default async function SlugPage({ params }: Params) {
 				</Interactions>
 
 				<div className="w-full">
-					<div className="md:sticky md:top-16">
+					<div className="md:sticky md:top-14">
 						<VideoPlayer thumbnail={image} />
 						<SquareAd />
 					</div>

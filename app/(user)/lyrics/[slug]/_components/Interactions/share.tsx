@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import { Button } from '@/components/ui/button';
 import { siteLink, siteName } from '@/config';
 import { InnerInteractionButton } from './inner-Button';
 import { Share2Icon } from 'lucide-react';
@@ -10,7 +9,7 @@ import { useLyricsStore } from '../../_lib/use-lyrics-store';
 export function ShareInteraction() {
 	const lyricsData = useLyricsStore((state) => state.data);
 
-	if (!lyricsData) return <div className="hidden" />;
+	if (!lyricsData) return null;
 
 	const title = lyricsData.title || 'Unknown Title';
 
@@ -33,8 +32,8 @@ export function ShareInteraction() {
 	};
 
 	return (
-		<Button variant="ghost" onClick={handleShare} className="md:h-8 md:w-full md:justify-start md:p-2">
-			<InnerInteractionButton Icon={Share2Icon} text="Share" />
-		</Button>
+		<InnerInteractionButton Icon={Share2Icon} onClick={handleShare}>
+			Share
+		</InnerInteractionButton>
 	);
 }

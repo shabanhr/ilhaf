@@ -10,7 +10,7 @@ export function LyricsContent({ paragraphs, title, len }: LyricsContentProps) {
 	return (
 		<>
 			{title && (
-				<h2 className="mt-3 mb-1 text-xs text-muted-foreground">
+				<h2 className="my-3 text-xs text-muted-foreground">
 					{`${title} Lyrics${len ? ` in ${len}` : ''}`}
 				</h2>
 			)}

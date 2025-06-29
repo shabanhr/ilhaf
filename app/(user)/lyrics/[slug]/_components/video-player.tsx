@@ -28,25 +28,32 @@ export function VideoPlayer({ thumbnail }: { thumbnail: string }) {
 	if (!videoId || videoId === '') return <div className="hidden" />;
 
 	return (
-		<AspectRatio ratio={16 / 9} className="relative size-full border-b px-2 md:px-0">
-			{!isPlayerVisible ? (
-				<div className="relative size-full cursor-pointer overflow-hidden" onClick={() => setIsPlaying(true)}>
-					<AnimatedImage rounded={false} src={thumbnail} alt={lyricsData.title} className="size-full object-cover" />
-					<div className="absolute inset-0 flex items-center justify-center bg-black/40">
-						<PlayIcon className="size-12 text-white" />
+		<div className="relative border-b p-2 md:p-0">
+			<AspectRatio ratio={16 / 9}>
+				{!isPlayerVisible ? (
+					<div className="relative size-full cursor-pointer overflow-hidden" onClick={() => setIsPlaying(true)}>
+						<AnimatedImage
+							rounded={false}
+							src={thumbnail}
+							alt={`${lyricsData.title} Lyrics Video`}
+							className="size-full object-cover"
+						/>
+						<div className="absolute inset-0 flex items-center justify-center bg-black/40 duration-200 hover:bg-black/60 active:bg-black/80">
+							<PlayIcon className="size-8 text-white" />
+						</div>
 					</div>
-				</div>
-			) : (
-				<ReactPlayer
-					controls
-					url={`https://www.youtube.com/watch?v=${videoId}`}
-					width="100%"
-					height="100%"
-					playing={isPlaying}
-					onPlay={() => setIsPlaying(true)}
-					onPause={() => setIsPlaying(false)}
-				/>
-			)}
-		</AspectRatio>
+				) : (
+					<ReactPlayer
+						controls
+						url={`https://www.youtube.com/watch?v=${videoId}`}
+						width="100%"
+						height="100%"
+						playing={isPlaying}
+						onPlay={() => setIsPlaying(true)}
+						onPause={() => setIsPlaying(false)}
+					/>
+				)}
+			</AspectRatio>
+		</div>
 	);
 }

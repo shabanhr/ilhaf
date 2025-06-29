@@ -1,19 +1,20 @@
 'use client';
 
 import React from 'react';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Slider } from '@/components/ui/slider';
 import { AArrowUpIcon, MinusIcon, PlusIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { InnerInteractionButton } from './inner-Button';
 import { cn } from '@/lib/utils';
 import { useFontSize } from '@/hooks/use-font-size';
 import { lyricsFontSizes } from '@/config/data';
+import { Button } from '@/components/ui/button';
+import { SmartPop, SmartPopContent, SmartPopTrigger, SmartPopBody } from '@/components/ui/smart-pop';
 
 export const InteractionFontSize = () => {
 	const fontSizeId = useFontSize((state) => state.id);
 	const setFontSizeId = useFontSize((state) => state.setFontSize);
 	const fontSizeIndex = lyricsFontSizes.findIndex((size) => size.id === fontSizeId);
+	const [open, setOpen] = React.useState(false);
 
 	const handleFontSizeChange = (value: number[]) => {
 		const index = value[0];
@@ -34,17 +35,15 @@ export const InteractionFontSize = () => {
 	};
 
 	return (
-		<Popover>
-			<PopoverTrigger asChild>
-				<Button variant="ghost" className="md:h-8 md:w-full md:justify-start md:p-2">
-					<InnerInteractionButton Icon={AArrowUpIcon} text="Font Size" />
-				</Button>
-			</PopoverTrigger>
-			<PopoverContent>
-				<div className="flex w-full items-center justify-center gap-x-2">
+		<SmartPop open={open} onOpenChange={setOpen}>
+			<SmartPopTrigger asChild>
+				<InnerInteractionButton Icon={AArrowUpIcon}>Font Size</InnerInteractionButton>
+			</SmartPopTrigger>
+			<SmartPopContent>
+				<SmartPopBody className="flex w-full items-center justify-center gap-x-2 py-12 md:py-5">
 					<Button
 						variant="outline"
-						className="size-9 rounded-full p-2"
+						className="size-10 rounded-full p-2"
 						onClick={decrementFontSize}
 						disabled={fontSizeIndex === 0}
 					>
@@ -68,14 +67,14 @@ export const InteractionFontSize = () => {
 					</div>
 					<Button
 						variant="outline"
-						className="size-9 rounded-full p-2"
+						className="size-10 rounded-full p-2"
 						onClick={incrementFontSize}
 						disabled={fontSizeIndex === lyricsFontSizes.length - 1}
 					>
 						<PlusIcon className="size-5" />
 					</Button>
-				</div>
-			</PopoverContent>
-		</Popover>
+				</SmartPopBody>
+			</SmartPopContent>
+		</SmartPop>
 	);
 };
