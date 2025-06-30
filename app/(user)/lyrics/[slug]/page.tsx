@@ -12,7 +12,7 @@ import { TabTriggers, EnglishTabContent, UrduTabContent } from './_components/ta
 import { BorderSeparator, PageHeading } from '@/components/sheard';
 import { SimilarLyrics } from './_components/similar-lyrics';
 import { getMetadata } from '@/lib/utils/metadata';
-import { SquareAd, ResponsiveAd } from '@/components/sheard/ads';
+import { AdWrapper, AdUnit } from '@/components/sheard/ads';
 
 interface Params {
 	params: Promise<{ slug: string }>;
@@ -88,7 +88,9 @@ export default async function SlugPage({ params }: Params) {
 		<>
 			<Script id="lyrics" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-			<ResponsiveAd />
+			<AdWrapper>
+				<AdUnit slotId="3018789542" format="horizontal" style={{ height: '120px' }} />
+			</AdWrapper>
 
 			<BorderSeparator />
 
@@ -96,13 +98,13 @@ export default async function SlugPage({ params }: Params) {
 				<div className="flex w-full items-center border-b p-3 md:border-r md:border-b-0">
 					<PageHeading className="text-4xl font-extrabold">{title}</PageHeading>
 				</div>
-				<div className="grid w-full grid-cols-2 place-items-center py-2 px-1 text-xs">
+				<div className="grid w-full grid-cols-2 place-items-center px-1 py-2 text-xs">
 					<div className="w-full border-r p-2">
-						<h2 className="text-foreground/80 tracking-wide font-light mb-1">{capitalType} Recited By</h2>
+						<h2 className="text-foreground/80 mb-1 font-light tracking-wide">{capitalType} Recited By</h2>
 						<p className="font-mono">{reciterNames}</p>
 					</div>
 					<div className="w-full p-2">
-						<h2 className="text-foreground/80 tracking-wide font-light mb-1">Written By</h2>
+						<h2 className="text-foreground/80 mb-1 font-light tracking-wide">Written By</h2>
 						<p className="font-mono">{writerNames}</p>
 					</div>
 				</div>
@@ -112,6 +114,9 @@ export default async function SlugPage({ params }: Params) {
 
 			<div className="grid grid-cols-1 md:grid-cols-[.62fr_.38fr]">
 				<Interactions lyricsData={data}>
+					<AdWrapper>
+						<AdUnit slotId="3518983424" format="square" style={{ width: '250px', height: '250px' }} />
+					</AdWrapper>
 					<TabTriggers hasContent={hasContent} />
 					<EnglishTabContent>
 						<LyricsContent paragraphs={english} title={title} />
@@ -124,7 +129,9 @@ export default async function SlugPage({ params }: Params) {
 				<div className="w-full">
 					<div className="md:sticky md:top-14">
 						<VideoPlayer thumbnail={image} />
-						<SquareAd />
+						<AdWrapper>
+							<AdUnit slotId="4907938402" format="fluid" style={{ maxWidth: '350px' }} />
+						</AdWrapper>
 					</div>
 				</div>
 			</div>

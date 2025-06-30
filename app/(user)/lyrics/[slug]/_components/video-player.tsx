@@ -39,7 +39,9 @@ export function VideoPlayer({ thumbnail }: { thumbnail: string }) {
 							className="size-full object-cover"
 						/>
 						<div className="absolute inset-0 flex items-center justify-center bg-black/40 duration-200 hover:bg-black/60 active:bg-black/80">
-							<PlayIcon className="size-8 text-white" />
+							<div className="flex size-10 items-center justify-center rounded-full bg-white">
+								<PlayIcon className="size-5 text-black" />
+							</div>
 						</div>
 					</div>
 				) : (

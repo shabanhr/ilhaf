@@ -6,7 +6,7 @@ import { AspectRatio } from '@/components/ui/aspect-ratio';
 export function LyricsPageSkeleton() {
 	return (
 		<>
-			<div className="my-2 h-[250px] w-full md:h-[90px]" />
+			<div className="my-2 h-[120px] w-full md:h-[90px]" />
 
 			<BorderSeparator />
 
