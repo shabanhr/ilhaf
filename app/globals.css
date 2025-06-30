@@ -156,6 +156,10 @@
 	[role='button']:not(:disabled) {
 		cursor: pointer;
 	}
+
+	ins.adsbygoogle[data-ad-status='unfilled'] {
+		@apply !hidden;
+	}
 }
 
 @layer utilities {

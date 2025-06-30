@@ -18,7 +18,7 @@ function pushAd() {
 	try {
 		((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
 	} catch (error) {
-		console.error(getErrorMessage(error));
+		console.error('Failed to push ad:', getErrorMessage(error));
 	}
 }
 
@@ -47,23 +47,26 @@ export function AdUnit({
 type AdWrapperProps = React.ComponentProps<'div'> & {
 	children: React.ReactNode;
 	device?: 'mobile' | 'desktop' | 'all';
+	uniqeId: string;
 };
 
-export function AdWrapper({ children, className, device = 'all', ...props }: AdWrapperProps) {
+export function AdWrapper({ children, className, device = 'all', uniqeId, ...props }: AdWrapperProps) {
 	const { isMobile } = useMediaQuery();
 	const render = device === 'all' || (device === 'desktop' && !isMobile) || (device === 'mobile' && isMobile);
 
 	React.useEffect(() => {
-		if (!render) return;
-		pushAd();
+		if (render) {
+			pushAd();
+		}
 	}, [render]);
 
 	if (!render) return null;
 
 	return (
 		<div
+			key={uniqeId}
 			className={cn(
-				'bg-[linear-gradient(to_right,--theme(--color-foreground/.1)_1px,transparent_1px),linear-gradient(to_bottom,--theme(--color-foreground/.1)_1px,transparent_1px)]',
+				'bg-[linear-gradient(to_right,--theme(--color-foreground/.1)_1px,transparent_1px)]',
 				'bg-[size:24px_24px]',
 				'flex justify-center py-2',
 				className,
@@ -72,5 +75,23 @@ export function AdWrapper({ children, className, device = 'all', ...props }: AdW
 		>
 			{children}
 		</div>
+	);
+}
+
+export function ResponsiveBanner(props: Omit<AdWrapperProps, 'children'>) {
+	const { isMobile } = useMediaQuery();
+
+	React.useEffect(() => {
+		pushAd();
+	}, []);
+
+	return (
+		<AdWrapper {...props}>
+			{isMobile ? (
+				<AdUnit slotId="3518983424" format="square" style={{ width: '250px', height: '250px' }} />
+			) : (
+				<AdUnit slotId="4828655113" format="horizontal" style={{ width: '728px', height: '90px' }} />
+			)}
+		</AdWrapper>
 	);
 }

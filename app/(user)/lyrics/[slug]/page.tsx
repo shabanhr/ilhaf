@@ -12,7 +12,7 @@ import { TabTriggers, EnglishTabContent, UrduTabContent } from './_components/ta
 import { BorderSeparator, PageHeading } from '@/components/sheard';
 import { SimilarLyrics } from './_components/similar-lyrics';
 import { getMetadata } from '@/lib/utils/metadata';
-import { AdWrapper, AdUnit } from '@/components/sheard/ads';
+import { AdWrapper, AdUnit, ResponsiveBanner } from '@/components/sheard/ads';
 
 interface Params {
 	params: Promise<{ slug: string }>;
@@ -88,13 +88,7 @@ export default async function SlugPage({ params }: Params) {
 		<>
 			<Script id="lyrics" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-			<AdWrapper>
-				<AdUnit
-					slotId="3018789542"
-					format="horizontal"
-					style={{ width: '100%', height: 'auto', maxWidth: '728px', maxHeight: '90px' }}
-				/>
-			</AdWrapper>
+			<ResponsiveBanner uniqeId={`${slug}-banner`} />
 
 			<BorderSeparator />
 
@@ -118,12 +112,8 @@ export default async function SlugPage({ params }: Params) {
 
 			<div className="grid grid-cols-1 md:grid-cols-[.62fr_.38fr]">
 				<Interactions lyricsData={data}>
-					<AdWrapper device="mobile">
-						<AdUnit
-							slotId="3710555110"
-							format="horizontal"
-							style={{ width: '320px', height: '50px' }}
-						/>
+					<AdWrapper device="mobile" uniqeId={`${slug}-before-lyrics`}>
+						<AdUnit slotId="3710555110" format="horizontal" style={{ width: '320px', height: '50px' }} />
 					</AdWrapper>
 					<TabTriggers hasContent={hasContent} />
 					<EnglishTabContent>
@@ -137,7 +127,7 @@ export default async function SlugPage({ params }: Params) {
 				<div className="w-full">
 					<div className="md:sticky md:top-14">
 						<VideoPlayer thumbnail={image} />
-						<AdWrapper>
+						<AdWrapper uniqeId={`${slug}-after-video`}>
 							<AdUnit slotId="3518983424" format="square" style={{ width: '250px', height: '250px' }} />
 						</AdWrapper>
 					</div>

@@ -22,7 +22,7 @@ export function CustomScripts() {
 			<Script
 				async={true}
 				id="google-adsense"
-				src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`}
+				src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}&google_console=1`}
 				strategy="afterInteractive"
 				crossOrigin="anonymous"
 			/>
