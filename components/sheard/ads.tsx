@@ -5,7 +5,7 @@ import { useMediaQuery } from '@/hooks/use-media-query';
 import { getErrorMessage } from '@/lib/utils/error';
 import { cn } from '@/lib/utils';
 
-type AdFormat = 'square' | 'horizontal' | 'vertical' | 'auto' | 'fluid';
+type AdFormat = 'square' | 'horizontal' | 'vertical' | 'auto';
 
 type AdUnitProps = React.ComponentProps<'ins'> & {
 	slotId: string;
@@ -31,40 +31,46 @@ export function AdUnit({
 	style,
 	...props
 }: AdUnitProps) {
-	const layoutProps = format === 'fluid' ? { 'data-ad-layout': 'in-article' } : {};
-
 	return (
 		<ins
 			className={cn('adsbygoogle', className)}
-			style={{ display: 'block', width: '100%', height: 'auto', ...style }}
+			style={{ display: responsive ? 'block' : 'inline-block', ...style }}
 			data-ad-client={adClient}
 			data-ad-slot={slotId}
 			data-ad-format={format}
 			data-full-width-responsive={responsive ? 'true' : 'false'}
-			{...layoutProps}
 			{...props}
 		/>
 	);
 }
 
-export function AdWrapper({ children, className }: { children: React.ReactNode; className?: string }) {
-	React.useEffect(() => {
-		pushAd();
-	}, []);
+type AdWrapperProps = React.ComponentProps<'div'> & {
+	children: React.ReactNode;
+	device?: 'mobile' | 'desktop' | 'all';
+};
 
-	return <div className={cn('bg-muted/50 flex justify-center py-2', className)}>{children}</div>;
-}
-
-export function ResponsiveAd() {
+export function AdWrapper({ children, className, device = 'all', ...props }: AdWrapperProps) {
 	const { isMobile } = useMediaQuery();
+	const render = device === 'all' || (device === 'desktop' && !isMobile) || (device === 'mobile' && isMobile);
+
+	React.useEffect(() => {
+		if (!render) return;
+		pushAd();
+	}, [render]);
+
+	if (!render) return null;
 
 	return (
-		<AdWrapper>
-			<AdUnit
-				slotId="3018789542"
-				format={isMobile ? 'square' : 'horizontal'}
-				style={{ width: isMobile ? '250px' : '930px', height: isMobile ? '250px' : '120px' }}
-			/>
-		</AdWrapper>
+		<div
+			className={cn(
+				'bg-[linear-gradient(to_right,--theme(--color-foreground/.1)_1px,transparent_1px),linear-gradient(to_bottom,--theme(--color-foreground/.1)_1px,transparent_1px)]',
+				'bg-[size:24px_24px]',
+				'flex justify-center py-2',
+				className,
+			)}
+			{...props}
+		>
+			{children}
+		</div>
 	);
 }

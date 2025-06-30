@@ -89,7 +89,11 @@ export default async function SlugPage({ params }: Params) {
 			<Script id="lyrics" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
 			<AdWrapper>
-				<AdUnit slotId="3018789542" format="horizontal" style={{ height: '120px' }} />
+				<AdUnit
+					slotId="3018789542"
+					format="horizontal"
+					style={{ width: '100%', height: 'auto', maxWidth: '728px', maxHeight: '90px' }}
+				/>
 			</AdWrapper>
 
 			<BorderSeparator />
@@ -114,8 +118,12 @@ export default async function SlugPage({ params }: Params) {
 
 			<div className="grid grid-cols-1 md:grid-cols-[.62fr_.38fr]">
 				<Interactions lyricsData={data}>
-					<AdWrapper>
-						<AdUnit slotId="3518983424" format="square" style={{ width: '250px', height: '250px' }} />
+					<AdWrapper device="mobile">
+						<AdUnit
+							slotId="3710555110"
+							format="horizontal"
+							style={{ width: '320px', height: '50px' }}
+						/>
 					</AdWrapper>
 					<TabTriggers hasContent={hasContent} />
 					<EnglishTabContent>
@@ -130,7 +138,7 @@ export default async function SlugPage({ params }: Params) {
 					<div className="md:sticky md:top-14">
 						<VideoPlayer thumbnail={image} />
 						<AdWrapper>
-							<AdUnit slotId="4907938402" format="fluid" style={{ maxWidth: '350px' }} />
+							<AdUnit slotId="3518983424" format="square" style={{ width: '250px', height: '250px' }} />
 						</AdWrapper>
 					</div>
 				</div>
