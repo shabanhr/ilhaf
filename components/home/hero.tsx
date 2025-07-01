@@ -28,15 +28,15 @@ const transitionVariants = {
 
 export function Hero() {
 	return (
-		<section className="bp-x relative grid grid-cols-1 gap-10 py-8 md:grid-cols-2 md:py-0">
+		<section className="bp-x relative grid grid-cols-1 gap-5 py-8 md:grid-cols-2 md:py-0">
 			<div className="flex flex-col items-center justify-center gap-y-4 md:items-start">
 				<TextEffect
 					preset="fade-in-blur"
 					speedSegment={0.3}
 					as="h1"
-					className="text-3xl font-extrabold sm:text-4xl md:text-5xl"
+					className="text-center md:text-left text-3xl font-extrabold tracking-tight md:text-4xl lg:text-5xl"
 				>
-					Welcome to Ilhaf
+					A Diary For Reciters
 				</TextEffect>
 				<TextEffect
 					per="line"
@@ -44,10 +44,9 @@ export function Hero() {
 					speedSegment={0.3}
 					delay={0.5}
 					as="p"
-					className="text-foreground/80 text-center md:text-left"
+					className="text-muted-foreground text-center text-sm md:text-left md:text-base"
 				>
-					Explore a vast collection of religious poetry including Noha, Manqabat, Dua, Hamd, and Naats, complete with
-					their lyrics and detailed information.
+					Ilhaf is an online diary for reciters. where reciters can find all the content they need to recite.
 				</TextEffect>
 				<AnimatedGroup
 					variants={{
@@ -70,7 +69,7 @@ export function Hero() {
 						</Link>
 					</Button>
 					<Button key={2} size="lg" variant="outline" asChild>
-						<Link href="/lyrics">Explore Lyrics</Link>
+						<Link href="/lyrics">Explore</Link>
 					</Button>
 				</AnimatedGroup>
 			</div>

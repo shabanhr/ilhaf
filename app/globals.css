@@ -158,7 +158,7 @@
 	}
 
 	ins.adsbygoogle[data-ad-status='unfilled'] {
-		@apply !hidden;
+		@apply !opacity-0;
 	}
 }
 
