@@ -6,7 +6,7 @@ import { AspectRatio } from '@/components/ui/aspect-ratio';
 export function LyricsPageSkeleton() {
 	return (
 		<>
-			<div className="py-2 bg-white dark:bg-background w-full h-[90px]" />
+			<div className="dark:bg-background dark:bg-[linear-gradient(to_right,--theme(--color-foreground/.1)_1px,transparent_1px)] h-[250px] w-full bg-white py-2 md:h-[90px] dark:bg-[size:24px_24px]" />
 
 			<BorderSeparator />
 
@@ -14,7 +14,7 @@ export function LyricsPageSkeleton() {
 				<div className="flex w-full items-center border-b p-3 md:border-r md:border-b-0">
 					<Skeleton className="h-[2.25rem] w-full md:w-2/3" />
 				</div>
-				<div className="grid w-full grid-cols-2 place-items-center py-2 px-1">
+				<div className="grid w-full grid-cols-2 place-items-center px-1 py-2">
 					<div className="w-full space-y-1 border-r p-2">
 						<Skeleton className="h-[0.8rem] w-1/2" />
 						<Skeleton className="h-[0.9rem] w-2/3" />
@@ -27,6 +27,7 @@ export function LyricsPageSkeleton() {
 			</div>
 
 			<BorderSeparator className="z-30" />
+
 			<div className="grid grid-cols-1 md:grid-cols-[.62fr_.38fr]">
 				<div className="relative w-full md:flex">
 					<div className="hidden h-full w-max p-3 md:block">
@@ -37,12 +38,14 @@ export function LyricsPageSkeleton() {
 						</div>
 					</div>
 					<div className="w-full pb-5 md:border-x">
-						<div className="bg-background/90 supports-[backdrop-filter]:bg-background/75 sticky top-14 z-20 flex w-full flex-col items-center justify-center border-b py-1 backdrop-blur-lg">
+						<div className="dark:bg-background dark:bg-[linear-gradient(to_right,--theme(--color-foreground/.1)_1px,transparent_1px)] h-[50px] w-full bg-white py-2 md:hidden dark:bg-[size:24px_24px]" />
+						<div className="bg-background/90 supports-[backdrop-filter]:bg-background/75 sticky top-14 z-20 flex w-full flex-col items-center justify-center border-y py-1 backdrop-blur-lg md:border-t-0">
 							<div className="flex w-full items-center justify-center gap-2 py-2">
 								<Skeleton className="h-5 w-20 rounded-sm" />
 								<Skeleton className="h-5 w-20 rounded-sm" />
 							</div>
 						</div>
+
 						<div className="space-y-4 p-2">
 							{Array.from({ length: 2 }).map((_, i) => (
 								<div key={i} className="space-y-1.5">
@@ -57,9 +60,10 @@ export function LyricsPageSkeleton() {
 
 				<div className="w-full">
 					<div className="md:sticky md:top-14">
-						<AspectRatio ratio={16 / 9} className="relative size-full border-b px-2 md:px-0">
+						<AspectRatio ratio={16 / 9} className="relative size-full border-b p-2 md:p-0">
 							<Skeleton className="aspect-video h-full w-full rounded-none" />
 						</AspectRatio>
+						<div className="dark:bg-background dark:bg-[linear-gradient(to_right,--theme(--color-foreground/.1)_1px,transparent_1px)] h-[250px] w-full bg-white py-2 dark:bg-[size:24px_24px]" />
 					</div>
 				</div>
 			</div>
