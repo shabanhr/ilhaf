@@ -17,7 +17,7 @@ import { getAvatarUrl, getInitialChar } from '@/lib/utils';
 import { FavoriteBeforeIcon } from '../icons';
 import { authClient } from '@/lib/auth-client';
 import { useToggle } from '@/hooks/use-toggle';
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const UserSession = () => {
 	const { data: session, isPending } = authClient.useSession();
@@ -25,7 +25,7 @@ const UserSession = () => {
 	const [_, setAuthOpen] = useToggle('auth-modal');
 	const user = session?.user;
 	const isAdmin = session?.user.role === 'admin';
-	const pathname = usePathname();
+	const router = useRouter();
 
 	if (isPending) {
 		return null;
@@ -33,7 +33,7 @@ const UserSession = () => {
 
 	const handleSignOut = async () => {
 		await authClient.signOut();
-		window.location.href = pathname;
+		router.refresh();
 	};
 
 	return (
@@ -82,7 +82,7 @@ const UserSession = () => {
 								</Link>
 							</DropdownMenuItem>
 							<DropdownMenuItem asChild>
-								<Link href={`/requests`} className="w-full cursor-pointer">
+								<Link href={`/requests?tab=requests`} className="w-full cursor-pointer">
 									<MessageCircleWarning />
 									Requests
 								</Link>

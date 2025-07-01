@@ -17,7 +17,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { createLyricsRequest } from '../_lib/actions';
 import { useQueryState } from 'nuqs';
 
-export function RequestLyricsForm() {
+export function RequestLyricsForm({ disabled }: { disabled?: boolean }) {
 	const [triggerState, setTriggerState] = React.useState<boolean>(false);
 	const { '1': setTab } = useQueryState('tab');
 
@@ -46,7 +46,7 @@ export function RequestLyricsForm() {
 		}
 	};
 
-	const IsDisabled = isSubmitting;
+	const IsDisabled = isSubmitting || disabled;
 
 	return (
 		<Form {...form}>

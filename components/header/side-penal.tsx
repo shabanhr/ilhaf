@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTrigger, SheetClose, SheetFooter
 import Logo from '../Logo';
 import { Button } from '../ui/button';
 import { authClient } from '@/lib/auth-client';
+import { useRouter } from 'next/navigation';
 
 const Links = [
 	{
@@ -51,6 +52,13 @@ const SidePenal = () => {
 	const { data: session } = authClient.useSession();
 	const user = session?.user;
 
+	const router = useRouter();
+
+	const handleSignOut = async () => {
+		await authClient.signOut();
+		router.refresh();
+	};
+
 	return (
 		<Sheet>
 			<SheetTrigger asChild>
@@ -71,7 +79,7 @@ const SidePenal = () => {
 				</div>
 				<SheetFooter className="flex w-full justify-center">
 					{user ? (
-						<Button className="w-full" variant="outline" onClick={() => authClient.signOut()}>
+						<Button className="w-full" variant="outline" onClick={handleSignOut}>
 							Sign Out
 						</Button>
 					) : (

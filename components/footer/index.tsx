@@ -26,7 +26,7 @@ export default function Footer() {
 		},
 		{
 			title: 'Requests',
-			link: '/requests',
+			link: '/requests?tab=requests',
 		},
 	];
 
