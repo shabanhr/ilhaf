@@ -66,8 +66,8 @@ export function AdWrapper({ children, className, device = 'all', uniqeId, ...pro
 		<div
 			key={uniqeId}
 			className={cn(
-				'bg-[linear-gradient(to_right,--theme(--color-foreground/.1)_1px,transparent_1px)]',
-				'bg-[size:24px_24px]',
+				'bg-white dark:bg-background',
+				'dark:bg-[linear-gradient(to_right,--theme(--color-foreground/.1)_1px,transparent_1px)] dark:bg-[size:24px_24px]',
 				'flex justify-center py-2',
 				className,
 			)}
