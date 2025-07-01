@@ -6,7 +6,7 @@ import { AspectRatio } from '@/components/ui/aspect-ratio';
 export function LyricsPageSkeleton() {
 	return (
 		<>
-			<div className="py-2 bg-white w-full h-[90px]" />
+			<div className="py-2 bg-white dark:bg-background w-full h-[90px]" />
 
 			<BorderSeparator />
 
