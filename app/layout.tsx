@@ -2,7 +2,7 @@ import './globals.css';
 import { getMetadata } from '@/lib/utils/metadata';
 import { RootProviders } from '@/components/providers';
 import { fontSans, fontMono } from '@/lib/fonts';
-import { CustomScripts } from '@/components/custom-scripts';
+import { HeaderScripts } from '@/app/header-scripts';
 import { cn } from '@/lib/utils';
 
 export const metadata = getMetadata({
@@ -14,8 +14,9 @@ export const metadata = getMetadata({
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<CustomScripts />
-			<head />
+			<head>
+				<HeaderScripts />
+			</head>
 			<body
 				className={cn(
 					'bg-background text-foreground min-h-svh overscroll-none font-sans antialiased',

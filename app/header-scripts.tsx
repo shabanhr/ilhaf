@@ -1,7 +1,7 @@
 import React from 'react';
 import Script from 'next/script';
 
-export function CustomScripts() {
+export function HeaderScripts() {
 	return (
 		<>
 			<Script
@@ -26,6 +26,15 @@ export function CustomScripts() {
 				strategy="afterInteractive"
 				crossOrigin="anonymous"
 			/>
+			<Script src="https://cmp.gatekeeperconsent.com/min.js" strategy="afterInteractive" />
+			<Script src="https://cmp.gatekeeperconsent.com/cmp.min.js" strategy="afterInteractive" />
+			<Script async={true} src="//www.ezojs.com/ezoic/sa.min.js" strategy="afterInteractive" />
+			<Script id="ezoic-init" strategy="afterInteractive">
+				{`
+		window.ezstandalone = window.ezstandalone || {};
+		ezstandalone.cmd = ezstandalone.cmd || [];
+	`}
+			</Script>
 		</>
 	);
 }
