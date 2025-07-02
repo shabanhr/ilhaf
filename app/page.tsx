@@ -4,10 +4,10 @@ export default function Home() {
       <div className="text-center space-y-6 max-w-2xl mx-auto">
         <div className="space-y-4">
           <h1 className="text-5xl font-bold text-white">
-            We're Currently Under Maintenance
+            We&apos;re Currently Under Maintenance
           </h1>
           <p className="text-xl text-gray-400 ">
-            We're currently fixing some issues and will be back soon!
+            We&apos;re currently fixing some issues and will be back soon!
           </p>
           <p className="text-gray-400">
             We apologize for the inconvenience and appreciate your patience.
