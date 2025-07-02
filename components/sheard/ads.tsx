@@ -66,7 +66,7 @@ export function AdWrapper({ children, className, device = 'all', uniqeId, ...pro
 		<div
 			key={uniqeId}
 			className={cn(
-				'bg-white dark:bg-background',
+				'dark:bg-background bg-white',
 				'dark:bg-[linear-gradient(to_right,--theme(--color-foreground/.1)_1px,transparent_1px)] dark:bg-[size:24px_24px]',
 				'flex justify-center py-2',
 				className,
@@ -88,7 +88,7 @@ export function ResponsiveBanner(props: Omit<AdWrapperProps, 'children'>) {
 	return (
 		<AdWrapper {...props}>
 			{isMobile ? (
-				<AdUnit slotId="3518983424" format="square" style={{ width: '250px', height: '250px' }} />
+				<AdUnit slotId="3710555110" format="horizontal" style={{ width: '320px', height: '50px' }} />
 			) : (
 				<AdUnit slotId="4828655113" format="horizontal" style={{ width: '728px', height: '90px' }} />
 			)}

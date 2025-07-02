@@ -113,7 +113,7 @@ export default async function SlugPage({ params }: Params) {
 			<div className="grid grid-cols-1 md:grid-cols-[.62fr_.38fr]">
 				<Interactions lyricsData={data}>
 					<AdWrapper device="mobile" uniqeId={`${slug}-before-lyrics`}>
-						<AdUnit slotId="3710555110" format="horizontal" style={{ width: '320px', height: '50px' }} />
+						<AdUnit slotId="3018789542" format="square" responsive />
 					</AdWrapper>
 					<TabTriggers hasContent={hasContent} />
 					<EnglishTabContent>

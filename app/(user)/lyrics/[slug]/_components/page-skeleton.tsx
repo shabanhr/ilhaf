@@ -6,7 +6,7 @@ import { AspectRatio } from '@/components/ui/aspect-ratio';
 export function LyricsPageSkeleton() {
 	return (
 		<>
-			<div className="dark:bg-background dark:bg-[linear-gradient(to_right,--theme(--color-foreground/.1)_1px,transparent_1px)] h-[250px] w-full bg-white py-2 md:h-[90px] dark:bg-[size:24px_24px]" />
+			<div className="dark:bg-background dark:bg-[linear-gradient(to_right,--theme(--color-foreground/.1)_1px,transparent_1px)] h-[50px] w-full bg-white py-2 md:h-[90px] dark:bg-[size:24px_24px]" />
 
 			<BorderSeparator />
 
@@ -38,7 +38,7 @@ export function LyricsPageSkeleton() {
 						</div>
 					</div>
 					<div className="w-full pb-5 md:border-x">
-						<div className="dark:bg-background dark:bg-[linear-gradient(to_right,--theme(--color-foreground/.1)_1px,transparent_1px)] h-[50px] w-full bg-white py-2 md:hidden dark:bg-[size:24px_24px]" />
+						<div className="dark:bg-background dark:bg-[linear-gradient(to_right,--theme(--color-foreground/.1)_1px,transparent_1px)] h-[250px] w-full bg-white py-2 md:hidden dark:bg-[size:24px_24px]" />
 						<div className="bg-background/90 supports-[backdrop-filter]:bg-background/75 sticky top-14 z-20 flex w-full flex-col items-center justify-center border-y py-1 backdrop-blur-lg md:border-t-0">
 							<div className="flex w-full items-center justify-center gap-2 py-2">
 								<Skeleton className="h-5 w-20 rounded-sm" />
