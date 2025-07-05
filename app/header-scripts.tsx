@@ -19,13 +19,13 @@ export function HeaderScripts() {
 				});
 				`}
 			</Script>
-			<Script
+			{/* <Script
 				async={true}
 				id="google-adsense"
 				src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}&google_console=1`}
 				strategy="afterInteractive"
 				crossOrigin="anonymous"
-			/>
+			/> */}
 			<Script src="https://cmp.gatekeeperconsent.com/min.js" strategy="afterInteractive" />
 			<Script src="https://cmp.gatekeeperconsent.com/cmp.min.js" strategy="afterInteractive" />
 			<Script async={true} src="//www.ezojs.com/ezoic/sa.min.js" strategy="afterInteractive" />

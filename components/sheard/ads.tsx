@@ -22,27 +22,30 @@ function pushAd() {
 	}
 }
 
-export function AdUnit({
-	slotId,
-	format = 'auto',
-	responsive = false,
-	adClient = `ca-${process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`,
-	className,
-	style,
-	...props
-}: AdUnitProps) {
-	return (
-		<ins
-			className={cn('adsbygoogle', className)}
-			style={{ display: responsive ? 'block' : 'inline-block', ...style }}
-			data-ad-client={adClient}
-			data-ad-slot={slotId}
-			data-ad-format={format}
-			data-full-width-responsive={responsive ? 'true' : 'false'}
-			{...props}
-		/>
-	);
+export function AdUnit({}: AdUnitProps) {
+	return null;
 }
+// export function AdUnit({
+// 	slotId,
+// 	format = 'auto',
+// 	responsive = false,
+// 	adClient = `ca-${process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`,
+// 	className,
+// 	style,
+// 	...props
+// }: AdUnitProps) {
+// 	return (
+// 		<ins
+// 			className={cn('adsbygoogle', className)}
+// 			style={{ display: responsive ? 'block' : 'inline-block', ...style }}
+// 			data-ad-client={adClient}
+// 			data-ad-slot={slotId}
+// 			data-ad-format={format}
+// 			data-full-width-responsive={responsive ? 'true' : 'false'}
+// 			{...props}
+// 		/>
+// 	);
+// }
 
 type AdWrapperProps = React.ComponentProps<'div'> & {
 	children: React.ReactNode;
@@ -66,8 +69,7 @@ export function AdWrapper({ children, className, device = 'all', uniqeId, ...pro
 		<div
 			key={uniqeId}
 			className={cn(
-				'dark:bg-background bg-white',
-				'dark:bg-[linear-gradient(to_right,--theme(--color-foreground/.1)_1px,transparent_1px)] dark:bg-[size:24px_24px]',
+				'bg-background bg-[linear-gradient(to_right,--theme(--color-foreground/.1)_1px,transparent_1px)] bg-[size:24px_24px]',
 				'flex justify-center py-2',
 				className,
 			)}
