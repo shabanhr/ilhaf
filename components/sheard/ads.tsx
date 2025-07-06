@@ -22,30 +22,28 @@ function pushAd() {
 	}
 }
 
-export function AdUnit({}: AdUnitProps) {
-	return null;
+
+export function AdUnit({
+	slotId,
+	format = 'auto',
+	responsive = false,
+	adClient = `ca-${process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`,
+	className,
+	style,
+	...props
+}: AdUnitProps) {
+	return (
+		<ins
+			className={cn('adsbygoogle', className)}
+			style={{ display: responsive ? 'block' : 'inline-block', ...style }}
+			data-ad-client={adClient}
+			data-ad-slot={slotId}
+			data-ad-format={format}
+			data-full-width-responsive={responsive ? 'true' : 'false'}
+			{...props}
+		/>
+	);
 }
-// export function AdUnit({
-// 	slotId,
-// 	format = 'auto',
-// 	responsive = false,
-// 	adClient = `ca-${process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`,
-// 	className,
-// 	style,
-// 	...props
-// }: AdUnitProps) {
-// 	return (
-// 		<ins
-// 			className={cn('adsbygoogle', className)}
-// 			style={{ display: responsive ? 'block' : 'inline-block', ...style }}
-// 			data-ad-client={adClient}
-// 			data-ad-slot={slotId}
-// 			data-ad-format={format}
-// 			data-full-width-responsive={responsive ? 'true' : 'false'}
-// 			{...props}
-// 		/>
-// 	);
-// }
 
 type AdWrapperProps = React.ComponentProps<'div'> & {
 	children: React.ReactNode;
