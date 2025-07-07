@@ -1,30 +1,40 @@
 import React from 'react';
+import { AdUnit, AdWrapper } from '@/components/sheard/ads';
 
 interface LyricsContentProps {
 	paragraphs?: string[][];
 	title?: string;
 	len?: string;
+	slug?: string;
 }
 
-export function LyricsContent({ paragraphs, title, len }: LyricsContentProps) {
+export function LyricsContent({ paragraphs, title, len, slug }: LyricsContentProps) {
 	return (
 		<>
-			{title && (
-				<h2 className="my-3 text-xs text-muted-foreground">
-					{`${title} Lyrics${len ? ` in ${len}` : ''}`}
-				</h2>
-			)}
+			{title && <h2 className="text-muted-foreground my-3 text-xs">{`${title} Lyrics${len ? ` in ${len}` : ''}`}</h2>}
 
 			{paragraphs ? (
 				paragraphs.map((paragraph, i) => (
-					<p key={i}>
-						{paragraph.map((line, j) => (
-							<React.Fragment key={j}>
-								{line}
-								<br />
-							</React.Fragment>
-						))}
-					</p>
+					<React.Fragment key={i}>
+						<p>
+							{paragraph.map((line, j) => (
+								<React.Fragment key={j}>
+									{line}
+									<br />
+								</React.Fragment>
+							))}
+						</p>
+
+						{i === 3 && (
+								<AdWrapper uniqeId={`${slug}-mid-lyrics`}>
+									<AdUnit
+										slotId="3710555110"
+										format="horizontal"
+										style={{ width: '320px', height: '50px', maxWidth: '50px' }}
+									/>
+								</AdWrapper>
+						)}
+					</React.Fragment>
 				))
 			) : (
 				<div>Coming Soon!</div>

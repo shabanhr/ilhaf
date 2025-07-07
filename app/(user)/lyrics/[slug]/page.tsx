@@ -88,10 +88,6 @@ export default async function SlugPage({ params }: Params) {
 		<>
 			<Script id="lyrics" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-			<ResponsiveBanner uniqeId={`${slug}-banner`} />
-
-			<BorderSeparator />
-
 			<div className="grid grid-cols-1 md:grid-cols-[.62fr_.38fr]">
 				<div className="flex w-full items-center border-b p-3 md:border-r md:border-b-0">
 					<PageHeading className="text-4xl font-extrabold">{title}</PageHeading>
@@ -107,20 +103,18 @@ export default async function SlugPage({ params }: Params) {
 					</div>
 				</div>
 			</div>
-
+			<BorderSeparator />
+			<ResponsiveBanner uniqeId={`${slug}-banner`} />
 			<BorderSeparator className="z-30" />
 
 			<div className="grid grid-cols-1 md:grid-cols-[.62fr_.38fr]">
 				<Interactions lyricsData={data}>
-					<AdWrapper device="mobile" uniqeId={`${slug}-before-lyrics`}>
-						<AdUnit slotId="3018789542" format="square" responsive />
-					</AdWrapper>
 					<TabTriggers hasContent={hasContent} />
 					<EnglishTabContent>
-						<LyricsContent paragraphs={english} title={title} />
+						<LyricsContent slug={slug} paragraphs={english} title={title} />
 					</EnglishTabContent>
 					<UrduTabContent>
-						<LyricsContent paragraphs={urdu} title={title} len="Urdu" />
+						<LyricsContent slug={slug} paragraphs={urdu} title={title} len="Urdu" />
 					</UrduTabContent>
 				</Interactions>
 

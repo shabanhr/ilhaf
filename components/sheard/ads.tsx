@@ -22,7 +22,6 @@ function pushAd() {
 	}
 }
 
-
 export function AdUnit({
 	slotId,
 	format = 'auto',
@@ -64,15 +63,7 @@ export function AdWrapper({ children, className, device = 'all', uniqeId, ...pro
 	if (!render) return null;
 
 	return (
-		<div
-			key={uniqeId}
-			className={cn(
-				'bg-background bg-[linear-gradient(to_right,--theme(--color-foreground/.1)_1px,transparent_1px)] bg-[size:24px_24px]',
-				'flex justify-center py-2',
-				className,
-			)}
-			{...props}
-		>
+		<div key={uniqeId} className={cn('bg-lines flex justify-center py-2', className)} {...props}>
 			{children}
 		</div>
 	);
@@ -88,7 +79,7 @@ export function ResponsiveBanner(props: Omit<AdWrapperProps, 'children'>) {
 	return (
 		<AdWrapper {...props}>
 			{isMobile ? (
-				<AdUnit slotId="3710555110" format="horizontal" style={{ width: '320px', height: '50px' }} />
+				<AdUnit slotId="3018789542" format="square" responsive />
 			) : (
 				<AdUnit slotId="4828655113" format="horizontal" style={{ width: '728px', height: '90px' }} />
 			)}

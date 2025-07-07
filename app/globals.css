@@ -178,6 +178,10 @@
 	.bp-y {
 		@apply py-4 lg:py-6;
 	}
+
+	.bg-lines {
+		@apply bg-background bg-[linear-gradient(to_right,--theme(--color-foreground/.1)_1px,transparent_1px)] bg-[size:24px] bg-[position:10px];
+	}
 }
 
 @layer base {
