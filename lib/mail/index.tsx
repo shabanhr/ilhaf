@@ -10,11 +10,12 @@ import { OtpVerificationTemplate } from './tamplates/otp-verification';
 import { LyricsRequestTemplate } from './tamplates/lyrics-request';
 
 const transport = createTransport({
-	host: process.env.EMAIL_SERVER_HOST,
-	port: Number(process.env.EMAIL_SERVER_PORT),
+	host: process.env.SMTP_HOST,
+	port: Number(process.env.SMTP_PORT),
+	secure: process.env.SMTP_SECURE === 'true',
 	auth: {
-		user: process.env.EMAIL_SERVER_USER,
-		pass: process.env.EMAIL_SERVER_PASSWORD,
+		user: process.env.SMTP_USER,
+		pass: process.env.SMTP_PASSWORD,
 	},
 });
 
