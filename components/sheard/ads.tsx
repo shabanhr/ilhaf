@@ -79,7 +79,7 @@ export function ResponsiveBanner(props: Omit<AdWrapperProps, 'children'>) {
 	return (
 		<AdWrapper {...props}>
 			{isMobile ? (
-				<AdUnit slotId="3018789542" format="square" responsive />
+				<AdUnit slotId="3710555110" format="horizontal" style={{ width: '320px', height: '50px' }} />
 			) : (
 				<AdUnit slotId="4828655113" format="horizontal" style={{ width: '728px', height: '90px' }} />
 			)}

@@ -88,6 +88,10 @@ export default async function SlugPage({ params }: Params) {
 		<>
 			<Script id="lyrics" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
+			<ResponsiveBanner uniqeId={`${slug}-banner`} />
+
+			<BorderSeparator />
+
 			<div className="grid grid-cols-1 md:grid-cols-[.62fr_.38fr]">
 				<div className="flex w-full items-center border-b p-3 md:border-r md:border-b-0">
 					<PageHeading className="text-4xl font-extrabold">{title}</PageHeading>
@@ -103,8 +107,13 @@ export default async function SlugPage({ params }: Params) {
 					</div>
 				</div>
 			</div>
+
 			<BorderSeparator />
-			<ResponsiveBanner uniqeId={`${slug}-banner`} />
+
+			<AdWrapper uniqeId={`${slug}-before-lyrics`}>
+				<AdUnit slotId="3018789542" format="horizontal" style={{ width: '100%', height: '90px' }} responsive />
+			</AdWrapper>
+
 			<BorderSeparator className="z-30" />
 
 			<div className="grid grid-cols-1 md:grid-cols-[.62fr_.38fr]">
@@ -122,7 +131,7 @@ export default async function SlugPage({ params }: Params) {
 					<div className="md:sticky md:top-14">
 						<VideoPlayer thumbnail={image} />
 						<AdWrapper uniqeId={`${slug}-after-video`}>
-							<AdUnit slotId="3518983424" format="square" style={{ width: '250px', height: '250px' }} />
+							<AdUnit slotId="1095333789" format="square" style={{ width: '336px', height: '280px' }} />
 						</AdWrapper>
 					</div>
 				</div>

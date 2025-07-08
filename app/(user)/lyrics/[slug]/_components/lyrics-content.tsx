@@ -26,13 +26,9 @@ export function LyricsContent({ paragraphs, title, len, slug }: LyricsContentPro
 						</p>
 
 						{i === 3 && (
-								<AdWrapper uniqeId={`${slug}-mid-lyrics`}>
-									<AdUnit
-										slotId="3710555110"
-										format="horizontal"
-										style={{ width: '320px', height: '50px', maxWidth: '50px' }}
-									/>
-								</AdWrapper>
+							<AdWrapper uniqeId={`${slug}-${len}-mid-lyrics`}>
+								<AdUnit slotId="3518983424" format="square" style={{ width: '300px', height: '250px' }} />
+							</AdWrapper>
 						)}
 					</React.Fragment>
 				))
