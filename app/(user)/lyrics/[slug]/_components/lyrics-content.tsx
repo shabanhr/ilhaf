@@ -1,5 +1,5 @@
 import React from 'react';
-import { AdUnit, AdWrapper } from '@/components/sheard/ads';
+// import { AdUnit, AdWrapper } from '@/components/sheard/ads';
 
 interface LyricsContentProps {
 	paragraphs?: string[][];
@@ -25,11 +25,11 @@ export function LyricsContent({ paragraphs, title, len, slug }: LyricsContentPro
 							))}
 						</p>
 
-						{i === 3 && (
+						{/* {i === 3 && (
 							<AdWrapper uniqeId={`${slug}-${len}-mid-lyrics`}>
 								<AdUnit slotId="3518983424" format="square" style={{ width: '300px', height: '250px' }} />
 							</AdWrapper>
-						)}
+						)} */}
 					</React.Fragment>
 				))
 			) : (
