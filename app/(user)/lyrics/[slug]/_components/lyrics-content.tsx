@@ -8,7 +8,7 @@ interface LyricsContentProps {
 	slug?: string;
 }
 
-export function LyricsContent({ paragraphs, title, len, slug }: LyricsContentProps) {
+export function LyricsContent({ paragraphs, title, len }: LyricsContentProps) {
 	return (
 		<>
 			{title && <h2 className="text-muted-foreground my-3 text-xs">{`${title} Lyrics${len ? ` in ${len}` : ''}`}</h2>}
