@@ -6,7 +6,6 @@ export const requestLyricsSchema = z.object({
 	video: z.string('Video is required'),
 	dop: z.date('Date of Publication is required'),
 	english: z.string().optional(),
-	urdu: z.string().optional(),
 	reciters: z.string().optional(),
 	topics: z.string().optional(),
 	writers: z.string().optional(),

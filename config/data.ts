@@ -1,5 +1,9 @@
 export const LyricsTypes = [
 	{
+		name: 'Song',
+		id: 'song',
+	},
+	{
 		name: 'Noha',
 		id: 'noha',
 	},
@@ -28,16 +32,8 @@ export const LyricsTypes = [
 		id: 'dua',
 	},
 	{
-		name: 'Marsiya',
-		id: 'marsiya',
-	},
-	{
 		name: 'Ramzan Kalam',
 		id: 'ramzan_kalam',
-	},
-	{
-		name: 'Sufi Kalam',
-		id: 'sufi_kalam',
 	},
 ];
 

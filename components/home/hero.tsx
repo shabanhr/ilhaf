@@ -1,10 +1,9 @@
 import React from 'react';
-import { HeartHandshake } from 'lucide-react';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import { TextEffect } from '../motion/text-effect';
 import { AnimatedGroup } from '../motion/animated-group';
-import { LyricPencilIcon } from '../icons';
+import { LyricPencilIcon, LyricsIcon } from '../icons';
 
 const transitionVariants = {
 	item: {
@@ -34,7 +33,7 @@ export function Hero() {
 					preset="fade-in-blur"
 					speedSegment={0.3}
 					as="h1"
-					className="text-center md:text-left text-3xl font-extrabold tracking-tight md:text-4xl lg:text-5xl"
+					className="text-center text-3xl font-extrabold tracking-tight md:text-left md:text-4xl lg:text-5xl"
 				>
 					A Diary For Reciters
 				</TextEffect>
@@ -64,12 +63,12 @@ export function Hero() {
 				>
 					<Button size="lg" asChild>
 						<Link target="_blank" href="/support">
-							<HeartHandshake className="mr-1 size-5" />
-							Support Us
+							<LyricsIcon />
+							<Link href="/lyrics">Explore</Link>
 						</Link>
 					</Button>
 					<Button key={2} size="lg" variant="outline" asChild>
-						<Link href="/lyrics">Explore</Link>
+						<Link href="/auth">Login</Link>
 					</Button>
 				</AnimatedGroup>
 			</div>

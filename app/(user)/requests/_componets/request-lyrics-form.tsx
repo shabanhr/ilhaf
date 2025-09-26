@@ -181,22 +181,9 @@ export function RequestLyricsForm({ disabled }: { disabled?: boolean }) {
 						name="english"
 						render={({ field }) => (
 							<FormItem className="flex w-full flex-col">
-								<FormLabel>English Lyrics (optional)</FormLabel>
+								<FormLabel>Lyrics (optional)</FormLabel>
 								<FormControl>
-									<Textarea disabled={IsDisabled} className="h-60" placeholder="Enter English Lyrics" {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name="urdu"
-						render={({ field }) => (
-							<FormItem className="flex w-full flex-col">
-								<FormLabel>Urdu Lyrics (optional)</FormLabel>
-								<FormControl>
-									<Textarea disabled={IsDisabled} dir="rtl" className="h-60" placeholder="اردو  درج کریں۔" {...field} />
+									<Textarea disabled={IsDisabled} className="h-60" placeholder="Enter Lyrics" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>

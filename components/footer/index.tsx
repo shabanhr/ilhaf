@@ -1,11 +1,10 @@
 import { siteDescription, siteName } from '@/config';
-
 import Link from 'next/link';
 import { buttonVariants } from '../ui/button';
 import Logo from '../Logo';
 import { FaceBookIcon, YoutubeIcon, TiktokIcon, XSocialIcon } from '../icons';
 import FooterLink from './footer-link';
-import { GitHubLogoIcon, InstagramLogoIcon } from '@radix-ui/react-icons';
+import { InstagramLogoIcon } from '@radix-ui/react-icons';
 import { Separator } from '../ui/separator';
 
 export default function Footer() {
@@ -43,20 +42,12 @@ export default function Footer() {
 			title: 'Privacy Policy',
 			link: '/policy',
 		},
-		{
-			title: 'Support Us',
-			link: '/support',
-		},
 	];
 
 	const socialLinks = [
 		{
 			icon: <FaceBookIcon className="size-4" />,
 			link: 'https://www.facebook.com/ilhafcom/',
-		},
-		{
-			icon: <GitHubLogoIcon className="size-4" />,
-			link: 'https://github.com/sshahaider/ilhaf',
 		},
 		{
 			icon: <InstagramLogoIcon className="size-4" />,
@@ -116,14 +107,8 @@ export default function Footer() {
 				</div>
 			</div>
 			<Separator />
-			<div className="bp-x container flex flex-col justify-between gap-2 py-4 md:flex-row-reverse md:items-center md:border-x">
-				<div className="text-muted-foreground flex items-center justify-center gap-x-1 font-thin">
-					Built by
-					<Link target="_blank" href="https://x.com/sshahaider" className="text-foreground hover:underline">
-						sshahaider
-					</Link>
-				</div>
-				<p className="text-muted-foreground text-center font-thin">
+			<div className="bp-x container flex items-center justify-center gap-2 py-4 md:border-x">
+				<p className="text-muted-foreground text-sm">
 					© <Link href="/">{siteName}</Link>. All rights reserved {year}
 				</p>
 			</div>

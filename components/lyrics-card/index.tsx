@@ -19,7 +19,7 @@ export const LyricsCard = ({ data }: Props) => {
 	return (
 		<Link
 			href={getLyricsURL(slug)}
-			className="hover:bg-accent/40 active:bg-accent/60 hover:text-accent-foreground relative flex flex-col rounded-lg p-2 duration-100"
+			className="hover:bg-accent/80 active:bg-accent hover:text-accent-foreground relative flex flex-col rounded-lg p-2 duration-100"
 		>
 			<AnimatedImage alt={title} src={getImageURL({ slug, oldSlug })} />
 			<div className="space-y-1 px-1 pt-2 pb-1">

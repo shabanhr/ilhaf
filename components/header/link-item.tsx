@@ -27,7 +27,7 @@ export function LinkItem({ item, className, isExternal }: Props) {
 		<Link
 			href={item.link}
 			className={cn(
-				'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 flex text-nowrap w-full items-center justify-start gap-x-2 rounded-md p-2 text-sm duration-200 md:justify-center',
+				'hover:bg-accent hover:text-accent-foreground flex text-nowrap w-full items-center justify-start gap-x-2 rounded-md p-2 text-sm duration-200 md:justify-center',
 				isActive && 'bg-accent',
 				className,
 			)}

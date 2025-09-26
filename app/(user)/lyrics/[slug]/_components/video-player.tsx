@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-import ReactPlayer from 'react-player/youtube';
+import ReactPlayer from 'react-player'
 import { PlayIcon } from 'lucide-react';
 import { AnimatedImage } from '@/components/lyrics-card/animated-image';
 import { useToggle } from '@/hooks/use-toggle';
@@ -47,7 +47,7 @@ export function VideoPlayer({ thumbnail }: { thumbnail: string }) {
 				) : (
 					<ReactPlayer
 						controls
-						url={`https://www.youtube.com/watch?v=${videoId}`}
+						src={`https://www.youtube.com/watch?v=${videoId}`}
 						width="100%"
 						height="100%"
 						playing={isPlaying}
