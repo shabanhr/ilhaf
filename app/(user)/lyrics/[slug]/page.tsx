@@ -45,12 +45,27 @@ export default async function SlugPage({ params }: Params) {
 	const data = await getLyricsData(slug);
 	if (!data) return notFound();
 
-	const { title, reciters, writers, dop, updatedAt, type, oldSlug, english: engLyrics, urdu: urLyrics, topics } = data;
+	const {
+		title,
+		reciters,
+		writersNames,
+		writers,
+		dop,
+		updatedAt,
+		type,
+		oldSlug,
+		english: engLyrics,
+		urdu: urLyrics,
+		topics,
+	} = data;
 	const capitalType = capitalize(type);
 	const image = getImageURL({ slug, oldSlug });
 	const fullURL = `${siteLink}${getLyricsURL(slug)}`;
 	const reciterNames = arrayToString(reciters.map((r) => r.reciter));
-	const writerNames = writers.map((w) => w.writer.name).join(', ');
+
+	const finalWriterNames = writersNames || writers.map((w) => w.writer.name).join(', ');
+	const schemaMarkupWriters = writersNames?.split(',') || writers.map((w) => w.writer.name);
+
 	const { english, urdu } = convertLyricsArr(engLyrics, urLyrics);
 	const hasContent = !!english && !!urdu;
 
@@ -76,9 +91,9 @@ export default async function SlugPage({ params }: Params) {
 		musicComposition: {
 			'@type': 'MusicComposition',
 			name: title,
-			lyricist: writers.map((writer) => ({
+			lyricist: schemaMarkupWriters.map((writer) => ({
 				'@type': 'Person',
-				name: writer.writer.name,
+				name: writer,
 			})),
 			lyricText: engLyrics,
 		},
@@ -103,7 +118,7 @@ export default async function SlugPage({ params }: Params) {
 					</div>
 					<div className="w-full p-2">
 						<h2 className="text-foreground/80 mb-1 font-light tracking-wide">Written By</h2>
-						<p className="font-mono">{writerNames}</p>
+						<p className="font-mono">{finalWriterNames}</p>
 					</div>
 				</div>
 			</div>
