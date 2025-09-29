@@ -35,15 +35,16 @@ const UserSession = () => {
 		await authClient.signOut();
 		router.refresh();
 	};
+	console.log(user);
 
 	return (
 		<div className="animate-in fade-in hidden items-center duration-800 md:flex">
 			{user?.email ? (
 				<DropdownMenu>
 					<DropdownMenuTrigger>
-						<Avatar className="rounded-md border">
-							<AvatarImage src={getAvatarUrl(user.image, user.id)} />
-							<AvatarFallback>{getInitialChar(user.name)}</AvatarFallback>
+						<Avatar className="rounded-md">
+							<AvatarImage className="rounded-md border" src={getAvatarUrl(user.image, user.id)} />
+							<AvatarFallback className="rounded-md border">{getInitialChar(user.name)}</AvatarFallback>
 						</Avatar>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent className="mr-5 max-w-sm">

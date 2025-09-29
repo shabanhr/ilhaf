@@ -8,6 +8,7 @@ export const lyricsInsertSchema = z.object({
 	dop: z.date('Date of Publication is required'),
 	english: z.string().optional(),
 	urdu: z.string().optional(),
+	writersNames: z.string().optional(),
 	status: z.string().default('draft').optional(),
 	reciters: z.array(z.string()).min(1, 'Min 1 Reciter is required'),
 	topics: z.array(z.string()),

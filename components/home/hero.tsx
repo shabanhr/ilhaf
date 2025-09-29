@@ -62,13 +62,13 @@ export function Hero() {
 					className="flex items-center gap-x-2"
 				>
 					<Button size="lg" asChild>
-						<Link target="_blank" href="/support">
+						<Link target="_blank" href="/lyrics">
 							<LyricsIcon />
-							<Link href="/lyrics">Explore</Link>
+							Explore
 						</Link>
 					</Button>
 					<Button key={2} size="lg" variant="outline" asChild>
-						<Link href="/auth">Login</Link>
+						<Link href="/requests?tab=new-request">Request Lyrics</Link>
 					</Button>
 				</AnimatedGroup>
 			</div>

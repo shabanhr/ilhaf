@@ -64,6 +64,7 @@ export default function AddClientPage({ lyric, imageQ }: Props) {
 			type: lyric?.type,
 			english: lyric?.english ? lyric?.english : undefined,
 			urdu: lyric?.urdu ? lyric?.urdu : undefined,
+			writersNames: lyric?.writersNames ? lyric?.writersNames : undefined,
 			video: lyric?.video ? lyric?.video : undefined,
 			dop: lyric?.dop,
 			topics: lyric?.topics.map((topic) => topic.topicId) ?? [],

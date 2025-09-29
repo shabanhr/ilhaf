@@ -19,7 +19,7 @@ export default function RequestsClientPage({ user }: Props) {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [_, setAuthOpen] = useToggle('auth-modal');
 	return (
-		<Tabs value={tab} onValueChange={setTab} className="mx-auto min-h-80 w-full max-w-4xl md:border-x">
+		<Tabs value={tab} onValueChange={setTab} className="mx-auto min-h-[calc(100vh-14rem)] w-full max-w-4xl md:border-x">
 			<div className="bg-background/90 supports-[backdrop-filter]:bg-background/75 drop-shadow-background sticky top-14 z-20 drop-shadow-xl backdrop-blur-lg">
 				<TabsList className="h-auto gap-2 rounded-none bg-transparent px-2 pt-2 pb-1">
 					<TabsTrigger

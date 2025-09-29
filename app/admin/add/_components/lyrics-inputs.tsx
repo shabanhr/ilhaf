@@ -12,6 +12,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { LyricsTypes } from '@/config/data';
 import { LyricsWithData } from '@/types';
 import { DatetimePicker } from '@/components/ui/datetime-picker';
+import { Input } from '@/components/ui/input';
 
 interface Props {
 	form: UseFormReturn<any>;
@@ -122,13 +123,25 @@ const LyricsInputs = ({ form, IsDisabled, lyric }: Props) => {
 					</FormItem>
 				)}
 			/>
-			<div></div>
+			<FormField
+				control={form.control}
+				name="writersNames"
+				render={({ field }) => (
+					<FormItem className="w-full">
+						<FormLabel>Writers</FormLabel>
+						<FormControl>
+							<Input disabled={IsDisabled} placeholder="Writers Names" {...field} />
+						</FormControl>
+						<FormMessage />
+					</FormItem>
+				)}
+			/>
 			<FormField
 				control={form.control}
 				name="writers"
 				render={({ field }) => (
 					<FormItem className="w-full">
-						<FormLabel>Writers</FormLabel>
+						<FormLabel>Writers (Old)</FormLabel>
 						<FormControl>
 							<MultiSelect
 								disabled={IsDisabled}

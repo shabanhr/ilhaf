@@ -11,7 +11,7 @@ export const removeDash = (value: string) => {
 };
 
 export const getAvatarUrl = (url?: string | null, seed?: string): string => {
-	return url ? url : `https://api.dicebear.com/9.x/glass/svg?seed=${encodeURIComponent(seed || 'default')}`;
+	return url ? url : `https://api.dicebear.com/9.x/glass/webp?seed=${seed}`;
 };
 
 export const getInitialChar = (fullName: string) => {

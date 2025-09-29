@@ -17,6 +17,7 @@ export const lyrics = pgTable('lyrics', {
 	type: text('type').notNull(),
 	english: text('english'),
 	urdu: text('urdu'),
+	writersNames: text('writers_names'),
 	status: text('status').default('draft').notNull(),
 	dop: timestamp('dop')
 		.$defaultFn(() => new Date())
