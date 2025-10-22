@@ -2,7 +2,7 @@ import { siteDescription, siteName } from '@/config';
 import Link from 'next/link';
 import { buttonVariants } from '../ui/button';
 import Logo from '../Logo';
-import { FaceBookIcon, YoutubeIcon, TiktokIcon, XSocialIcon } from '../icons';
+import { FaceBookIcon, TiktokIcon, XSocialIcon } from '../icons';
 import FooterLink from './footer-link';
 import { InstagramLogoIcon } from '@radix-ui/react-icons';
 import { Separator } from '../ui/separator';
@@ -60,10 +60,6 @@ export default function Footer() {
 		{
 			icon: <XSocialIcon className="size-4" />,
 			link: 'https://x.com/ilhafdotcom',
-		},
-		{
-			icon: <YoutubeIcon className="size-4" />,
-			link: 'https://www.youtube.com/@ilhaf',
 		},
 	];
 
