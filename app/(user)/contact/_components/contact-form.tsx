@@ -17,6 +17,8 @@ interface Props {
 }
 
 export function ContactForm({ user }: Props) {
+	const startTimeRef = React.useRef(Date.now());
+
 	const form = useForm({
 		schema: ContactSchema,
 		defaultValues: {
@@ -27,8 +29,19 @@ export function ContactForm({ user }: Props) {
 		},
 	});
 
-	const onSubmit = async (values: ContactTypes) => {
+	const onSubmit = async (values: ContactTypes, e?: React.BaseSyntheticEvent) => {
 		try {
+			const honeypot = e?.target?.honeypot?.value;
+			if (honeypot) {
+				form.setError('root', { message: 'Bot detected (honeypot triggered)' });
+				return;
+			}
+
+			const elapsed = Date.now() - startTimeRef.current;
+			if (elapsed < 5000) {
+				form.setError('root', { message: 'Bot detected (submitted too quickly)' });
+				return;
+			}
 			const res = await SendContactEmails(values);
 			if (!res.success) {
 				return toast.error(res.message);
@@ -46,6 +59,8 @@ export function ContactForm({ user }: Props) {
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-5">
+				{/* Honeypot field */}
+				<input type="text" name="honeypot" autoComplete="off" style={{ display: 'none' }} tabIndex={-1} aria-hidden="true" aria-label="Please leave this field blank" />
 				<FormField
 					control={form.control}
 					name="name"
