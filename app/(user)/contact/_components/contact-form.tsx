@@ -31,7 +31,7 @@ export function ContactForm({ user }: Props) {
 
 	const onSubmit = async (values: ContactTypes, e?: React.BaseSyntheticEvent) => {
 		try {
-			const honeypot = e?.target?.honeypot?.value;
+			const honeypot = e?.target?.company?.value;
 			if (honeypot) {
 				form.setError('root', { message: 'Bot detected (honeypot triggered)' });
 				return;
@@ -60,7 +60,7 @@ export function ContactForm({ user }: Props) {
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-5">
 				{/* Honeypot field */}
-				<input type="text" name="honeypot" autoComplete="off" style={{ display: 'none' }} tabIndex={-1} aria-hidden="true" aria-label="Please leave this field blank" />
+				<input type="text" name="company" autoComplete="off" style={{ display: 'none' }} aria-hidden="true" />
 				<FormField
 					control={form.control}
 					name="name"
