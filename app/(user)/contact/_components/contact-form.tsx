@@ -11,6 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { TagIcon } from 'lucide-react';
 import { AtSign, UserIcon } from 'lucide-react';
 import { SessionUser } from '@/lib/auth';
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
 
 interface Props {
 	user?: SessionUser;
@@ -18,6 +19,8 @@ interface Props {
 
 export function ContactForm({ user }: Props) {
 	const startTimeRef = React.useRef(Date.now());
+	const turnstileRef = React.useRef<TurnstileInstance>(null);
+	const [token, setToken] = React.useState<string | undefined>(undefined);
 
 	const form = useForm({
 		schema: ContactSchema,
@@ -26,27 +29,31 @@ export function ContactForm({ user }: Props) {
 			email: user?.email || '',
 			topic: '',
 			message: '',
+			token: '',
 		},
 	});
 
-	const onSubmit = async (values: ContactTypes, e?: React.BaseSyntheticEvent) => {
+	const onSubmit = async (values: ContactTypes) => {
 		try {
-			const honeypot = e?.target?.company?.value;
-			if (honeypot) {
-				form.setError('root', { message: 'Bot detected (honeypot triggered)' });
-				return;
-			}
 
 			const elapsed = Date.now() - startTimeRef.current;
 			if (elapsed < 5000) {
 				form.setError('root', { message: 'Bot detected (submitted too quickly)' });
 				return;
 			}
-			const res = await SendContactEmails(values);
+
+			if (!token) {
+				form.setError('root', { message: 'Please complete the captcha' });
+				return;
+			}
+
+			const res = await SendContactEmails({ ...values, token });
 			if (!res.success) {
+				turnstileRef.current?.reset();
 				return toast.error(res.message);
 			}
 			form.reset();
+			turnstileRef.current?.reset();
 			toast.success(res.message);
 		} catch (error) {
 			console.log(error);
@@ -59,8 +66,7 @@ export function ContactForm({ user }: Props) {
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-5">
-				{/* Honeypot field */}
-				<input type="text" name="company" autoComplete="off" style={{ display: 'none' }} aria-hidden="true" />
+
 				<FormField
 					control={form.control}
 					name="name"
@@ -113,6 +119,16 @@ export function ContactForm({ user }: Props) {
 						</FormItem>
 					)}
 				/>
+				<div className="flex justify-center">
+					<Turnstile
+						ref={turnstileRef}
+						siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'}
+						onSuccess={(token: string) => {
+							setToken(token);
+							form.setValue('token', token);
+						}}
+					/>
+				</div>
 				<ButtonWithLoading className="w-full" type="submit" isLoading={isSubmitting}>
 					{isSubmitting ? 'Submitting...' : 'Submit'}
 				</ButtonWithLoading>

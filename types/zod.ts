@@ -21,5 +21,6 @@ export const ContactSchema = z.object({
 	...userEmailFormSchema.shape,
 	topic: z.string().min(2, 'Topic must be at least 2 characters').max(50, 'Topic must be less than 45 characters'),
 	message: z.string(),
+	token: z.string().optional(),
 });
 export type ContactTypes = z.infer<typeof ContactSchema>;
