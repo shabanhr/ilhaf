@@ -120,7 +120,7 @@ export default function Footer() {
 							alt="shaban"
 							className="size-4 rounded-full"
 							height="auto"
-							src="https://storage.efferd.com/shaban.webp"
+							src="https://github.com/shabanhr.png"
 							width="auto"
 						/>
 						Shaban
