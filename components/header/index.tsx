@@ -6,6 +6,7 @@ import { SearchCombobox } from './search-box';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from './theme-toggle';
 import { DesktopNav } from './desktop-nav';
+import { SaleBanner } from './sale-banner';
 
 export default function Header() {
 	return (
@@ -16,6 +17,7 @@ export default function Header() {
 				'border-b',
 			)}
 		>
+			<SaleBanner />
 			<nav className={cn('bp-x container h-14', 'flex items-center justify-between', 'lg:border-x')}>
 				<Link href="/" className="flex items-center">
 					<Logo size="sm" />
