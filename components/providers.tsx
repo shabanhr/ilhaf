@@ -4,6 +4,7 @@ import * as React from 'react';
 import { ThemeProvider as NextThemesProvider, ThemeProviderProps } from 'next-themes';
 import { Toaster } from './ui/sonner';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import { Analytics } from "@vercel/analytics/next"
 
 export interface ProvidersProps {
 	children: React.ReactNode;
@@ -15,6 +16,7 @@ export function RootProviders({ children, themeProps }: ProvidersProps) {
 		<NextThemesProvider {...themeProps}>
 			<NuqsAdapter>{children}</NuqsAdapter>
 			<Toaster position="bottom-left" />
+			<Analytics />
 		</NextThemesProvider>
 	);
 }
