@@ -103,29 +103,11 @@ export default function Footer() {
 				</div>
 			</div>
 			<Separator />
-			<div className="bp-x container flex items-center justify-between gap-2 py-4 md:border-x">
+			<div className="bp-x container flex items-center justify-center gap-2 py-4 md:border-x">
 				<p className="text-muted-foreground text-sm">
 					© <Link href="/">{siteName}</Link>. All rights reserved {year}
 				</p>
-				<div className="inline-flex items-center gap-1">
-					<span className="text-muted-foreground">Built by</span>
-					<Link
-						aria-label="x/twitter"
-						className="inline-flex items-center gap-1 text-foreground/80 hover:text-foreground hover:underline"
-						href={`https://x.com/shabanhr`}
-						rel="noreferrer"
-						target="_blank"
-					>
-						<img
-							alt="shaban"
-							className="size-4 rounded-full"
-							height="auto"
-							src="https://github.com/shabanhr.png"
-							width="auto"
-						/>
-						Shaban
-					</Link>
-				</div>
+				
 			</div>
 		</footer>
 	);
