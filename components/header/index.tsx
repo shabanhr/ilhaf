@@ -12,12 +12,11 @@ export default function Header() {
 	return (
 		<header
 			className={cn(
-				'bg-background/90 supports-[backdrop-filter]:bg-background/75 backdrop-blur-sm',
+				'bg-background/90 supports-backdrop-filter:bg-background/75 backdrop-blur-sm',
 				'sticky top-0 z-50',
 				'border-b',
 			)}
 		>
-			<SaleBanner />
 			<nav className={cn('bp-x container h-14', 'flex items-center justify-between', 'lg:border-x')}>
 				<Link href="/" className="flex items-center">
 					<Logo size="sm" />
