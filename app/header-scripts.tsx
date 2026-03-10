@@ -1,4 +1,3 @@
-import React from 'react';
 import Script from 'next/script';
 
 export function HeaderScripts() {
@@ -9,7 +8,7 @@ export function HeaderScripts() {
 				src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GOOGLE_ANALYTICS}`}
 			/>
 
-			<Script id="ga-script" strategy="lazyOnload">
+			{/* <Script id="ga-script" strategy="lazyOnload">
 				{`
 				window.dataLayer = window.dataLayer || [];
 				function gtag(){dataLayer.push(arguments);}
@@ -18,7 +17,7 @@ export function HeaderScripts() {
 				  page_path: window.location.pathname,
 				});
 				`}
-			</Script>
+			</Script> */}
 			<Script
 				async={true}
 				id="google-adsense"
