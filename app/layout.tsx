@@ -2,7 +2,7 @@ import './globals.css';
 import { getMetadata } from '@/lib/utils/metadata';
 import { RootProviders } from '@/components/providers';
 import { fontSans, fontMono } from '@/lib/fonts';
-import { HeaderScripts } from '@/app/header-scripts';
+import { HeadScripts } from '@/app/head-scripts';
 import { cn } from '@/lib/utils';
 
 export const metadata = getMetadata({
@@ -15,7 +15,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<head>
-				<HeaderScripts />
+				<HeadScripts />
 			</head>
 			<body
 				className={cn(

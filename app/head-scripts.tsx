@@ -1,6 +1,6 @@
 import Script from 'next/script';
 
-export function HeaderScripts() {
+export function HeadScripts() {
 	return (
 		<>
 			<Script
